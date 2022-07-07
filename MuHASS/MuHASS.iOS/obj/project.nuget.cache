@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "2WqCoMuTWEwLY8s/sYm2idNclWRrC6oF4lGEs3qVqUFbWe3QJ+bGUeUgxwMa7mHJOXNoKy+RsPN89IebNNl83g==",
+  "success": true,
+  "projectFilePath": "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\TylerGaming\\.nuget\\packages\\plugin.ble\\2.1.3\\plugin.ble.2.1.3.nupkg.sha512",
+    "C:\\Users\\TylerGaming\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
+    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512"
+  ],
+  "logs": []
+}
