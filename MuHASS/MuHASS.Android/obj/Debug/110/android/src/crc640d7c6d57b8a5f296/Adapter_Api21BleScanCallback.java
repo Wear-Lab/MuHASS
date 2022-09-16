@@ -20,8 +20,9 @@ public class Adapter_Api21BleScanCallback
 	public Adapter_Api21BleScanCallback ()
 	{
 		super ();
-		if (getClass () == Adapter_Api21BleScanCallback.class)
+		if (getClass () == Adapter_Api21BleScanCallback.class) {
 			mono.android.TypeManager.Activate ("Plugin.BLE.Android.Adapter+Api21BleScanCallback, Plugin.BLE", "", this, new java.lang.Object[] {  });
+		}
 	}
 
 

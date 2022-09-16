@@ -1,26 +1,26 @@
 {
   "format": 1,
   "restore": {
-    "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj": {}
+    "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj": {}
   },
   "projects": {
-    "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj": {
+    "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
+        "projectUniqueName": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
         "projectName": "MuHASS.iOS",
-        "projectPath": "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
-        "packagesPath": "C:\\Users\\TylerGaming\\.nuget\\packages\\",
-        "outputPath": "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\obj\\",
+        "projectPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
+        "packagesPath": "C:\\Users\\WEAR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\obj\\",
         "projectStyle": "PackageReference",
         "skipContentFileWrite": true,
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\TylerGaming\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\WEAR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "xamarinios10"
@@ -32,8 +32,8 @@
         "frameworks": {
           "xamarinios10": {
             "projectReferences": {
-              "E:\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj": {
-                "projectPath": "E:\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj"
+              "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj": {
+                "projectPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj"
               }
             }
           }
@@ -65,29 +65,29 @@
         }
       }
     },
-    "E:\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj": {
+    "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj",
+        "projectUniqueName": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj",
         "projectName": "MuHASS",
-        "projectPath": "E:\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj",
-        "packagesPath": "C:\\Users\\TylerGaming\\.nuget\\packages\\",
-        "outputPath": "E:\\MuHASS\\MuHASS\\MuHASS\\obj\\",
+        "projectPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj",
+        "packagesPath": "C:\\Users\\WEAR\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\",
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\TylerGaming\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\WEAR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -131,11 +131,12 @@
             "net47",
             "net471",
             "net472",
-            "net48"
+            "net48",
+            "net481"
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -19,8 +19,9 @@ public class BondStatusBroadcastReceiver
 	public BondStatusBroadcastReceiver ()
 	{
 		super ();
-		if (getClass () == BondStatusBroadcastReceiver.class)
+		if (getClass () == BondStatusBroadcastReceiver.class) {
 			mono.android.TypeManager.Activate ("Plugin.BLE.BroadcastReceivers.BondStatusBroadcastReceiver, Plugin.BLE", "", this, new java.lang.Object[] {  });
+		}
 	}
 
 

@@ -47,8 +47,6 @@ namespace MuHASS.ViewModels
     private ICharacteristic presChar;
     Guid presUUID = new Guid("00000104-1212-EFDE-1523-785FEABCD123");
 
-
-
     Guid posUUID = new Guid("00000200-1212-EFDE-1523-785FEABCD123");
     private IService posServ;
 
@@ -76,13 +74,17 @@ namespace MuHASS.ViewModels
 
     string hr = "0";
     string vhr = "0";
-    string spO2 = "0";
     private ICharacteristic hrChar;
     Guid hrUUID = new Guid("00000301-1212-EFDE-1523-785FEABCD123");
 
+    string spO2 = "0";
+    string vspO2 = "0";
+    private ICharacteristic spo2Char;
+    Guid spo2UUID = new Guid("00000302-1212-EFDE-1523-785FEABCD123");
+
     string gsr = "0";
     private ICharacteristic gsrChar;
-    Guid gsrUUID = new Guid("00000302-1212-EFDE-1523-785FEABCD123");
+    Guid gsrUUID = new Guid("00000303-1212-EFDE-1523-785FEABCD123");
 
 
 
@@ -249,8 +251,6 @@ namespace MuHASS.ViewModels
           };
           await gyroChar.StartUpdatesAsync();
 
-
-
           otherServ = await arduino.GetServiceAsync(otherUUID);
           if (otherServ == null) { Debug.WriteLine("Failed for:\t" + otherUUID.ToString()); return; }
           Debug.WriteLine("Looking for characteristics for " + otherServ.Id + "...");
@@ -261,20 +261,37 @@ namespace MuHASS.ViewModels
           {
             if (hrChar == null) { Debug.WriteLine("characteristic is null..."); return; }
             var hrParse = System.Text.Encoding.ASCII.GetString(hrChar.Value).Split(' ');
-            if (hrParse.Length >= 3)
+            if (hrParse.Length >= 2)
             {
               HR = hrParse[0];
               VHR = hrParse[1];
-              SPO2 = hrParse[2];
             }
             else
             {
               HR = "0";
               VHR = "0";
-              SPO2 = "0";
             }
           };
           await hrChar.StartUpdatesAsync();
+
+          spo2Char = await otherServ.GetCharacteristicAsync(spo2UUID);
+          if (spo2Char == null) { Debug.WriteLine("Failed for:\t" + spo2UUID.ToString()); return; }
+          spo2Char.ValueUpdated += async (s, a) =>
+          {
+            if (spo2Char == null) { Debug.WriteLine("characteristic is null..."); return; }
+            var spo2Parse = System.Text.Encoding.ASCII.GetString(spo2Char.Value).Split(' ');
+            if (spo2Parse.Length >= 2)
+            {
+              SPO2 = spo2Parse[0];
+              VSPO2 = spo2Parse[1];
+            }
+            else
+            {
+              SPO2 = "0";
+              VSPO2 = "0";
+            }
+          };
+          await spo2Char.StartUpdatesAsync();
 
           gsrChar = await otherServ.GetCharacteristicAsync(gsrUUID);
           if (gsrChar == null) { Debug.WriteLine("Failed for:\t" + gsrUUID.ToString()); return; }
@@ -419,6 +436,11 @@ namespace MuHASS.ViewModels
     {
       get { return spO2; }
       set { SetProperty(ref spO2, value); }
+    }
+    public string VSPO2
+    {
+        get { return vspO2; }
+        set { SetProperty(ref vspO2, value); }
     }
     public string GSR
     {

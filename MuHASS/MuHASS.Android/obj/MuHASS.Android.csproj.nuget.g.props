@@ -5,16 +5,16 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\TylerGaming\.nuget\packages\;C:\Program Files (x86)\Microsoft\Xamarin\NuGet\</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\WEAR\.nuget\packages\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
-    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.2.0</NuGetToolVersion>
+    <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.3.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\TylerGaming\.nuget\packages\" />
-    <SourceRoot Include="C:\Program Files (x86)\Microsoft\Xamarin\NuGet\" />
+    <SourceRoot Include="C:\Users\WEAR\.nuget\packages\" />
+    <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <Import Project="C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.androidx.migration\1.0.8\buildTransitive\monoandroid90\Xamarin.AndroidX.Migration.props" Condition="Exists('C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.androidx.migration\1.0.8\buildTransitive\monoandroid90\Xamarin.AndroidX.Migration.props')" />
-    <Import Project="C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.props" Condition="Exists('C:\Program Files (x86)\Microsoft\Xamarin\NuGet\xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.props')" />
+    <Import Project="$(NuGetPackageRoot)xamarin.androidx.migration\1.0.8\buildTransitive\monoandroid90\Xamarin.AndroidX.Migration.props" Condition="Exists('$(NuGetPackageRoot)xamarin.androidx.migration\1.0.8\buildTransitive\monoandroid90\Xamarin.AndroidX.Migration.props')" />
+    <Import Project="$(NuGetPackageRoot)xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.props" Condition="Exists('$(NuGetPackageRoot)xamarin.forms\5.0.0.2012\buildTransitive\Xamarin.Forms.props')" />
   </ImportGroup>
 </Project>

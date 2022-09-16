@@ -5,12 +5,20 @@
       "Plugin.BLE/2.1.3": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         }
       },
       "System.Numerics.Vectors/4.5.0": {
@@ -33,25 +41,45 @@
           "System.Numerics"
         ],
         "compile": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Xamarin.Forms/5.0.0.2012": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "resource": {
           "lib/Xamarin.iOS10/ar/Xamarin.Forms.Platform.iOS.resources.dll": {
@@ -182,12 +210,20 @@
       "Plugin.BLE/2.1.3": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         }
       },
       "System.Numerics.Vectors/4.5.0": {
@@ -210,25 +246,45 @@
           "System.Numerics"
         ],
         "compile": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Xamarin.Forms/5.0.0.2012": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "resource": {
           "lib/Xamarin.iOS10/ar/Xamarin.Forms.Platform.iOS.resources.dll": {
@@ -359,12 +415,20 @@
       "Plugin.BLE/2.1.3": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         }
       },
       "System.Numerics.Vectors/4.5.0": {
@@ -387,25 +451,45 @@
           "System.Numerics"
         ],
         "compile": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Xamarin.Forms/5.0.0.2012": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "resource": {
           "lib/Xamarin.iOS10/ar/Xamarin.Forms.Platform.iOS.resources.dll": {
@@ -536,12 +620,20 @@
       "Plugin.BLE/2.1.3": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {},
-          "lib/Xamarin.iOS10/Plugin.BLE.dll": {}
+          "lib/Xamarin.iOS10/Plugin.BLE.Abstractions.dll": {
+            "related": ".deps.json;.pdb"
+          },
+          "lib/Xamarin.iOS10/Plugin.BLE.dll": {
+            "related": ".Abstractions.deps.json;.Abstractions.pdb;.pdb;.XML"
+          }
         }
       },
       "System.Numerics.Vectors/4.5.0": {
@@ -564,25 +656,45 @@
           "System.Numerics"
         ],
         "compile": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/xamarinios10/Xamarin.Essentials.dll": {}
+          "lib/xamarinios10/Xamarin.Essentials.dll": {
+            "related": ".pdb;.xml"
+          }
         }
       },
       "Xamarin.Forms/5.0.0.2012": {
         "type": "package",
         "compile": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "runtime": {
-          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {},
-          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {}
+          "lib/Xamarin.iOS10/Xamarin.Forms.Core.dll": {
+            "related": ".pdb;.xml"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.dll": {
+            "related": ".iOS.pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Platform.iOS.dll": {
+            "related": ".pdb"
+          },
+          "lib/Xamarin.iOS10/Xamarin.Forms.Xaml.dll": {
+            "related": ".pdb;.xml"
+          }
         },
         "resource": {
           "lib/Xamarin.iOS10/ar/Xamarin.Forms.Platform.iOS.resources.dll": {
@@ -1074,26 +1186,26 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\TylerGaming\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\WEAR\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
+      "projectUniqueName": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
       "projectName": "MuHASS.iOS",
-      "projectPath": "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
-      "packagesPath": "C:\\Users\\TylerGaming\\.nuget\\packages\\",
-      "outputPath": "E:\\MuHASS\\MuHASS\\MuHASS.iOS\\obj\\",
+      "projectPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\MuHASS.iOS.csproj",
+      "packagesPath": "C:\\Users\\WEAR\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS.iOS\\obj\\",
       "projectStyle": "PackageReference",
       "skipContentFileWrite": true,
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\TylerGaming\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\WEAR\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "xamarinios10"
@@ -1105,8 +1217,8 @@
       "frameworks": {
         "xamarinios10": {
           "projectReferences": {
-            "E:\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj": {
-              "projectPath": "E:\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj"
+            "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj": {
+              "projectPath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj"
             }
           }
         }

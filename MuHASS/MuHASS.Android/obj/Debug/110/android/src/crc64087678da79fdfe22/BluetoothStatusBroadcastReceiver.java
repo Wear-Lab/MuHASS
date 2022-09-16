@@ -19,8 +19,9 @@ public class BluetoothStatusBroadcastReceiver
 	public BluetoothStatusBroadcastReceiver ()
 	{
 		super ();
-		if (getClass () == BluetoothStatusBroadcastReceiver.class)
+		if (getClass () == BluetoothStatusBroadcastReceiver.class) {
 			mono.android.TypeManager.Activate ("Plugin.BLE.BroadcastReceivers.BluetoothStatusBroadcastReceiver, Plugin.BLE", "", this, new java.lang.Object[] {  });
+		}
 	}
 
 

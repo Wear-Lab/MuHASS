@@ -28,8 +28,9 @@ public class GattCallback
 	public GattCallback ()
 	{
 		super ();
-		if (getClass () == GattCallback.class)
+		if (getClass () == GattCallback.class) {
 			mono.android.TypeManager.Activate ("Plugin.BLE.Android.GattCallback, Plugin.BLE", "", this, new java.lang.Object[] {  });
+		}
 	}
 
 
