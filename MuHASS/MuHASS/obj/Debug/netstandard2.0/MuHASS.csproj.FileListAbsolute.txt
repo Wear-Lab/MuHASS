@@ -38,3 +38,4 @@ C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS\obj\Debug\netstandard2.0\MuHASS.
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS\obj\Debug\netstandard2.0\refint\MuHASS.dll
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS\obj\Debug\netstandard2.0\MuHASS.pdb
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS\obj\Debug\netstandard2.0\ref\MuHASS.dll
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS\obj\Debug\netstandard2.0\Views\SensorsPage.xaml.g.cs

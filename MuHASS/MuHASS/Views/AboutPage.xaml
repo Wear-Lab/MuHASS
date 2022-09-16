@@ -4,11 +4,11 @@
              x:Class="MuHASS.Views.AboutPage"
              xmlns:vm="clr-namespace:MuHASS.ViewModels"
              Title="{Binding Title}">
-
+  
   <ContentPage.BindingContext>
     <vm:AboutViewModel />
   </ContentPage.BindingContext>
-
+  
   <ContentPage.Resources>
     <ResourceDictionary>
       <Color x:Key="Accent">#96d1ff</Color>
@@ -20,123 +20,31 @@
       <RowDefinition Height="Auto" />
       <RowDefinition Height="*" />
     </Grid.RowDefinitions>
+    <StackLayout BackgroundColor="{StaticResource Accent}" VerticalOptions="FillAndExpand" HorizontalOptions="Fill">
+      <StackLayout Orientation="Horizontal" HorizontalOptions="Center" VerticalOptions="Center">
+        <ContentView Padding="0,40,0,40" VerticalOptions="FillAndExpand">
+          <Image Source="xamarin_logo.png" VerticalOptions="Center" HeightRequest="64" />
+        </ContentView>
+      </StackLayout>
+    </StackLayout>
     <ScrollView Grid.Row="1">
       <StackLayout Orientation="Vertical" Padding="30,24,30,24" Spacing="10">
-        <Button Margin="0,10,0,0" Text="Connect Bluetooth"
-                        Command="{Binding ConnectBluetoothCommand}"
-                        BackgroundColor="#1ab837"
-                        TextColor="White" />
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Proximity:" FontSize="20"/>
-          <Label Text="{Binding Proximity}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Red: " FontSize="20"/>
-          <Label Text="{Binding Red}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Green: " FontSize="20"/>
-          <Label Text="{Binding Green}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Blue: " FontSize="20"/>
-          <Label Text="{Binding Blue}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Clear: " FontSize="20"/>
-          <Label Text="{Binding Clear}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Temperature:" FontSize="20"/>
-          <Label Text="{Binding Temperature}" FontSize="20"/>
-          <Label Text="oC" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Barometric pressure:" FontSize="20"/>
-          <Label Text="{Binding BarometricPressure}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Altitude:" FontSize="20"/>
-          <Label Text="{Binding Altitude}" FontSize="20"/>
-          <Label Text="m" FontSize="20"/>
-        </StackLayout>
-        <Label Text="Magnometer:" FontSize="20"/>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="X: " FontSize="20"/>
-          <Label Text="{Binding MagnometerX}" FontSize="20"/>
-          <Label Text="uT" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Y: " FontSize="20"/>
-          <Label Text="{Binding MagnometerY}" FontSize="20"/>
-          <Label Text="uT" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Z: " FontSize="20"/>
-          <Label Text="{Binding MagnometerZ}" FontSize="20"/>
-          <Label Text="uT" FontSize="20"/>
-        </StackLayout>
-        <Label Text="Acceleration:" FontSize="20"/>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="X: " FontSize="20"/>
-          <Label Text="{Binding AccelerationX}" FontSize="20"/>
-          <Label Text="m/s^2" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Y: " FontSize="20"/>
-          <Label Text="{Binding AccelerationY}" FontSize="20"/>
-          <Label Text="m/s^2" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Z: " FontSize="20"/>
-          <Label Text="{Binding AccelerationZ}" FontSize="20"/>
-          <Label Text="m/s^2" FontSize="20"/>
-        </StackLayout>
-        <Label Text="Gyro:" FontSize="20"/>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="X: " FontSize="20"/>
-          <Label Text="{Binding GyroX}" FontSize="20"/>
-          <Label Text="dps" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Y: " FontSize="20"/>
-          <Label Text="{Binding GyroY}" FontSize="20"/>
-          <Label Text="dps" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Z: " FontSize="20"/>
-          <Label Text="{Binding GyroZ}" FontSize="20"/>
-          <Label Text="dps" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Humidity:" FontSize="20"/>
-          <Label Text="{Binding Humidity}" FontSize="20"/>
-          <Label Text="%" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Mic:" FontSize="20"/>
-          <Label Text="{Binding Mic}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="HR:" FontSize="20"/>
-          <Label Text="{Binding HR}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="vHR:" FontSize="20"/>
-          <Label Text="{Binding VHR}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="SPO2:" FontSize="20"/>
-          <Label Text="{Binding SPO2}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-            <Label Text="VSPO2:" FontSize="20"/>
-            <Label Text="{Binding VSPO2}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="GSR:" FontSize="20"/>
-          <Label Text="{Binding GSR}" FontSize="20"/>
-        </StackLayout>
+        <Label Text="Start developing now" FontSize="Title"/>
+        <Label Text="Make changes to your XAML file and save to see your UI update in the running app with XAML Hot Reload. Give it a try!" FontSize="16" Padding="0,0,0,0"/>
+        <Label FontSize="16" Padding="0,24,0,0">
+          <Label.FormattedText>
+            <FormattedString>
+              <FormattedString.Spans>
+                <Span Text="Learn more at "/>
+                <Span Text="https://aka.ms/xamarin-quickstart" FontAttributes="Bold"/>
+              </FormattedString.Spans>
+            </FormattedString>
+          </Label.FormattedText>
+        </Label>
+        <Button Margin="0,10,0,0" Text="Learn more"
+            Command="{Binding OpenWebCommand}"
+            BackgroundColor="{StaticResource Primary}"
+            TextColor="White" />
       </StackLayout>
     </ScrollView>
   </Grid>
