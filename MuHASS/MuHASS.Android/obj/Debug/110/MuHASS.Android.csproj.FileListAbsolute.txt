@@ -589,11 +589,6 @@ E:\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\src\crc640d7c6d57b8a5f296\
 E:\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\src\crc640d7c6d57b8a5f296\GattCallback.java
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\MuHASS.Android.dll
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\MuHASS.Android.pdb
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.companyname.muhass.apk
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.companyname.muhass.aab
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.companyname.muhass-Signed.aab
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.companyname.muhass-Signed.apk
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.companyname.muhass-Signed.apk.idsig
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\MuHASS.dll
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\MuHASS.pdb
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\MonoAndroid,Version=v11.0.AssemblyAttributes.cs
@@ -625,10 +620,7 @@ C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\MuHASS.And
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\MuHASS.Android.csproj.CopyComplete
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\MuHASS.Android.dll
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\MuHASS.Android.pdb
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\bin\com.companyname.muhass.apk
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\bin\base.zip
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\bin\com.companyname.muhass.aab
-C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\bin\com.companyname.muhass.apks
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\res\values\styles.xml
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\res\values\colors.xml
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\res\mipmap-anydpi-v26\icon.xml
@@ -1179,3 +1171,12 @@ C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\stamp\_Con
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\stamp\_GenerateJavaStubs.stamp
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\stamp\_GeneratePackageManagerJava.stamp
 C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\stamp\_ResolveLibraryProjectImports.stamp
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\src\com\ucfwearlab\muhass\R.java
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.ucfwearlab.muhass.apk
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.ucfwearlab.muhass.aab
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.ucfwearlab.muhass-Signed.aab
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.ucfwearlab.muhass-Signed.apk
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\bin\Debug\com.ucfwearlab.muhass-Signed.apk.idsig
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\bin\com.ucfwearlab.muhass.apk
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\bin\com.ucfwearlab.muhass.aab
+C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS.Android\obj\Debug\110\android\bin\com.ucfwearlab.muhass.apks

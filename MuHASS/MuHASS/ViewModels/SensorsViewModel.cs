@@ -72,12 +72,12 @@ namespace MuHASS.ViewModels
     Guid otherUUID = new Guid("00000300-1212-EFDE-1523-785FEABCD123");
     private IService otherServ;
 
-    string hr = "0";
-    string vhr = "0";
-    string spO2 = "0";
-    string vspO2 = "0";
-    private ICharacteristic hrChar;
-    Guid hrUUID = new Guid("00000301-1212-EFDE-1523-785FEABCD123");
+    string heartrate = "0";
+    string confidence = "0";
+    string oxygen = "0";
+    string status = "0";
+    private ICharacteristic ppgChar;
+    Guid ppgUUID = new Guid("00000301-1212-EFDE-1523-785FEABCD123");
 
     string gsr = "0";
     private ICharacteristic gsrChar;
@@ -252,28 +252,28 @@ namespace MuHASS.ViewModels
           if (otherServ == null) { Debug.WriteLine("Failed for:\t" + otherUUID.ToString()); return; }
           Debug.WriteLine("Looking for characteristics for " + otherServ.Id + "...");
 
-          hrChar = await otherServ.GetCharacteristicAsync(hrUUID);
-          if (hrChar == null) { Debug.WriteLine("Failed for:\t" + hrUUID.ToString()); return; }
-          hrChar.ValueUpdated += async (s, a) =>
+          ppgChar = await otherServ.GetCharacteristicAsync(ppgUUID);
+          if (ppgChar == null) { Debug.WriteLine("Failed for:\t" + ppgUUID.ToString()); return; }
+          ppgChar.ValueUpdated += async (s, a) =>
           {
-            if (hrChar == null) { Debug.WriteLine("characteristic is null..."); return; }
-            var hrParse = System.Text.Encoding.ASCII.GetString(hrChar.Value).Split(' ');
-            if (hrParse.Length >= 4)
+            if (ppgChar == null) { Debug.WriteLine("characteristic is null..."); return; }
+            var ppgParse = System.Text.Encoding.ASCII.GetString(ppgChar.Value).Split(' ');
+            if (ppgParse.Length >= 4)
             {
-              HR = hrParse[0];
-              VHR = hrParse[1];
-              SPO2 = hrParse[2];
-              VSPO2 = hrParse[3];
+              Heartrate = ppgParse[0];
+              Confidence = ppgParse[1];
+              Oxygen = ppgParse[2];
+              Status = ppgParse[3];
             }
             else
             {
-              HR = "0";
-              VHR = "0";
-              SPO2 = "0";
-              VSPO2 = "0";
+              Heartrate = "0";
+              Confidence = "0";
+              Oxygen = "0";
+              Status = "0";
             }
           };
-          await hrChar.StartUpdatesAsync();
+          await ppgChar.StartUpdatesAsync();
 
           gsrChar = await otherServ.GetCharacteristicAsync(gsrUUID);
           if (gsrChar == null) { Debug.WriteLine("Failed for:\t" + gsrUUID.ToString()); return; }
@@ -404,25 +404,25 @@ namespace MuHASS.ViewModels
       get { return mic; }
       set { SetProperty(ref mic, value); }
     }
-    public string HR
+    public string Heartrate
     {
-      get { return hr; }
-      set { SetProperty(ref hr, value); }
+      get { return heartrate; }
+      set { SetProperty(ref heartrate, value); }
     }
-    public string VHR
+    public string Confidence
     {
-      get { return vhr; }
-      set { SetProperty(ref vhr, value); }
+      get { return confidence; }
+      set { SetProperty(ref confidence, value); }
     }
-    public string SPO2
+    public string Oxygen
     {
-      get { return spO2; }
-      set { SetProperty(ref spO2, value); }
+      get { return oxygen; }
+      set { SetProperty(ref oxygen, value); }
     }
-    public string VSPO2
+    public string Status
     {
-        get { return vspO2; }
-        set { SetProperty(ref vspO2, value); }
+        get { return status; }
+        set { SetProperty(ref status, value); }
     }
     public string GSR
     {

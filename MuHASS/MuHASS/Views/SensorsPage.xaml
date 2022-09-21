@@ -118,20 +118,20 @@
           <Label Text="{Binding Mic}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-          <Label Text="HR:" FontSize="20"/>
-          <Label Text="{Binding HR}" FontSize="20"/>
+          <Label Text="Heartrate:" FontSize="20"/>
+          <Label Text="{Binding Heartrate}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-          <Label Text="vHR:" FontSize="20"/>
-          <Label Text="{Binding VHR}" FontSize="20"/>
+          <Label Text="Confidence:" FontSize="20"/>
+          <Label Text="{Binding Confidence}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-          <Label Text="SPO2:" FontSize="20"/>
-          <Label Text="{Binding SPO2}" FontSize="20"/>
+          <Label Text="Oxygen:" FontSize="20"/>
+          <Label Text="{Binding Oxygen}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Label Text="vSPO2:" FontSize="20"/>
-            <Label Text="{Binding VSPO2}" FontSize="20"/>
+            <Label Text="Status:" FontSize="20"/>
+            <Label Text="{Binding Status}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="GSR:" FontSize="20"/>
