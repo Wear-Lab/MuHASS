@@ -130,7 +130,7 @@
           <Label Text="{Binding SPO2}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
-            <Label Text="VSPO2:" FontSize="20"/>
+            <Label Text="vSPO2:" FontSize="20"/>
             <Label Text="{Binding VSPO2}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
