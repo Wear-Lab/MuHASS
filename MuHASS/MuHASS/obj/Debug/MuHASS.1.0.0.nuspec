@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MuHASS</id>
+    <version>1.0.0</version>
+    <authors>MuHASS</authors>
+    <description>Package Description</description>
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="Plugin.BLE" version="2.1.3" exclude="Build,Analyzers" />
+        <dependency id="Xamarin.Essentials" version="1.6.1" exclude="Build,Analyzers" />
+        <dependency id="Xamarin.Forms" version="5.0.0.2012" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="C:\Users\WEAR\source\repos\MuHASS\MuHASS\MuHASS\bin\Debug\netstandard2.0\MuHASS.dll" target="lib\netstandard2.0\MuHASS.dll" />
+  </files>
+</package>

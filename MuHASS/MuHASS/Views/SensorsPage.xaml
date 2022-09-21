@@ -49,7 +49,7 @@
         <StackLayout Orientation="Horizontal">
           <Label Text="Temperature:" FontSize="20"/>
           <Label Text="{Binding Temperature}" FontSize="20"/>
-          <Label Text="oC" FontSize="20"/>
+          <Label Text="ºC" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Barometric pressure:" FontSize="20"/>
