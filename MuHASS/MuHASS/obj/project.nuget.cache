@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "dfY+kDO53GojWV45z7L+kWjoy9wPUf+0bk6uS45bE8vNgM4+0kYMHXfPbkfB8DsmiXR4l1n3pnw0nnm7vL1/yw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\WEAR\\source\\repos\\MuHASS\\MuHASS\\MuHASS\\MuHASS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\WEAR\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\WEAR\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512",
+    "C:\\Users\\WEAR\\.nuget\\packages\\plugin.ble\\2.1.3\\plugin.ble.2.1.3.nupkg.sha512",
+    "C:\\Users\\WEAR\\.nuget\\packages\\system.numerics.vectors\\4.5.0\\system.numerics.vectors.4.5.0.nupkg.sha512",
+    "C:\\Users\\WEAR\\.nuget\\packages\\xamarin.essentials\\1.6.1\\xamarin.essentials.1.6.1.nupkg.sha512",
+    "C:\\Users\\WEAR\\.nuget\\packages\\xamarin.forms\\5.0.0.2012\\xamarin.forms.5.0.0.2012.nupkg.sha512"
+  ],
+  "logs": []
+}

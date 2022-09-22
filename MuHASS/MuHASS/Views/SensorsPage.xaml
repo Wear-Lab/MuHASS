@@ -53,27 +53,27 @@
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Barometric pressure:" FontSize="20"/>
-          <Label Text="{Binding BarometricPressure}" FontSize="20"/>
+          <Label Text="{Binding Pressure}" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Altitude:" FontSize="20"/>
           <Label Text="{Binding Altitude}" FontSize="20"/>
           <Label Text="m" FontSize="20"/>
         </StackLayout>
-        <Label Text="Magnometer:" FontSize="20"/>
+        <Label Text="Magnetic:" FontSize="20"/>
         <StackLayout Orientation="Horizontal">
           <Label Text="X: " FontSize="20"/>
-          <Label Text="{Binding MagnometerX}" FontSize="20"/>
+          <Label Text="{Binding MagnetometerX}" FontSize="20"/>
           <Label Text="uT" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Y: " FontSize="20"/>
-          <Label Text="{Binding MagnometerY}" FontSize="20"/>
+          <Label Text="{Binding MagnetometerY}" FontSize="20"/>
           <Label Text="uT" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Z: " FontSize="20"/>
-          <Label Text="{Binding MagnometerZ}" FontSize="20"/>
+          <Label Text="{Binding MagnetometerZ}" FontSize="20"/>
           <Label Text="uT" FontSize="20"/>
         </StackLayout>
         <Label Text="Acceleration:" FontSize="20"/>

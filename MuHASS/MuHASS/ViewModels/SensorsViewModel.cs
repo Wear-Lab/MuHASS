@@ -22,13 +22,12 @@ namespace MuHASS.ViewModels
 
 
     // nrf52840
-    Guid adpsUUID = new Guid("00000100-1212-EFDE-1523-785FEABCD123");
-    private IService adpsServ;
+    Guid opticalUUID = new Guid("00000100-1212-EFDE-1523-785FEABCD123");
+    private IService opticalServ;
 
     string proximity = "0";
-    string mic = "0";
-    private ICharacteristic pmChar;
-    Guid pmUUID = new Guid("00000101-1212-EFDE-1523-785FEABCD123");
+    private ICharacteristic proxChar;
+    Guid proxUUID = new Guid("00000101-1212-EFDE-1523-785FEABCD123");
 
     string red = "0";
     string green = "0";
@@ -36,54 +35,58 @@ namespace MuHASS.ViewModels
     string clear = "0";
     private ICharacteristic rgbChar;
     Guid rgbUUID = new Guid("00000102-1212-EFDE-1523-785FEABCD123");
+        
+    Guid envUUID = new Guid("00000200-1212-EFDE-1523-785FEABCD123");
+    private IService envServ;
 
     string temperature = "0";
+    string pressure = "0";
     string altitude = "0";
+    private ICharacteristic baroChar;
+    Guid baroUUID = new Guid("00000201-1212-EFDE-1523-785FEABCD123");
+
     string humidity = "0";
-    private ICharacteristic tahChar;
-    Guid tahUUID = new Guid("00000103-1212-EFDE-1523-785FEABCD123");
+    private ICharacteristic humidChar;
+    Guid humidUUID = new Guid("00000202-1212-EFDE-1523-785FEABCD123");
 
-    string barometricPreasure = "0";
-    private ICharacteristic presChar;
-    Guid presUUID = new Guid("00000104-1212-EFDE-1523-785FEABCD123");
+    Guid motionUUID = new Guid("00000300-1212-EFDE-1523-785FEABCD123");
+    private IService motionServ;
 
-    Guid posUUID = new Guid("00000200-1212-EFDE-1523-785FEABCD123");
-    private IService posServ;
-
-    string magnometerY = "0";
-    string magnometerX = "0";
-    string magnometerZ = "0";
+    string magnetometerX = "0";
+    string magnetometerY = "0";
+    string magnetometerZ = "0";
     private ICharacteristic magChar;
-    Guid magUUID = new Guid("00000201-1212-EFDE-1523-785FEABCD123");
+    Guid magUUID = new Guid("00000301-1212-EFDE-1523-785FEABCD123");
 
     string accelerationX = "0";
     string accelerationY = "0";
     string accelerationZ = "0";
-    private ICharacteristic accelChar;
-    Guid accelUUID = new Guid("00000202-1212-EFDE-1523-785FEABCD123");
+    private ICharacteristic accelChar; 
+    Guid accelUUID = new Guid("00000302-1212-EFDE-1523-785FEABCD123");
 
     string gyroX = "0";
     string gyroY = "0";
     string gyroZ = "0";
     private ICharacteristic gyroChar;
-    Guid gyroUUID = new Guid("00000203-1212-EFDE-1523-785FEABCD123");
+    Guid gyroUUID = new Guid("00000303-1212-EFDE-1523-785FEABCD123");
 
-
-    Guid otherUUID = new Guid("00000300-1212-EFDE-1523-785FEABCD123");
+    Guid otherUUID = new Guid("00000400-1212-EFDE-1523-785FEABCD123");
     private IService otherServ;
+
+    string mic = "0";
+    private ICharacteristic micChar;
+    Guid micUUID = new Guid("00000401-1212-EFDE-1523-785FEABCD123");
 
     string heartrate = "0";
     string confidence = "0";
     string oxygen = "0";
     string status = "0";
     private ICharacteristic ppgChar;
-    Guid ppgUUID = new Guid("00000301-1212-EFDE-1523-785FEABCD123");
+    Guid ppgUUID = new Guid("00000402-1212-EFDE-1523-785FEABCD123");
 
     string gsr = "0";
     private ICharacteristic gsrChar;
-    Guid gsrUUID = new Guid("00000302-1212-EFDE-1523-785FEABCD123");
-
-
+    Guid gsrUUID = new Guid("00000403-1212-EFDE-1523-785FEABCD123");
 
     public SensorsViewModel()
     {
@@ -105,30 +108,20 @@ namespace MuHASS.ViewModels
           foreach (var serv in servs)
             Debug.WriteLine("Name:\t" + serv.Name + "\t\tId:" + serv.Id);
 
-          adpsServ = await arduino.GetServiceAsync(adpsUUID);
-          if (adpsServ == null) { Debug.WriteLine("Failed for\t" + adpsUUID.ToString()); return; }
-          Debug.WriteLine("Looking for characteristics for " + adpsServ.Id + "...");
+          opticalServ = await arduino.GetServiceAsync(opticalUUID);
+          if (opticalServ == null) { Debug.WriteLine("Failed for\t" + opticalUUID.ToString()); return; }
+          Debug.WriteLine("Looking for characteristics for " + opticalServ.Id + "...");
 
-          pmChar = await adpsServ.GetCharacteristicAsync(pmUUID);
-          if (pmChar == null) { Debug.WriteLine("Failed for:\t" + pmUUID.ToString()); return; }
-          pmChar.ValueUpdated += async (s, a) =>
+          proxChar = await opticalServ.GetCharacteristicAsync(proxUUID);
+          if (proxChar == null) { Debug.WriteLine("Failed for:\t" + proxUUID.ToString()); return; }
+          proxChar.ValueUpdated += async (s, a) =>
           {
-            if (pmChar == null) { Debug.WriteLine("characteristic is null..."); return; }
-            var pmParse = System.Text.Encoding.ASCII.GetString(pmChar.Value).Split(' ');
-            if (pmParse.Length >= 2)
-            {
-              Proximity = pmParse[0];
-              Mic = pmParse[1];
-            }
-            else
-            {
-              Proximity = "0";
-              Mic = "0";
-            }
+            if (proxChar == null) { Debug.WriteLine("characteristic is null..."); return; }
+            Proximity = System.Text.Encoding.ASCII.GetString(proxChar.Value);
           };
-          await pmChar.StartUpdatesAsync();
+          await proxChar.StartUpdatesAsync();
 
-          rgbChar = await adpsServ.GetCharacteristicAsync(rgbUUID);
+          rgbChar = await opticalServ.GetCharacteristicAsync(rgbUUID);
           if (rgbChar == null) { Debug.WriteLine("Failed for:\t" + rgbUUID.ToString()); return; }
           rgbChar.ValueUpdated += async (s, a) =>
           {
@@ -148,44 +141,44 @@ namespace MuHASS.ViewModels
             }
           };
           await rgbChar.StartUpdatesAsync();
+              
+          envServ = await arduino.GetServiceAsync(envUUID);
+          if (envServ == null) { Debug.WriteLine("Failed for:\t" + envUUID.ToString()); return; }
+          Debug.WriteLine("Looking for characteristics for " + envServ.Id + "...");
 
-          tahChar = await adpsServ.GetCharacteristicAsync(tahUUID);
-          if (tahChar == null) { Debug.WriteLine("Failed for:\t" + tahUUID.ToString()); return; }
-          tahChar.ValueUpdated += async (s, a) =>
+          baroChar = await envServ.GetCharacteristicAsync(baroUUID);
+          if (baroChar == null) { Debug.WriteLine("Failed for:\t" + baroUUID.ToString()); return; }
+          baroChar.ValueUpdated += async (s, a) =>
           {
-            if (tahChar == null) { Debug.WriteLine("characteristic is null..."); return; }
-            var tahParse = System.Text.Encoding.ASCII.GetString(tahChar.Value).Split(' ');
-            if (tahParse.Length >= 3)
+            if (baroChar == null) { Debug.WriteLine("characteristic is null..."); return; }
+            var baroParse = System.Text.Encoding.ASCII.GetString(baroChar.Value).Split(' ');
+            if (baroParse.Length >= 3) 
             {
-              Temperature = tahParse[0];
-              Altitude = tahParse[1];
-              Humidity = tahParse[2];
-            }
-            else
-            {
+              Temperature = baroParse[0];
+              Pressure = baroParse[1];
+              Altitude = baroParse[2];
+            } else {
               Temperature = "0";
+              Pressure = "0";
               Altitude = "0";
-              Humidity = "0";
             }
           };
-          await tahChar.StartUpdatesAsync();
+          await baroChar.StartUpdatesAsync();
 
-          presChar = await adpsServ.GetCharacteristicAsync(presUUID);
-          if (presChar == null) { Debug.WriteLine("Failed for:\t" + presUUID.ToString()); return; }
-          presChar.ValueUpdated += async (s, a) =>
+          humidChar = await envServ.GetCharacteristicAsync(humidUUID);
+          if (humidChar == null) { Debug.WriteLine("Failed for:\t" + humidUUID.ToString()); return; }
+          humidChar.ValueUpdated += async (s, a) =>
           {
-            if (presChar == null) { Debug.WriteLine("characteristic is null..."); return; }
-            BarometricPressure = System.Text.Encoding.ASCII.GetString(presChar.Value);
+            if (humidChar == null) { Debug.WriteLine("characteristic is null..."); return; }
+            Humidity = System.Text.Encoding.ASCII.GetString(humidChar.Value);
           };
-          await presChar.StartUpdatesAsync();
+          await humidChar.StartUpdatesAsync();
 
+          motionServ = await arduino.GetServiceAsync(motionUUID);
+          if (motionServ == null) { Debug.WriteLine("Failed for:\t" + motionUUID.ToString()); return; }
+          Debug.WriteLine("Looking for characteristics for " + motionServ.Id + "...");
 
-          posServ = await arduino.GetServiceAsync(posUUID);
-          if (posServ == null) { Debug.WriteLine("Failed for:\t" + posUUID.ToString()); return; }
-          Debug.WriteLine("Looking for characteristics for " + posServ.Id + "...");
-
-
-          magChar = await posServ.GetCharacteristicAsync(magUUID);
+          magChar = await motionServ.GetCharacteristicAsync(magUUID);
           if (magChar == null) { Debug.WriteLine("Failed for:\t" + magUUID.ToString()); return; }
           magChar.ValueUpdated += async (s, a) =>
           {
@@ -193,20 +186,20 @@ namespace MuHASS.ViewModels
             var magParse = System.Text.Encoding.ASCII.GetString(magChar.Value).Split(' ');
             if (magParse.Length >= 3)
             {
-              MagnometerX = magParse[0];
-              MagnometerY = magParse[1];
-              MagnometerZ = magParse[2];
+              MagnetometerX = magParse[0];
+              MagnetometerY = magParse[1];
+              MagnetometerZ = magParse[2];
             }
             else
             {
-              MagnometerX = "0";
-              MagnometerY = "0";
-              MagnometerZ = "0";
+              MagnetometerX = "0";
+              MagnetometerY = "0";
+              MagnetometerZ = "0";
             }
           };
           await magChar.StartUpdatesAsync();
 
-          accelChar = await posServ.GetCharacteristicAsync(accelUUID);
+          accelChar = await motionServ.GetCharacteristicAsync(accelUUID);
           if (accelChar == null) { Debug.WriteLine("Failed for:\t" + accelUUID.ToString()); return; }
           accelChar.ValueUpdated += async (s, a) =>
           {
@@ -227,7 +220,7 @@ namespace MuHASS.ViewModels
           };
           await accelChar.StartUpdatesAsync();
 
-          gyroChar = await posServ.GetCharacteristicAsync(gyroUUID);
+          gyroChar = await motionServ.GetCharacteristicAsync(gyroUUID);
           if (gyroChar == null) { Debug.WriteLine("Failed for:\t" + gyroUUID.ToString()); return; }
           gyroChar.ValueUpdated += async (s, a) =>
           {
@@ -251,6 +244,15 @@ namespace MuHASS.ViewModels
           otherServ = await arduino.GetServiceAsync(otherUUID);
           if (otherServ == null) { Debug.WriteLine("Failed for:\t" + otherUUID.ToString()); return; }
           Debug.WriteLine("Looking for characteristics for " + otherServ.Id + "...");
+
+          micChar = await otherServ.GetCharacteristicAsync(micUUID);
+          if (micChar == null) { Debug.WriteLine("Failed for:\t" + micUUID.ToString()); return; }
+          micChar.ValueUpdated += async (s, a) =>
+          {
+            if (micChar == null) { Debug.WriteLine("characteristic is null..."); return; }
+            Mic = System.Text.Encoding.ASCII.GetString(micChar.Value);
+          };
+          await micChar.StartUpdatesAsync();
 
           ppgChar = await otherServ.GetCharacteristicAsync(ppgUUID);
           if (ppgChar == null) { Debug.WriteLine("Failed for:\t" + ppgUUID.ToString()); return; }
@@ -339,30 +341,30 @@ namespace MuHASS.ViewModels
       get { return temperature; }
       set { SetProperty(ref temperature, value); }
     }
-    public string BarometricPressure
+    public string Pressure
     {
-      get { return barometricPreasure; }
-      set { SetProperty(ref barometricPreasure, value); }
+      get { return pressure; }
+      set { SetProperty(ref pressure, value); }
     }
     public string Altitude
     {
       get { return altitude; }
       set { SetProperty(ref altitude, value); }
     }
-    public string MagnometerX
+    public string MagnetometerX
     {
-      get { return magnometerX; }
-      set { SetProperty(ref magnometerX, value); }
+      get { return magnetometerX; }
+      set { SetProperty(ref magnetometerX, value); }
     }
-    public string MagnometerY
+    public string MagnetometerY
     {
-      get { return magnometerY; }
-      set { SetProperty(ref magnometerY, value); }
+      get { return magnetometerY; }
+      set { SetProperty(ref magnetometerY, value); }
     }
-    public string MagnometerZ
+    public string MagnetometerZ
     {
-      get { return magnometerZ; }
-      set { SetProperty(ref magnometerZ, value); }
+      get { return magnetometerZ; }
+      set { SetProperty(ref magnetometerZ, value); }
     }
     public string AccelerationX
     {
@@ -421,8 +423,8 @@ namespace MuHASS.ViewModels
     }
     public string Status
     {
-        get { return status; }
-        set { SetProperty(ref status, value); }
+      get { return status; }
+      set { SetProperty(ref status, value); }
     }
     public string GSR
     {
