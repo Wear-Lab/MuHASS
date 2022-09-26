@@ -21,7 +21,14 @@ namespace MuHASS.ViewModels
     ConnectParameters cancellationToken = new ConnectParameters();
 
 
-    // nrf52840
+    /*
+    GUID Format:
+    0000XXYY-1212-EFDE-1523-785FEABCD123
+    XX - Service ID
+    YY - Characteristic ID
+    Services should set their Characteristic ID to 00
+    */
+
     Guid opticalUUID = new Guid("00000100-1212-EFDE-1523-785FEABCD123");
     private IService opticalServ;
 
@@ -302,12 +309,19 @@ namespace MuHASS.ViewModels
         Debug.WriteLine("Initiating scan...");
         foreach (var dev in devs)
           Debug.WriteLine("Name" + dev.Name + "\t\tId:" + dev.Id);
-        // nrf52 MuHASS
-        await adapter.ConnectToKnownDeviceAsync(new Guid("00000000-0000-0000-0000-cf4464ab7f65"), cancellationToken);
+        /*
+        Modify this if connecting to a different Feather
+        GUID Format:
+        00000000-0000-0000-0000-AABBCCDDEEFF
+        Change AABBCCDDEEFF to the MAC Address of your feather
+        This can be usually seen in bluetooth settings, with format AA:BB:CC:DD:EE:FF
+        */
+        await adapter.ConnectToKnownDeviceAsync(new Guid("00000000-0000-0000-0000-cc3e33c270be"), cancellationToken);
       });
     }
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    // TODO: Figure out what this line do
+    // public event PropertyChangedEventHandler PropertyChanged;
     public ICommand ChangeText { get; }
     public ICommand ConnectBluetoothCommand { get; }
 

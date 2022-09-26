@@ -30,21 +30,23 @@
           <Label Text="Proximity:" FontSize="20"/>
           <Label Text="{Binding Proximity}" FontSize="20"/>
         </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Red: " FontSize="20"/>
-          <Label Text="{Binding Red}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Green: " FontSize="20"/>
-          <Label Text="{Binding Green}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Blue: " FontSize="20"/>
-          <Label Text="{Binding Blue}" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Clear: " FontSize="20"/>
-          <Label Text="{Binding Clear}" FontSize="20"/>
+        <StackLayout Orientation="Vertical">
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Red: " FontSize="20"/>
+            <Label Text="{Binding Red}" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Green: " FontSize="20"/>
+            <Label Text="{Binding Green}" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Blue: " FontSize="20"/>
+            <Label Text="{Binding Blue}" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Clear: " FontSize="20"/>
+            <Label Text="{Binding Clear}" FontSize="20"/>
+          </StackLayout>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Temperature:" FontSize="20"/>
@@ -54,6 +56,7 @@
         <StackLayout Orientation="Horizontal">
           <Label Text="Barometric pressure:" FontSize="20"/>
           <Label Text="{Binding Pressure}" FontSize="20"/>
+          <Label Text="Pa" FontSize="20"/>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Altitude:" FontSize="20"/>
@@ -61,52 +64,58 @@
           <Label Text="m" FontSize="20"/>
         </StackLayout>
         <Label Text="Magnetic:" FontSize="20"/>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="X: " FontSize="20"/>
-          <Label Text="{Binding MagnetometerX}" FontSize="20"/>
-          <Label Text="uT" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Y: " FontSize="20"/>
-          <Label Text="{Binding MagnetometerY}" FontSize="20"/>
-          <Label Text="uT" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Z: " FontSize="20"/>
-          <Label Text="{Binding MagnetometerZ}" FontSize="20"/>
-          <Label Text="uT" FontSize="20"/>
+        <StackLayout Orientation="Vertical">
+          <StackLayout Orientation="Horizontal">
+            <Label Text="X: " FontSize="20"/>
+            <Label Text="{Binding MagnetometerX}" FontSize="20"/>
+            <Label Text="uT" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Y: " FontSize="20"/>
+            <Label Text="{Binding MagnetometerY}" FontSize="20"/>
+            <Label Text="uT" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Z: " FontSize="20"/>
+            <Label Text="{Binding MagnetometerZ}" FontSize="20"/>
+            <Label Text="uT" FontSize="20"/>
+          </StackLayout>
         </StackLayout>
         <Label Text="Acceleration:" FontSize="20"/>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="X: " FontSize="20"/>
-          <Label Text="{Binding AccelerationX}" FontSize="20"/>
-          <Label Text="m/s^2" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Y: " FontSize="20"/>
-          <Label Text="{Binding AccelerationY}" FontSize="20"/>
-          <Label Text="m/s^2" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Z: " FontSize="20"/>
-          <Label Text="{Binding AccelerationZ}" FontSize="20"/>
-          <Label Text="m/s^2" FontSize="20"/>
+        <StackLayout Orientation="Vertical">
+          <StackLayout Orientation="Horizontal">
+            <Label Text="X: " FontSize="20"/>
+            <Label Text="{Binding AccelerationX}" FontSize="20"/>
+            <Label Text="m/s²" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Y: " FontSize="20"/>
+            <Label Text="{Binding AccelerationY}" FontSize="20"/>
+            <Label Text="m/s²" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Z: " FontSize="20"/>
+            <Label Text="{Binding AccelerationZ}" FontSize="20"/>
+            <Label Text="m/s²" FontSize="20"/>
+          </StackLayout>
         </StackLayout>
         <Label Text="Gyro:" FontSize="20"/>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="X: " FontSize="20"/>
-          <Label Text="{Binding GyroX}" FontSize="20"/>
-          <Label Text="dps" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Y: " FontSize="20"/>
-          <Label Text="{Binding GyroY}" FontSize="20"/>
-          <Label Text="dps" FontSize="20"/>
-        </StackLayout>
-        <StackLayout Orientation="Horizontal">
-          <Label Text="Z: " FontSize="20"/>
-          <Label Text="{Binding GyroZ}" FontSize="20"/>
-          <Label Text="dps" FontSize="20"/>
+        <StackLayout Orientation="Vertical">
+          <StackLayout Orientation="Horizontal">
+            <Label Text="X: " FontSize="20"/>
+            <Label Text="{Binding GyroX}" FontSize="20"/>
+            <Label Text="dps" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Y: " FontSize="20"/>
+            <Label Text="{Binding GyroY}" FontSize="20"/>
+            <Label Text="dps" FontSize="20"/>
+          </StackLayout>
+          <StackLayout Orientation="Horizontal">
+            <Label Text="Z: " FontSize="20"/>
+            <Label Text="{Binding GyroZ}" FontSize="20"/>
+            <Label Text="dps" FontSize="20"/>
+          </StackLayout>
         </StackLayout>
         <StackLayout Orientation="Horizontal">
           <Label Text="Humidity:" FontSize="20"/>
