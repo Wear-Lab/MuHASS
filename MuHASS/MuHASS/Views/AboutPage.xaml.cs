@@ -1,15 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace MuHASS.Views
 {
-  public partial class AboutPage : ContentPage
-  {
-    public AboutPage()
+    public partial class AboutPage : ContentPage
     {
-      InitializeComponent();
+        public AboutPage()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

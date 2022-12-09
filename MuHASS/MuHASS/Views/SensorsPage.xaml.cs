@@ -1,15 +1,12 @@
-﻿using System;
-using System.ComponentModel;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
 
 namespace MuHASS.Views
 {
-  public partial class SensorsPage : ContentPage
-  {
-    public SensorsPage()
+    public partial class SensorsPage : ContentPage
     {
-      InitializeComponent();
+        public SensorsPage()
+        {
+            InitializeComponent();
+        }
     }
-  }
 }

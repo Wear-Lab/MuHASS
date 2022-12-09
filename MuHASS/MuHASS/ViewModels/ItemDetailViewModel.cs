@@ -1,57 +1,55 @@
-﻿using MuHASS.Models;
-using System;
+﻿using System;
 using System.Diagnostics;
-using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace MuHASS.ViewModels
 {
-  [QueryProperty(nameof(ItemId), nameof(ItemId))]
-  public class ItemDetailViewModel : BaseViewModel
-  {
-    private string itemId;
-    private string text;
-    private string description;
-    public string Id { get; set; }
-
-    public string Text
+    [QueryProperty(nameof(ItemId), nameof(ItemId))]
+    public class ItemDetailViewModel : BaseViewModel
     {
-      get => text;
-      set => SetProperty(ref text, value);
-    }
+        private string itemId;
+        private string text;
+        private string description;
+        public string Id { get; set; }
 
-    public string Description
-    {
-      get => description;
-      set => SetProperty(ref description, value);
-    }
+        public string Text
+        {
+            get => text;
+            set => SetProperty(ref text, value);
+        }
 
-    public string ItemId
-    {
-      get
-      {
-        return itemId;
-      }
-      set
-      {
-        itemId = value;
-        LoadItemId(value);
-      }
-    }
+        public string Description
+        {
+            get => description;
+            set => SetProperty(ref description, value);
+        }
 
-    public async void LoadItemId(string itemId)
-    {
-      try
-      {
-        var item = await DataStore.GetItemAsync(itemId);
-        Id = item.Id;
-        Text = item.Text;
-        Description = item.Description;
-      }
-      catch (Exception)
-      {
-        Debug.WriteLine("Failed to Load Item");
-      }
+        public string ItemId
+        {
+            get
+            {
+                return itemId;
+            }
+            set
+            {
+                itemId = value;
+                LoadItemId(value);
+            }
+        }
+
+        public async void LoadItemId(string itemId)
+        {
+            try
+            {
+                var item = await DataStore.GetItemAsync(itemId);
+                Id = item.Id;
+                Text = item.Text;
+                Description = item.Description;
+            }
+            catch (Exception)
+            {
+                Debug.WriteLine("Failed to Load Item");
+            }
+        }
     }
-  }
 }

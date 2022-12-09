@@ -1,32 +1,29 @@
 ﻿using MuHASS.Services;
-using MuHASS.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace MuHASS
 {
-  public partial class App : Application
-  {
-
-    public App()
+    public partial class App : Application
     {
-      InitializeComponent();
 
-      DependencyService.Register<MockDataStore>();
-      MainPage = new AppShell();
-    }
+        public App()
+        {
+            InitializeComponent();
 
-    protected override void OnStart()
-    {
-    }
+            DependencyService.Register<MockDataStore>();
+            MainPage = new AppShell();
+        }
 
-    protected override void OnSleep()
-    {
-    }
+        protected override void OnStart()
+        {
+        }
 
-    protected override void OnResume()
-    {
+        protected override void OnSleep()
+        {
+        }
+
+        protected override void OnResume()
+        {
+        }
     }
-  }
 }

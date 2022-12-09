@@ -1,15 +1,14 @@
 ﻿using MuHASS.ViewModels;
-using System.ComponentModel;
 using Xamarin.Forms;
 
 namespace MuHASS.Views
 {
-  public partial class ItemDetailPage : ContentPage
-  {
-    public ItemDetailPage()
+    public partial class ItemDetailPage : ContentPage
     {
-      InitializeComponent();
-      BindingContext = new ItemDetailViewModel();
+        public ItemDetailPage()
+        {
+            InitializeComponent();
+            BindingContext = new ItemDetailViewModel();
+        }
     }
-  }
 }
