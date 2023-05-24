@@ -1,0 +1,27 @@
+{
+  "name": "muhass-app",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.11.0",
+    "@emotion/styled": "^11.11.0",
+    "@mui/material": "^5.13.2",
+    "@mui/styled-engine-sc": "^5.12.0",
+    "expo": "~48.0.15",
+    "expo-status-bar": "~1.4.4",
+    "metro-runtime": "^0.76.4",
+    "react": "18.2.0",
+    "react-native": "0.71.8",
+    "styled-components": "^5.3.10"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.20.0"
+  },
+  "private": true
+}
