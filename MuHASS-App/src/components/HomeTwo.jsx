@@ -1,84 +1,90 @@
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
-import { useState } from "react";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Monitor from "./Monitor";
 import Activity from "./Activity";
 import RawData from "./RawData";
 import About from "./About";
 
+// Define an array of objects representing each navigation image
+const navItems = [
+  { name: "Monitoring", image: require("./images/monitor.png") },
+  { name: "Activity", image: require("./images/activity.png") },
+  { name: "Raw Data", image: require("./images/rawdata.png") },
+  { name: "About", image: require("./images/about.png") },
+];
+
+// This const is responsible for outputting the navigation bar to the screen
 const HomeTwo = () => {
-  const [compt, setCompt] = useState(null);
+  // Change this line later is we want to select the device page before
+  // using other app pages
+  const [activeTab, setActiveTab] = useState(null);
 
   // Allows us to switch between components on the navbar
-  const handlePress = (compt) => {
-    setCompt(compt);
+  const handlePress = (tabName) => {
+    setActiveTab(tabName);
   };
 
-  // The navbar itself uses touchable highlights which is just fancy for buttons
-  // When clicked, it will trigger a function that switches the screen/component we're on
   return (
-    <View style={barStyle.container}>
-      <TouchableHighlight
-        style={barStyle.highlight}
-        onPress={() => handlePress(<Monitor />)}
-      >
-        <Text style={barStyle.textStyle}>Monitoring</Text>
-      </TouchableHighlight>
+    <View style={styles.container}>
+      <View style={styles.contentContainer}>
+        {/* Render the current active component based on activeTab */}
+        {activeTab === "Monitoring" && <Monitor />}
+        {activeTab === "Activity" && <Activity />}
+        {activeTab === "Raw Data" && <RawData />}
+        {activeTab === "About" && <About />}
+      </View>
 
-      <TouchableHighlight
-        style={barStyle.highlight}
-        onPress={() => handlePress(<Activity />)}
-      >
-        <Text style={barStyle.textStyle}>Activity</Text>
-      </TouchableHighlight>
-
-      <TouchableHighlight
-        style={barStyle.highlight}
-        onPress={() => handlePress(<RawData />)}
-      >
-        <Text style={barStyle.textStyle}>Raw Data</Text>
-      </TouchableHighlight>
-
-      <TouchableHighlight
-        style={barStyle.highlight}
-        onPress={() => handlePress(<About />)}
-      >
-        <Text style={barStyle.textStyle}>About</Text>
-      </TouchableHighlight>
-      <View style={comptStyle.container}>{compt}</View>
+      {/* Searches and assigns image for each navigation icon */}
+      <View style={styles.navContainer}>
+        {navItems.map((item) => (
+          <TouchableOpacity
+            key={item.name}
+            style={[
+              styles.navItem,
+              activeTab === item.name && styles.activeNavItem,
+            ]}
+            onPress={() => handlePress(item.name)}
+          >
+            <Image source={item.image} style={styles.navItemImage} />
+            <Text style={styles.navItemText}>{item.name}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 };
 
-const barStyle = StyleSheet.create({
+// Styles used for navigation bar
+const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: 350,
-    alignItems: "center",
-    justifyContent: "center",
-    flexDirection: "row",
+    backgroundColor: "#F1F1F1",
   },
-
-  highlight: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    paddingHorizontal: 10,
-    position: "relative",
-    left: 70,
-  },
-
-  textStyle: {
-    color: "blue",
-  },
-});
-
-const comptStyle = StyleSheet.create({
-  container: {
+  contentContainer: {
     flex: 1,
-    right: 145,
     alignItems: "center",
     justifyContent: "center",
-    position: "relative",
-    bottom: 300,
+  },
+  navContainer: {
+    flexDirection: "row",
+    backgroundColor: 'white',
+    height: 65,
+  },
+  navItem: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  navItemImage: {
+    width: 24,
+    height: 24,
+  },
+  navItemText: {
+    color: "black",
+    fontSize: 10,
+  },
+  activeNavItem: {
+    backgroundColor: "lightblue",
   },
 });
 
