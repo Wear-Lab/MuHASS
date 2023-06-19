@@ -1,4 +1,4 @@
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 
 const RawData = () => {
   // these variables will all be set to random values for now
@@ -56,5 +56,13 @@ const RawData = () => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "F1F1F1",
+    justifyContent: "center",
+    alignItems: "flex",
+  },
+});
 
 export default RawData;

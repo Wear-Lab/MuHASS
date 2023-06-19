@@ -25,6 +25,7 @@
     "metro-runtime": "^0.76.4",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "react-native-dropdown-select-list": "^2.0.4",
     "socket.io": "^4.6.2",
     "styled-components": "^5.3.10"
   },
