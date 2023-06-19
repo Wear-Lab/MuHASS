@@ -83,6 +83,7 @@ const physicalActivitySpectrum = StyleSheet.create({
     position: "absolute",
     bottom: 350,
     right: 140,
+    borderRadius: 20,
   },
   orangeBar: {
     width: 105,
@@ -107,6 +108,7 @@ const physicalActivitySpectrum = StyleSheet.create({
     position: "absolute",
     bottom: 350,
     left: 130,
+    borderRadius: 20,
   },
   caret: {
     color: "#091120",
@@ -123,13 +125,14 @@ const vitalsSpectrum = StyleSheet.create({
     position: "absolute",
     bottom: 190,
     right: 180,
+    borderRadius: 20,
   },
   orangeBar: {
     width: 10,
     height: 80,
     backgroundColor: "orange",
     position: "absolute",
-    bottom: 110,
+    bottom: 113,
     right: 180,
   },
   yellowBar: {
@@ -137,7 +140,7 @@ const vitalsSpectrum = StyleSheet.create({
     height: 80,
     backgroundColor: "yellow",
     position: "absolute",
-    bottom: 30,
+    bottom: 32,
     right: 180,
   },
   greenBar: {
@@ -145,23 +148,25 @@ const vitalsSpectrum = StyleSheet.create({
     height: 80,
     backgroundColor: "#32CD32",
     position: "absolute",
-    bottom: -50,
+    bottom: -48,
     right: 180,
+    borderRadius: 20,
   },
   redBar2: {
     width: 10,
     height: 80,
     backgroundColor: "red",
     position: "absolute",
-    bottom: 190,
+    bottom: 195,
     right: 40,
+    borderRadius: 20,
   },
   orangeBar2: {
     width: 10,
     height: 80,
     backgroundColor: "orange",
     position: "absolute",
-    bottom: 110,
+    bottom: 115,
     right: 40,
   },
   yellowBar2: {
@@ -169,7 +174,7 @@ const vitalsSpectrum = StyleSheet.create({
     height: 80,
     backgroundColor: "yellow",
     position: "absolute",
-    bottom: 30,
+    bottom: 32,
     right: 40,
   },
   greenBar2: {
@@ -177,8 +182,9 @@ const vitalsSpectrum = StyleSheet.create({
     height: 80,
     backgroundColor: "#32CD32",
     position: "absolute",
-    bottom: -50,
+    bottom: -48,
     right: 40,
+    borderRadius: 20,
   },
   redBar3: {
     width: 10,
@@ -187,13 +193,14 @@ const vitalsSpectrum = StyleSheet.create({
     position: "absolute",
     bottom: 190,
     right: -95,
+    borderRadius: 20,
   },
   orangeBar3: {
     width: 10,
     height: 80,
     backgroundColor: "orange",
     position: "absolute",
-    bottom: 110,
+    bottom: 113,
     right: -95,
   },
   yellowBar3: {
@@ -211,6 +218,7 @@ const vitalsSpectrum = StyleSheet.create({
     position: "absolute",
     bottom: -50,
     right: -95,
+    borderRadius: 20,
   },
 });
 

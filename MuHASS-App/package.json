@@ -18,12 +18,14 @@
     "@fortawesome/react-native-fontawesome": "^0.3.0",
     "@mui/material": "^5.13.2",
     "@mui/styled-engine-sc": "^5.12.0",
+    "axios": "^1.4.0",
     "babel-plugin-macros": "^3.1.0",
     "expo": "~48.0.15",
     "expo-status-bar": "~1.4.4",
     "metro-runtime": "^0.76.4",
     "react": "18.2.0",
     "react-native": "0.71.8",
+    "socket.io": "^4.6.2",
     "styled-components": "^5.3.10"
   },
   "devDependencies": {
