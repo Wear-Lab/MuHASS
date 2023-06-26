@@ -25,18 +25,34 @@ async def findDevices():
     devices = await BleakScanner.discover(timeout=5)
     for device in devices:
         device = str(device)
-        print("Device: ", device)
+        # print("Device: ", device)
         bluetoothData["devices"].append(device)
 
 
 @app.on_event("startup")
-async def startup_eventj():
+async def startup_event():
     await findDevices()
+    await device_connect()
+    await checkDevice()
+
 
 # Path to user's available devices
-@app.get("/")
+@app.post("/")
 async def getDevices():
     return bluetoothData["devices"] 
+
+@app.get("/")
+async def device_connect():
+    print("Client systems go!")
+    return BleakClient(bluetoothData['devices'][0])
+# BleakClient.connect()
+
+async def checkDevice():
+    if (BleakClient.is_connected):
+        print("Yo we connected!")
+        print(str(BleakClient.address))
+        # print(BleakClient.read_gatt_char("E8496BA3-B060-EC8C-D1AD-BCCA3A6C6420"))
+
 
 
 if __name__ == "__main__":
