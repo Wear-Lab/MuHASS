@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 
-const About = () => {
+const About = ({ enterConnect }) => {
+  const handleEnterConnect = () => {
+    enterConnect();
+  };
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={[styles.button, {backgroundColor: "#89EEC4"}]}>
-        <View style={styles.button}>
-          <Text style={styles.text}>Change Device</Text>
-        </View>
+      <TouchableOpacity style={styles.button} onPress={handleEnterConnect}>
+        <Text style={styles.text}>Change Device</Text>
       </TouchableOpacity>
       <Image source={require('./images/WEAR_Lab_Logo.png')} style={styles.image} />
       <Text style={[{fontWeight: "bold" }]}>Multimodal Human & Ambience</Text>
@@ -37,6 +38,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
     marginTop: 10,
     marginBottom: 10,
+    backgroundColor: "#8BFF8E",
   },
   text: {
     color: 'black',

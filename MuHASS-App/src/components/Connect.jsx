@@ -1,59 +1,60 @@
-import { View, Text, StyleSheet } from "react-native";
-import React from "react";
-import { SelectList } from 'react-native-dropdown-select-list'
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 
-const connect = () => {
+const Connect = ({ exitConnect }) => {
 
-  const [selected, setSelected] = React.useState("");
-  
-  const data = [
-      {key:'1', value:'Wifi 1'},
-      {key:'2', value:'Wifi 2'},
-      {key:'3', value:'Wifi 3'},
-      {key:'4', value:'Wifi 4'},
-  ]
+  const handleExitConnect = () => {
+    // Call the exitConnect callback to change the activeTab state to "Monitoring"
+    exitConnect();
+  };
 
-  return(
-    <View style = {styles.container}>
-    <SelectList 
-        setSelected={(val) => setSelected(val)} 
-        data={data} 
-        save="value"
-        // setSelected={setSelected} data={data}
-    />
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={[styles.button, {marginTop: 50}]}>
+        <Text style={styles.text}>Scan for Devices</Text>
+      </TouchableOpacity>
+      <View style={styles.box}></View>
+      <TouchableOpacity style={[styles.button, {marginBottom: 30}]} onPress={handleExitConnect}>
+        <Text style={styles.text}>Continue to App</Text>
+      </TouchableOpacity>
     </View>
-  )
-
-  // const [data,setData] = React.useState([]);
-  
-  // React.useEffect(() => 
-  //   //Get Values from database
-  //   axios.get('https://jsonplaceholder.typicode.com/users')
-  //     .then((response) => {
-  //       // Store Values in Temporary Array
-  //       let newArray = response.data.map((item) => {
-  //         return {key: item.id, value: item.name}
-  //       })
-  //       //Set Data Variable
-  //       setData(newArray)
-  //     })
-  //     .catch((e) => {
-  //       console.log(e)
-  //     })
-  // ,[])
-
-  // return(
-  //   <SelectList setSelected={setSelected} data={data} onSelect={() => alert(selected)} />
-  // )
-
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-      height: 100, 
-      width:400,
-    }
-  });
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  box: {
+    margin: 10,
+    width: '80%',
+    height: 450,
+    backgroundColor: "#F2F2F2",
+    borderRadius: 15,
+  },
+  deviceList: {
+    alignSelf: 'stretch',
+    backgroundColor: "#F2F2F2",
+    width: '100%',
+    borderRadius: 15,
+  },
+  button: {
+    width: 300,
+    height: 50,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 25,
+    marginVertical: 5,
+    backgroundColor: "#62C0FF",
+  },
+  text: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+});
 
-export default connect;
-
+export default Connect;
