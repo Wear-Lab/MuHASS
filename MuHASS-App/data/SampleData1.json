@@ -1,0 +1,28 @@
+{
+    "SampleData1": {
+      "proximity": 12,
+      "red": 255,
+      "green": 128,
+      "blue": 64,
+      "clear": 1023,
+      "temperature": 95,
+      "pressure": 5460.56,
+      "altitude": 12.6,
+      "magnetic_x": 5,
+      "magnetic_y": 20,
+      "magnetic_z": 15.3,
+      "acceleration_x": 0.3,
+      "acceleration_y": 0.01,
+      "acceleration_z": -0.5,
+      "gyro_x": 1.2,
+      "gyro_y": -0.8,
+      "gyro_z": 0.9,
+      "humidity": 65,
+      "mic": 256,
+      "gsr_average": 32,
+  
+      "hr": 100,
+      "spo2": 94.75,
+      "light": 628
+  }
+}
