@@ -1,34 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 
 const Connect = ({ exitConnect }) => {
   const [devices, setDevices] = useState([]);
   const [deviceIndex, setDeviceIndex] = useState(-1);
   const [connectionStatus, setConnectionStatus] = useState(false);
-  const [buttonText, setButtonText] = useState('Connect');
+  const [buttonText, setButtonText] = useState("Connect");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {
     // list available devices and display them to the screen
     const fetchDevices = async () => {
-      try{
+      try {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = '';
+        const ipAddress = "10.32.130.44";
 
-        const refresh = await fetch(`http://${ipAddress}:8000/find`);
-        
-        try{
-            const response = await fetch(`http://${ipAddress}:8000/devices`);
-            const data = await response.json();
-            setDevices(data);
+        const refresh = await fetch(`http://${ipAddress}:8000/find_devices`);
+
+        try {
+          const response = await fetch(`http://${ipAddress}:8000/devices`);
+          const data = await response.json();
+          setDevices(data);
+        } catch (error) {
+          console.error("Error refreshing devices:", error);
         }
-        catch (error) {
-          console.error('Error fetching devices list:', error);
-        }[]
       } catch (error) {
-        console.error('Error refreshing devices:', error);
-      }[]
+        console.error("Error refreshing devices:", error);
+      }
+      [];
     };
 
     fetchDevices();
@@ -61,8 +67,8 @@ const Connect = ({ exitConnect }) => {
   }, []);
 
   const getButtonDisplayText = () => {
-    if (buttonText === 'Connecting') {
-      const dots = '.'.repeat(dotCount);
+    if (buttonText === "Connecting") {
+      const dots = ".".repeat(dotCount);
       return `Connecting${dots}`;
     }
     return buttonText;
@@ -74,29 +80,25 @@ const Connect = ({ exitConnect }) => {
       try {
         // disable the connect button and update the text and color
         setButtonDisabled(true);
-        setButtonText('Connecting');
+        setButtonText("Connecting");
         setConnectionStatus(false);
 
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = '';
+        const ipAddress = "10.32.130.44";
 
-        const response = await fetch(`http://${ipAddress}:8000/connect?device_index=${deviceIndex}`);
+        const response = await fetch(
+          `http://${ipAddress}:8000/connect_device?device_index=${deviceIndex}`
+        );
         const data = await response.json();
         const connection = data.status;
 
-        const response1 = await fetch(`http://${ipAddress}:8000/services`);
-
-        if (connection === true)
-          exitConnect(deviceIndex);
-        else
-          setConnectionStatus(true);
-          setButtonText('Connect');
-      } 
-      // device could not connect
-      catch (error) {
-        console.error('connect_device function error: ', error);
-      }
-      finally {
+        if (connection === true) exitConnect(deviceIndex);
+        else setConnectionStatus(true);
+        setButtonText("Connect");
+      } catch (error) {
+        // device could not connect
+        console.error("connect_device function error: ", error);
+      } finally {
         // enable the button to be used by user again
         setButtonDisabled(false);
       }
@@ -114,7 +116,9 @@ const Connect = ({ exitConnect }) => {
                 styles.deviceContainer,
                 index === deviceIndex ? styles.selectedDevice : null,
               ]}
-              onPress={() => {setDeviceIndex(index)}}
+              onPress={() => {
+                setDeviceIndex(index);
+              }}
               key={index}
             >
               <Text style={styles.devicesText}>{device}</Text>
@@ -124,18 +128,22 @@ const Connect = ({ exitConnect }) => {
       </View>
 
       <TouchableOpacity
-        style={[styles.button, buttonDisabled && { backgroundColor: 'gray' }]}
+        style={[styles.button, buttonDisabled && { backgroundColor: "gray" }]}
         onPress={handleExitConnect}
-        disabled={buttonDisabled}>
-        <Text style={[styles.text, { color: 'white' }]}>{getButtonDisplayText()}</Text>
+        disabled={buttonDisabled}
+      >
+        <Text style={[styles.text, { color: "white" }]}>
+          {getButtonDisplayText()}
+        </Text>
       </TouchableOpacity>
-      
+
       {connectionStatus ? (
         <View style={styles.errorContainer}>
-          <Text style={[styles.text, {color: 'white', textAlign: 'center'}]}>Could not connect to device!</Text>
+          <Text style={[styles.text, { color: "white", textAlign: "center" }]}>
+            Could not connect to device!
+          </Text>
         </View>
       ) : null}
-
     </View>
   );
 };
@@ -143,45 +151,45 @@ const Connect = ({ exitConnect }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'white',
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "white",
   },
   box: {
     margin: 10,
-    width: '85%',
-    height: '55%',
+    width: "85%",
+    height: "55%",
     borderColor: "#D5D5D5",
     borderWidth: 1,
     borderRadius: 15,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   errorContainer: {
     marginTop: 20,
     width: 300,
     height: 75,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 5,
     backgroundColor: "#FF4754",
-    position: 'absolute',
+    position: "absolute",
     bottom: 50,
   },
   deviceList: {
     marginTop: 5,
-    alignSelf: 'stretch',
-    width: '100%',
+    alignSelf: "stretch",
+    width: "100%",
     borderRadius: 15,
   },
   deviceContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     backgroundColor: "#F2F2F2",
     borderRadius: 5,
     height: 60,
-    width: '94%',
-    alignSelf: 'center',
+    width: "94%",
+    alignSelf: "center",
     margin: 5,
     padding: 2,
   },
@@ -191,25 +199,25 @@ const styles = StyleSheet.create({
   button: {
     width: 200,
     height: 50,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     borderRadius: 25,
     marginVertical: 5,
     backgroundColor: "#62C0FF",
   },
   text: {
-    color: 'black',
+    color: "black",
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
   },
   devicesText: {
-    color: 'black',
+    color: "black",
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    width: '65%',
-  }
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "65%",
+  },
 });
 
 export default Connect;

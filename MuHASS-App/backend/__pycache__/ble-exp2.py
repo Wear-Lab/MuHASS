@@ -1,3 +1,5 @@
+# Experimental upgrades
+
 import socket
 import asyncio
 from bleak import BleakScanner
@@ -16,8 +18,7 @@ import uvicorn # Server that runs FastAPI
 # Bluetooth device data
 bluetoothData = {
     "devices": [],
-    "device_name": [],
-    "uuids": []
+    "uuids": [],
 }
 
 ACCEL_UUID = "00000302-1212-EFDE-1523-785FEABCD123"
@@ -36,14 +37,13 @@ async def startup_event():
     await getDevices()
 
 # scanning available devices that contain a feathersense UUID and saving as a list
-@app.get("/find")
+@app.post("/find_devices")
 async def find_devices():
     print("\n--------------------------------------------")
     print("SCANNING FOR DEVICES...")
 
     bluetoothData["devices"] = []
-    bluetoothData["device_name"] = []
-    bluetoothData["uuids"] = []
+    bluetoothData["uuids"] = [] 
 
     devices = await BleakScanner.discover(timeout=5)
     for device in devices:
@@ -52,6 +52,12 @@ async def find_devices():
             bluetoothData["devices"].append(device)
             print("Current device UUID: ", device.metadata)
             bluetoothData["uuids"].append(device.metadata)
+        # if device.metadata.get('uuids'):
+        #     uuids = device.metadata['uuids']
+        #     for uuid in uuids:
+        #         if "-0000-1000-8000-00805f9b34fb" in str(uuid):
+        #             bluetoothData["devices"].append(device)
+        #             bluetoothData["uuids"].append(str(uuid))
 
 # returns list of available bluetooth devices
 @app.get("/devices")
@@ -63,7 +69,7 @@ async def getDevices():
     return bluetoothData["uuids"]
 
 # establish connection with selected feather sense device
-@app.get("/connect")
+@app.get("/connect_device")
 async def connect_device(device_index: int):
     global client
 
@@ -74,10 +80,11 @@ async def connect_device(device_index: int):
         print("DUDE")
 
         device_info = bluetoothData["devices"][device_index]
-        device_uuid = bluetoothData["uuids"][device_index]
+        device_uuid = str(bluetoothData["uuids"][device_index]["uuids"])
         client = BleakClient(device_info)
+        uuid_arr = []
         
-        async with BleakClient(device_info, timeout=5) as client:
+        async with BleakClient(device_info, timeout=10) as client:
             # print("CLIENT")
             try:
                 # print("BROOOOO")
@@ -106,7 +113,7 @@ async def connect_device(device_index: int):
         return {"status": False}
     
 # disconnect feathersense device
-@app.get("/disconnect")
+# @app.get("/disconnect_device")
 async def disconnect_device():
     global client
 
@@ -125,38 +132,9 @@ async def disconnect_device():
     else:
         print("No device connected!")
         return {"status": True}
-    
-# Function to retrieve the advertisement data of the connected device
-@app.get("/services")
-async def get_services():
-    print("\n--------------------------------------------")
-    print("GETTING SERVICES AND CHARACTERISTICS...")
-
-    if client is not None and client.is_connected:
-        try:
-            await client.get_services()
-            services = client.services
-            service_data = []
-
-            for service in services:
-                service_uuid = service.uuid
-                characteristics = service.characteristics
-                print("Service UUID:", service_uuid, "\n")
-                characteristic_uuids = [char.uuid for char in characteristics]
-                print("Characteristic UUID:", characteristic_uuids, "\n")
-                service_data.append({"service_uuid": service_uuid, "characteristics": characteristic_uuids})
-
-            return {"service_data": service_data}
-
-        except Exception as e:
-            print("Failed to get services and characteristics:", {e})
-            return {"error": str(e)}
-
-    else:
-        return {"error": "Device not connected or client is None"}
 
 # returns the bluetooth address of the feathersense device
-@app.get("/address")
+@app.get("/get_address")
 async def get_address():
     print("\n--------------------------------------------")
     print("RETRIEVING DEVICE ADDRESS...")
@@ -169,8 +147,8 @@ async def get_address():
         return {"error": "Device not connected or client is None"}
     
 # checking if connection exists with feather sense device
-@app.get("/check_connection")
-async def check_connection():
+# @app.get("/get_connect")
+async def get_connect():
     global client
 
     print("\n--------------------------------------------")
