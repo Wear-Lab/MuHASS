@@ -15,7 +15,7 @@ const About = ({ enterConnect }) => {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
         const ipAddress = '';
 
-        const response = await fetch(`http://${ipAddress}:8000/get_address`);
+        const response = await fetch(`http://${ipAddress}:8000/address`);
         const data = await response.json();
         setDeviceName(data.device_address);
       } catch (error) {
@@ -33,7 +33,7 @@ const About = ({ enterConnect }) => {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
         const ipAddress = '';
 
-        const response = await fetch(`http://${ipAddress}:8000/get_connect`);
+        const response = await fetch(`http://${ipAddress}:8000/check_connection`);
         const data = await response.json();
         setDeviceStatus(Boolean(data.status));
       } catch (error) {
@@ -72,8 +72,8 @@ const About = ({ enterConnect }) => {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
         const ipAddress = '';
     
-        // Call the disconnect_device endpoint to disconnect from the device
-        const response = await fetch(`http://${ipAddress}:8000/disconnect_device`);
+        // Call the disconnect endpoint to disconnect from the device
+        const response = await fetch(`http://${ipAddress}:8000/disconnect`);
         const data = await response.json();
         const connection = data.status;
 

@@ -16,7 +16,7 @@ const Connect = ({ exitConnect }) => {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
         const ipAddress = '';
 
-        const refresh = await fetch(`http://${ipAddress}:8000/find_devices`);
+        const refresh = await fetch(`http://${ipAddress}:8000/find`);
         
         try{
             const response = await fetch(`http://${ipAddress}:8000/devices`);
@@ -33,7 +33,7 @@ const Connect = ({ exitConnect }) => {
 
     fetchDevices();
 
-    const interval = setInterval(fetchDevices, 5000); // Fetch devices every 15 seconds
+    const interval = setInterval(fetchDevices, 10000); // Fetch devices every 15 seconds
 
     return () => clearInterval(interval); // Clean up the interval on unmount
   }, []);
@@ -80,9 +80,11 @@ const Connect = ({ exitConnect }) => {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
         const ipAddress = '';
 
-        const response = await fetch(`http://${ipAddress}:8000/connect_device?device_index=${deviceIndex}`);
+        const response = await fetch(`http://${ipAddress}:8000/connect?device_index=${deviceIndex}`);
         const data = await response.json();
         const connection = data.status;
+
+        const response1 = await fetch(`http://${ipAddress}:8000/services`);
 
         if (connection === true)
           exitConnect(deviceIndex);
