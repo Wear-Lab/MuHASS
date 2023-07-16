@@ -1,42 +1,26 @@
 import { Image, StyleSheet} from "react-native";
 
-export const calculateENMO = (acceleration_x, acceleration_y, acceleration_z) => {
+export const calculateENMO = (accel_x, accel_y, accel_z) => {
     
     let enmoValue;
     let enmoPosition;
 
     // averages for x, y, and z components
-    const accel_avg = Math.sqrt(acceleration_x ** 2 + acceleration_y ** 2 + acceleration_z ** 2);
+    const accel_avg = Math.sqrt(accel_x ** 2 + accel_y ** 2 + accel_z ** 2);
     
-    // weighting factors
-    // const w_hr = 0.15;
-    // const w_spo2 = 0.1;
-    // const w_gsr = 0.1;
-    // const w_temp = 0.1;
-    // const w_press = 0.1;
-    // const w_humidity = 0.1;
-    // const w_accel = 0.1;
-    // const w_gyro = 0.1;
-    // const w_magnetic = 0.05;    
-
-    // calculate ENMO value
-    // enmoValue = (w_hr * hr) + (w_spo2 * spo2) + (w_gsr * gsr_average) + (w_temp * temperature) +
-    //              (w_press * pressure) + (w_humidity * humidity) + (w_accel * accel_avg) +
-    //              (w_gyro * gyro_avg) + (w_magnetic * magnetic_avg);
-
     enmoValue = accel_avg - 9.81;
 
     // assign position for caret
-    if (enmoValue < 10) {
+    if (enmoValue < .1) {
         enmoPosition = 45;
     }
-    else if (enmoValue >= 10 && enmoValue < 50) {
+    else if (enmoValue >= .1 && enmoValue < .2) {
         enmoPosition = 145;
     }
-    else if (enmoValue >= 50 && enmoValue <= 150) {
+    else if (enmoValue >= .20 && enmoValue <= .3) {
         enmoPosition = 245;
     }
-    else if (enmoValue > 150) {
+    else if (enmoValue > .3) {
         enmoPosition = 345;
     }
     else {
@@ -54,7 +38,7 @@ export const calculateHeartRate = (hr) => {
   
     if (hr <= 40) {
       result.color = "red";
-      result.position = 338.9286; // Position for the lower red bar
+      result.position = 365; // Position for the lower red bar
     } else if (hr > 40 && hr <= 50) {
       result.color = "orange";
       result.position = 286.7857; // Position for the lower orange bar
@@ -63,7 +47,7 @@ export const calculateHeartRate = (hr) => {
       result.position = 234.6429; // Position for the lower yellow bar
     } else if (hr >= 60 && hr <= 100) {
       result.color = "green";
-      result.position = 182.5; // Position for the green bar
+      result.position = 195.5357; // Position for the green bar
     } else if (hr > 100 && hr < 130) {
       result.color = "yellow";
       result.position = 130.3571; // Position for the upper yellow bar
@@ -81,37 +65,45 @@ export const calculateHeartRate = (hr) => {
     return result;
 };
 
-export const calculateSPO2 = (spo2) => {
+export const calculateSPO2 = (ac_red, dc_red, ac_ir, dc_ir, k) => {
     let result = {
         color: "",
         position: 0,
+        spo2: 0,
     };
+    const r = (ac_red/dc_red)/(ac_ir/dc_ir);
+    const spo2 = (k * r) * 100;
 
     if (spo2 <= 94) {
       result.color = "red";
-      result.position = 338.9286; // Position for the lower red bar
+      result.position = 365; // Position for the lower red bar
+      result.spo2 = spo2;
     } 
     else if (spo2 > 94 && spo2 <= 94.5) {
       result.color = "orange";
       result.position = 286.7857; // Position for the lower orange bar
+      result.spo2 = spo2;
     } 
     else if (spo2 > 94.5 && spo2 < 95) {
       result.color = "yellow";
       result.position = 234.6429; // Position for the lower yellow bar
+      result.spo2 = spo2;
     } 
     else if (spo2 >= 95 && spo2 <= 100) {
       result.color = "green";
-      result.position = 182.5; // Position for the green bar
+      result.position = 195.5357; // Position for the green bar
+      result.spo2 = spo2;
     } 
     else if (spo2 >= 100) {
       result.color = "red";
       result.position = 26.0714; // Position for the upper red bar
+      result.spo2 = spo2;
     }
     else {
         result.color = "unknown";
         result.position = 0; // Default position
+        result.spo2 = spo2;
     }
-    
     return result;
 };
 
@@ -121,15 +113,15 @@ export const calculateGSR = (gsr) => {
         position: 0,
     };
     
-    if (gsr < 10) {
+    if (gsr < 500) {
       result.color = "red";
-      result.position = 338.9286; // Position for the lower red bar
+      result.position = 365; // Position for the lower red bar
     } 
-    else if (gsr >= 10 && gsr <= 50) {
+    else if (gsr >= 500 && gsr <= 700) {
       result.color = "green";
-      result.position = 182.5; // Position for the green bar
+      result.position = 195.5357; // Position for the green bar
     } 
-    else if (gsr > 50) {
+    else if (gsr > 700) {
       result.color = "red";
       result.position = 26.0714; // Position for the upper red bar
     }
@@ -191,6 +183,11 @@ export const determineStressLevel = (color1, color2, color3) => {
     }
 
     return { stress, image };
+};
+
+export const convertTemp = (temperature) => {
+  const f_temp = (temperature * (9/5)) + 32;
+  return f_temp;
 };
 
 const styles = StyleSheet.create({

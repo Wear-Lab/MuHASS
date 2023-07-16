@@ -1,37 +1,93 @@
-import { View, Text, StyleSheet} from "react-native";
+import React, { useEffect, useState } from 'react';
+import { View, Text, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import axios from 'axios';
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
-import SampleData from '../../data/SampleData';
-import SampleData1 from '../../data/SampleData1';
 import {
   calculateENMO,
   calculateHeartRate,
   calculateSPO2,
   calculateGSR,
-  determineStressLevel
+  determineStressLevel,
+  convertTemp
 } from '../../backend/MonitorCalculations';
+import SampleData from '../../data/SampleData';
 
 const Monitor = () => {
-  // THE FOLLOWING LINES ARE USED FOR TESTING!!! Feel free to modify the json files to your liking :)
-  // ---------------------------------------------------------------------------------------------- //
-  const { magnetic_x, magnetic_y, magnetic_z, acceleration_x, acceleration_y, acceleration_z, 
-          gyro_x, gyro_y, gyro_z, temperature, pressure, humidity, gsr_average, hr, spo2 } = SampleData.SampleData;
-  // const { magnetic_x, magnetic_y, magnetic_z, acceleration_x, acceleration_y, acceleration_z, 
-  //         gyro_x, gyro_y, gyro_z, temperature, pressure, humidity, gsr_average, hr, spo2 } = SampleData1.SampleData1;
-  // ---------------------------------------------------------------------------------------------- //
+  const [dataFile, setDataFile] = useState({});
+  // fetch the device data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // service and characteristic UUIDs
+        const serviceCharacteristics = [
+          // temperature, pressure
+          {
+            service_uuid: '00000200-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000201-1212-efde-1523-785feabcd123'
+          },
+          // humidity
+          {
+            service_uuid: '00000200-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000202-1212-efde-1523-785feabcd123'
+          },
+          // acceleration
+          {
+            service_uuid: '00000300-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000302-1212-efde-1523-785feabcd123'
+          },
+          // spo2 (ppg)
+          {
+            service_uuid: '00000400-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000402-1212-efde-1523-785feabcd123'
+          },
+          // gsr
+          {
+            service_uuid: '00000400-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000403-1212-efde-1523-785feabcd123'
+          },
+        ];
 
-  // Functions for calculating data
-  const { enmoValue, enmoPosition } = calculateENMO(magnetic_x, magnetic_y, magnetic_z, 
-          acceleration_x, acceleration_y, acceleration_z, gyro_x, gyro_y, gyro_z, 
-          temperature, pressure, humidity, gsr_average, hr, spo2);
+        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
+        const ipAddress = "";
+
+        const response = await axios.post(`http://${ipAddress}:8000/data`, serviceCharacteristics);
+        const data = await response.data;
+        setDataFile(data);
+      } catch (error) {
+        console.error('Fetch data failed:', error);
+      }
+    };
+
+    fetchData();
+
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+    
+    // assign data to constants
+    const environment = dataFile.environment && dataFile.environment[0]?.split(' ').map(parseFloat);
+    const [c_temp, pressure] = environment || [null, null];
+    const humidity = parseFloat(dataFile.humidity && dataFile.humidity[0]);
+    const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+    const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
+    const gsr = parseFloat(dataFile.gsr && dataFile.gsr[0]);
+    const ppg = dataFile.ppg && dataFile.ppg[0]?.split(' ').map(parseFloat);
+    [ac_red, dc_red, ac_ir, dc_ir] = ppg || [null, null, null, null];
+    const { hr, k } = SampleData.SampleData;
+
+  // Functions for calculating where data lies in ranges
+  const f_temp = convertTemp(c_temp);
   const heartRate = calculateHeartRate(hr);
-  const oxygenRate = calculateSPO2(spo2);
-  const gsrRate = calculateGSR(gsr_average);
+  const gsrRate = calculateGSR(gsr);
+  const oxygenRate = calculateSPO2(ac_red, dc_red, ac_ir, dc_ir, k);
   const stressLevel = determineStressLevel(heartRate.color, oxygenRate.color, gsrRate.color);
+  const { enmoValue, enmoPosition } = calculateENMO(accel_x, accel_y, accel_z);
 
   return (
     <View style={styles.pageContainer}>
-      <View style={[styles.container, {height: '7%', flexDirection: 'column'}]}>
+      <View style={[styles.container, {height: '6%', flexDirection: 'column'}]}>
         <View style={[{flexDirection: 'row', flex: 1}]}>
           <View style={styles.leftAlign}>
             <Text style={styles.text}>Physical Activity</Text>
@@ -79,7 +135,7 @@ const Monitor = () => {
             </View>
             <View style={[styles.blackBar, { top: oxygenRate.position }]}></View>
             <Text style={styles.text}>SpO2</Text>
-            <Text style={styles.text}> { spo2 } %</Text>
+            <Text style={styles.text}> { oxygenRate.spo2.toFixed(2) } %</Text>
           </View>
           <View style={styles.bar}>
             <View style={[styles.rainbowBar, {flexDirection: 'column', height: '85%', 
@@ -94,18 +150,19 @@ const Monitor = () => {
             </View>
             <View style={[styles.blackBar, { top: gsrRate.position }]}></View>
             <Text style={styles.text}>GSR</Text>
-            <Text style={styles.text}> { gsr_average } µS</Text>
+            <Text style={styles.text}> { gsr } µS</Text>
           </View>
         </View>
       </View>
-      <View style={[styles.container, {height: '20%', justifyContent: 'center'}]}>
-        <View style={[styles.leftAlign]}>
-          <Text style={styles.text}>Stress Level: { stressLevel.stress }</Text>
+      <View style={[styles.container, {height: '15%', justifyContent: 'center'}]}>
+        <View style={[styles.leftAlign, {marginLeft:20}]}>
+          <Text style={styles.text}>Stress Level:</Text>
+          <Text style={styles.text}>{ stressLevel.stress }</Text>
           { stressLevel.image }
         </View>
         <View style={[styles.rightAlign, {alignItems: 'center'}]}>
           <Text style={styles.text}>Environment</Text>
-          <Text style={[styles.text, {fontWeight: 'normal'}]}>Temperature: { temperature } F</Text>
+          <Text style={[styles.text, {fontWeight: 'normal', marginTop: 10}]}>Temperature: { f_temp.toFixed(2) } °F</Text>
           <Text style={[styles.text, {fontWeight: 'normal'}]}>Pressure: { pressure } Pa</Text>
           <Text style={[styles.text, {fontWeight: 'normal'}]}>Humidity: { humidity } %</Text>
         </View>
@@ -117,7 +174,7 @@ const Monitor = () => {
 const styles = StyleSheet.create({
   // basic formatting
   pageContainer: {
-    marginTop: 50,
+    marginTop: 20,
   },
   container: {
     width: 400,

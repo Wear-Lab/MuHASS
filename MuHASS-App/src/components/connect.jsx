@@ -20,7 +20,7 @@ const Connect = ({ exitConnect }) => {
     const fetchDevices = async () => {
       try {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "10.32.130.44";
+        const ipAddress = "";
 
         const refresh = await fetch(`http://${ipAddress}:8000/find_devices`);
 
@@ -29,17 +29,17 @@ const Connect = ({ exitConnect }) => {
           const data = await response.json();
           setDevices(data);
         } catch (error) {
-          console.error("Error refreshing devices:", error);
+          console.error("Error retrieving devices list:", error);
         }
       } catch (error) {
-        console.error("Error refreshing devices:", error);
+        console.error("Error finding devices:", error);
       }
       [];
     };
 
     fetchDevices();
 
-    const interval = setInterval(fetchDevices, 10000); // Fetch devices every 15 seconds
+    const interval = setInterval(fetchDevices, 5000); // Fetch devices every 15 seconds
 
     return () => clearInterval(interval); // Clean up the interval on unmount
   }, []);
@@ -84,7 +84,7 @@ const Connect = ({ exitConnect }) => {
         setConnectionStatus(false);
 
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "10.32.130.44";
+        const ipAddress = "";
 
         const response = await fetch(
           `http://${ipAddress}:8000/connect_device?device_index=${deviceIndex}`
@@ -92,13 +92,17 @@ const Connect = ({ exitConnect }) => {
         const data = await response.json();
         const connection = data.status;
 
-        if (connection === true) exitConnect(deviceIndex);
-        else setConnectionStatus(true);
-        setButtonText("Connect");
-      } catch (error) {
-        // device could not connect
-        console.error("connect_device function error: ", error);
-      } finally {
+        if (connection === true)
+          exitConnect(deviceIndex);
+        else
+          setConnectionStatus(true);
+          setButtonText('Connect');
+      } 
+      // device could not connect
+      catch (error) {
+        console.error('connect_device function error: ', error);
+      }
+      finally {
         // enable the button to be used by user again
         setButtonDisabled(false);
       }
@@ -108,6 +112,7 @@ const Connect = ({ exitConnect }) => {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Available Devices</Text>
+
       <View style={styles.box}>
         <ScrollView style={styles.deviceList}>
           {devices.map((device, index) => (
@@ -126,6 +131,13 @@ const Connect = ({ exitConnect }) => {
           ))}
         </ScrollView>
       </View>
+
+      <Text style={[styles.text, { textAlign: "center", width: "85%", fontWeight: 'normal', fontSize: 13 }]}>
+        Ensure BLUE connection light is pulsing. 
+      </Text>
+      <Text style={[styles.text, { textAlign: "center", width: "85%", fontWeight: 'normal', fontSize: 13 }]}>
+        If not, press reset button and wait for light to pulse.
+      </Text>
 
       <TouchableOpacity
         style={[styles.button, buttonDisabled && { backgroundColor: "gray" }]}
@@ -171,7 +183,7 @@ const styles = StyleSheet.create({
     height: 75,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 5,
+    borderRadius: 10,
     backgroundColor: "#FF4754",
     position: "absolute",
     bottom: 50,
@@ -214,10 +226,10 @@ const styles = StyleSheet.create({
   devicesText: {
     color: "black",
     fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    width: "65%",
-  },
+    fontWeight: 'bold',
+    textAlign: 'center',
+    width: '90%',
+  }
 });
 
 export default Connect;

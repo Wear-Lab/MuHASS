@@ -13,7 +13,7 @@ const About = ({ enterConnect }) => {
     const fetchDeviceInfo = async () => {
       try {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "10.32.130.44";
+        const ipAddress = "";
 
         const response = await fetch(`http://${ipAddress}:8000/address`);
         const data = await response.json();
@@ -31,7 +31,7 @@ const About = ({ enterConnect }) => {
     const fetchDeviceStatus = async () => {
       try {
         // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "10.32.130.44";
+        const ipAddress = "";
 
         const response = await fetch(
           `http://${ipAddress}:8000/check_connection`
@@ -137,6 +137,10 @@ const About = ({ enterConnect }) => {
       <Text> </Text>
       <Text> </Text>
       <Text style={[{ fontWeight: "bold" }]}>Developed By:</Text>
+      <Text>Mark Aldritz Dela Virgen</Text>
+      <Text>Vi Dang</Text>
+      <Text>Sean Feldman</Text>
+      <Text>Seoyoung Kong</Text>
     </View>
   );
 };
