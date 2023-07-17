@@ -6,8 +6,11 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+import LocalHost from '../../data/LocalHost';
 
 const Connect = ({ exitConnect }) => {
+  const ipAddress = LocalHost.ipAddress;
+  
   const [devices, setDevices] = useState([]);
   const [deviceIndex, setDeviceIndex] = useState(-1);
   const [connectionStatus, setConnectionStatus] = useState(false);
@@ -19,9 +22,6 @@ const Connect = ({ exitConnect }) => {
     // list available devices and display them to the screen
     const fetchDevices = async () => {
       try {
-        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "";
-
         const refresh = await fetch(`http://${ipAddress}:8000/find_devices`);
 
         try {
@@ -82,9 +82,6 @@ const Connect = ({ exitConnect }) => {
         setButtonDisabled(true);
         setButtonText("Connecting");
         setConnectionStatus(false);
-
-        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "";
 
         const response = await fetch(
           `http://${ipAddress}:8000/connect_device?device_index=${deviceIndex}`

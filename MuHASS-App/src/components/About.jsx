@@ -1,7 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useState } from "react";
+import LocalHost from '../../data/LocalHost';
 
 const About = ({ enterConnect }) => {
+  const ipAddress = LocalHost.ipAddress;
+
   const [deviceName, setDeviceName] = useState("");
   const [deviceStatus, setDeviceStatus] = useState("");
   const [buttonText, setButtonText] = useState("Change Device");
@@ -12,8 +15,6 @@ const About = ({ enterConnect }) => {
   useEffect(() => {
     const fetchDeviceInfo = async () => {
       try {
-        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "";
 
         const response = await fetch(`http://${ipAddress}:8000/address`);
         const data = await response.json();
@@ -30,9 +31,6 @@ const About = ({ enterConnect }) => {
   useEffect(() => {
     const fetchDeviceStatus = async () => {
       try {
-        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "";
-
         const response = await fetch(
           `http://${ipAddress}:8000/check_connection`
         );
@@ -70,9 +68,6 @@ const About = ({ enterConnect }) => {
         // disable the connect button and update the text and color
         setButtonDisabled(true);
         setButtonText("Disconnecting");
-
-        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "";
 
         // Call the disconnect_device endpoint to disconnect from the device
         const response = await fetch(

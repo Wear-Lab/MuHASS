@@ -11,10 +11,14 @@ import {
   determineStressLevel,
   convertTemp
 } from '../../backend/MonitorCalculations';
+import LocalHost from '../../data/LocalHost';
 import SampleData from '../../data/SampleData';
 
 const Monitor = () => {
+  const ipAddress = LocalHost.ipAddress;
+
   const [dataFile, setDataFile] = useState({});
+
   // fetch the device data
   useEffect(() => {
     const fetchData = async () => {
@@ -48,9 +52,6 @@ const Monitor = () => {
           },
         ];
 
-        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "";
-
         const response = await axios.post(`http://${ipAddress}:8000/data`, serviceCharacteristics);
         const data = await response.data;
         setDataFile(data);
@@ -66,16 +67,16 @@ const Monitor = () => {
     return () => clearInterval(interval);
   }, []);
     
-    // assign data to constants
-    const environment = dataFile.environment && dataFile.environment[0]?.split(' ').map(parseFloat);
-    const [c_temp, pressure] = environment || [null, null];
-    const humidity = parseFloat(dataFile.humidity && dataFile.humidity[0]);
-    const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
-    const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
-    const gsr = parseFloat(dataFile.gsr && dataFile.gsr[0]);
-    const ppg = dataFile.ppg && dataFile.ppg[0]?.split(' ').map(parseFloat);
-    [ac_red, dc_red, ac_ir, dc_ir] = ppg || [null, null, null, null];
-    const { hr, k } = SampleData.SampleData;
+  // assign data to constants
+  const environment = dataFile.environment && dataFile.environment[0]?.split(' ').map(parseFloat);
+  const [c_temp, pressure] = environment || [null, null];
+  const humidity = parseFloat(dataFile.humidity && dataFile.humidity[0]);
+  const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+  const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
+  const gsr = parseFloat(dataFile.gsr && dataFile.gsr[0]);
+  const ppg = dataFile.ppg && dataFile.ppg[0]?.split(' ').map(parseFloat);
+  [ac_red, dc_red, ac_ir, dc_ir] = ppg || [null, null, null, null];
+  const { hr, k } = SampleData.SampleData;
 
   // Functions for calculating where data lies in ranges
   const f_temp = convertTemp(c_temp);

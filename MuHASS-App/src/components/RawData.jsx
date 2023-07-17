@@ -5,10 +5,14 @@ import {
   calculateSPO2,
   convertTemp,
 } from '../../backend/MonitorCalculations';
+import LocalHost from '../../data/LocalHost';
 import SampleData from '../../data/SampleData';
 
 const RawData = () => {
+  const ipAddress = LocalHost.ipAddress;
+
   const [dataFile, setDataFile] = useState({});
+
   // fetch the device data
   useEffect(() => {
     const fetchData = async () => {
@@ -56,9 +60,6 @@ const RawData = () => {
             characteristic_uuid: '00000403-1212-efde-1523-785feabcd123'
           },
         ];
-
-        // RUN ipconfig ON COMMAND LINE AND REPLACE LINE WITH YOUR DEVICE'S IPADDRESS
-        const ipAddress = "";
 
         const response = await axios.post(`http://${ipAddress}:8000/data`, serviceCharacteristics);
         const data = await response.data;
