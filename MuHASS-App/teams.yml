@@ -1,0 +1,10 @@
+name: Teams Issues
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  notify:
+    runs-on: macos-latest
+    uses: thechetantalwar/teams-notify@v2

@@ -1,216 +1,238 @@
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import axios from 'axios';
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import {
+  calculateENMO,
+  calculateHeartRate,
+  calculateSPO2,
+  calculateGSR,
+  determineStressLevel,
+  convertTemp
+} from '../../backend/MonitorCalculations';
+import LocalHost from '../../data/LocalHost';
+import SampleData from '../../data/SampleData';
 
 const Monitor = () => {
+  const ipAddress = LocalHost.ipAddress;
+
+  const [dataFile, setDataFile] = useState({});
+
+  // fetch the device data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // service and characteristic UUIDs
+        const serviceCharacteristics = [
+          // temperature, pressure
+          {
+            service_uuid: '00000200-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000201-1212-efde-1523-785feabcd123'
+          },
+          // humidity
+          {
+            service_uuid: '00000200-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000202-1212-efde-1523-785feabcd123'
+          },
+          // acceleration
+          {
+            service_uuid: '00000300-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000302-1212-efde-1523-785feabcd123'
+          },
+          // spo2 (ppg)
+          {
+            service_uuid: '00000400-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000402-1212-efde-1523-785feabcd123'
+          },
+          // gsr
+          {
+            service_uuid: '00000400-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000403-1212-efde-1523-785feabcd123'
+          },
+        ];
+
+        const response = await axios.post(`http://${ipAddress}:8000/data`, serviceCharacteristics);
+        const data = await response.data;
+        setDataFile(data);
+      } catch (error) {
+        console.error('Fetch data failed:', error);
+      }
+    };
+
+    fetchData();
+
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+    
+  // assign data to constants
+  const environment = dataFile.environment && dataFile.environment[0]?.split(' ').map(parseFloat);
+  const [c_temp, pressure] = environment || [null, null];
+  const humidity = parseFloat(dataFile.humidity && dataFile.humidity[0]);
+  const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+  const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
+  const gsr = parseFloat(dataFile.gsr && dataFile.gsr[0]);
+  const ppg = dataFile.ppg && dataFile.ppg[0]?.split(' ').map(parseFloat);
+  [ac_red, dc_red, ac_ir, dc_ir] = ppg || [null, null, null, null];
+  const { hr, k } = SampleData.SampleData;
+
+  // Functions for calculating where data lies in ranges
+  const f_temp = convertTemp(c_temp);
+  const heartRate = calculateHeartRate(hr);
+  const gsrRate = calculateGSR(gsr);
+  const oxygenRate = calculateSPO2(ac_red, dc_red, ac_ir, dc_ir, k);
+  const stressLevel = determineStressLevel(heartRate.color, oxygenRate.color, gsrRate.color);
+  const { enmoValue, enmoPosition } = calculateENMO(accel_x, accel_y, accel_z);
+
   return (
-    <View>
-      <Text style={container.title}>Health monitoring</Text>
-      <Text style={container.subtext}>Physical Activity</Text>
-      <Text style={container.subtext2}>ENMO: #.##</Text>
-      <Text style={container.subtext3}>Vitals</Text>
-      <View style={vitalsSpectrum.redBar}></View>
-      <View style={vitalsSpectrum.orangeBar}></View>
-      <View style={vitalsSpectrum.yellowBar}></View>
-      <View style={vitalsSpectrum.greenBar}></View>
-      <View style={vitalsSpectrum.redBar2}></View>
-      <View style={vitalsSpectrum.orangeBar2}></View>
-      <View style={vitalsSpectrum.yellowBar2}></View>
-      <View style={vitalsSpectrum.greenBar2}></View>
-      <View style={vitalsSpectrum.redBar3}></View>
-      <View style={vitalsSpectrum.orangeBar3}></View>
-      <View style={vitalsSpectrum.yellowBar3}></View>
-      <View style={vitalsSpectrum.greenBar3}></View>
-      <Text style={container.heartRate}>Heart Rate</Text>
-      <Text style={container.spo2}>SpO2</Text>
-      <Text style={container.gsr}>GSR</Text>
-      <FontAwesomeIcon
-        icon={faCaretUp}
-        style={physicalActivitySpectrum.caret}
-      />
-      <View style={physicalActivitySpectrum.redBar}></View>
-      <View style={physicalActivitySpectrum.orangeBar}></View>
-      <View style={physicalActivitySpectrum.yellowBar}></View>
-      <View style={physicalActivitySpectrum.greenBar}></View>
+    <View style={styles.pageContainer}>
+      <View style={[styles.container, {height: '6%', flexDirection: 'column'}]}>
+        <View style={[{flexDirection: 'row', flex: 1}]}>
+          <View style={styles.leftAlign}>
+            <Text style={styles.text}>Physical Activity</Text>
+          </View>
+          <View style={styles.rightAlign}>
+            <Text style={styles.text}>ENMO: { enmoValue.toFixed(2) }</Text>
+          </View>
+        </View>
+        <View style={[styles.rainbowBar, {flexDirection: 'row', height: 10}]}>
+          <View style={styles.redBar}></View>
+          <View style={styles.orangeBar}></View>
+          <View style={styles.yellowBar}></View>
+          <View style={styles.greenBar}></View>
+        </View>
+        <FontAwesomeIcon icon={faCaretUp} style={[styles.caret, {left: enmoPosition}]}/>
+      </View>
+      <View style={[styles.container, {height: '60%', alignItems: 'center'}]}>
+        <Text style={styles.text}>Vitals</Text>
+        <View style={styles.vitalsContainer}>
+          <View style={styles.bar}>
+            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '85%', 
+                                              width: 60, marginBottom: 20}]}>
+              <View style={styles.redBar}></View>
+              <View style={styles.orangeBar}></View>
+              <View style={styles.yellowBar}></View>
+              <View style={styles.greenBar}></View>
+              <View style={styles.yellowBar}></View>
+              <View style={styles.orangeBar}></View>
+              <View style={styles.redBar}></View>
+            </View>
+            <View style={[styles.blackBar, { top: heartRate.position }]}></View>
+            <Text style={styles.text}>Heart Rate</Text>
+            <Text style={styles.text}> { hr } bpm</Text>
+          </View>
+          <View style={styles.bar}>
+            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '85%', 
+                                              width: 60, marginBottom: 20}]}>
+              <View style={styles.redBar}></View>
+              <View style={styles.orangeBar}></View>
+              <View style={styles.yellowBar}></View>
+              <View style={styles.greenBar}></View>
+              <View style={styles.yellowBar}></View>
+              <View style={styles.orangeBar}></View>
+              <View style={styles.redBar}></View>
+            </View>
+            <View style={[styles.blackBar, { top: oxygenRate.position }]}></View>
+            <Text style={styles.text}>SpO2</Text>
+            <Text style={styles.text}> { oxygenRate.spo2.toFixed(2) } %</Text>
+          </View>
+          <View style={styles.bar}>
+            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '85%', 
+                                              width: 60, marginBottom: 20}]}>
+              <View style={styles.redBar}></View>
+              <View style={styles.orangeBar}></View>
+              <View style={styles.yellowBar}></View>
+              <View style={styles.greenBar}></View>
+              <View style={styles.yellowBar}></View>
+              <View style={styles.orangeBar}></View>
+              <View style={styles.redBar}></View>
+            </View>
+            <View style={[styles.blackBar, { top: gsrRate.position }]}></View>
+            <Text style={styles.text}>GSR</Text>
+            <Text style={styles.text}> { gsr } µS</Text>
+          </View>
+        </View>
+      </View>
+      <View style={[styles.container, {height: '15%', justifyContent: 'center'}]}>
+        <View style={[styles.leftAlign, {marginLeft:20}]}>
+          <Text style={styles.text}>Stress Level:</Text>
+          <Text style={styles.text}>{ stressLevel.stress }</Text>
+          { stressLevel.image }
+        </View>
+        <View style={[styles.rightAlign, {alignItems: 'center'}]}>
+          <Text style={styles.text}>Environment</Text>
+          <Text style={[styles.text, {fontWeight: 'normal', marginTop: 10}]}>Temperature: { f_temp.toFixed(2) } °F</Text>
+          <Text style={[styles.text, {fontWeight: 'normal'}]}>Pressure: { pressure } Pa</Text>
+          <Text style={[styles.text, {fontWeight: 'normal'}]}>Humidity: { humidity } %</Text>
+        </View>
+      </View>
     </View>
   );
 };
 
-const container = StyleSheet.create({
-  title: {
-    position: "absolute",
-    bottom: 450,
-    right: -25,
+const styles = StyleSheet.create({
+  // basic formatting
+  pageContainer: {
+    marginTop: 20,
   },
-  subtext: {
-    position: "absolute",
-    bottom: 370,
-    right: 140,
+  container: {
+    width: 400,
+    margin: 15,
   },
-  subtext2: {
-    position: "absolute",
-    bottom: 370,
-    left: 130,
+  leftAlign: {
+    left: 10,
+    position: 'absolute',
+    alignItems: 'center',
   },
-  subtext3: {
-    position: "absolute",
-    bottom: 300,
-    right: 205,
+  rightAlign: {
+    right: 10,
+    position: 'absolute',
+  },
+  text: {
+    fontWeight: 'bold',
+    fontSize: 16,
   },
 
-  heartRate: {
-    position: "relative",
-    top: 150,
-    right: 140,
+  // measurement bars
+  bar: {
+    alignItems: 'center',
+    flex: 1, 
   },
-  spo2: {
-    position: "relative",
-    top: 135,
-    right: -10,
+  rainbowBar: {
+    borderRadius: 5,
+    overflow: 'hidden',
   },
-  gsr: {
-    position: "relative",
-    top: 120,
-    right: -150,
+  vitalsContainer: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    marginTop: 15,
   },
-});
 
-const physicalActivitySpectrum = StyleSheet.create({
-  redBar: {
-    width: 105,
-    height: 10,
-    backgroundColor: "red",
-    position: "absolute",
-    bottom: 350,
-    right: 140,
-  },
-  orangeBar: {
-    width: 105,
-    height: 10,
-    backgroundColor: "orange",
-    position: "absolute",
-    bottom: 350,
-    right: 40,
+  // bar coloring
+  greenBar: {
+    flex: 1,
+    backgroundColor: "#8BFF8E",
   },
   yellowBar: {
-    width: 105,
-    height: 10,
-    backgroundColor: "yellow",
-    position: "absolute",
-    bottom: 350,
-    left: 30,
-  },
-  greenBar: {
-    width: 105,
-    height: 10,
-    backgroundColor: "#32CD32",
-    position: "absolute",
-    bottom: 350,
-    left: 130,
-  },
-  caret: {
-    color: "#091120",
-    position: "absolute",
-    bottom: 333,
-  },
-});
-
-const vitalsSpectrum = StyleSheet.create({
-  redBar: {
-    width: 10,
-    height: 80,
-    backgroundColor: "red",
-    position: "absolute",
-    bottom: 190,
-    right: 180,
+    flex: 1,
+    backgroundColor: "#F3FF75",
   },
   orangeBar: {
-    width: 10,
-    height: 80,
-    backgroundColor: "orange",
-    position: "absolute",
-    bottom: 110,
-    right: 180,
+    flex: 1,
+    backgroundColor: "#FFA14D",
   },
-  yellowBar: {
-    width: 10,
-    height: 80,
-    backgroundColor: "yellow",
-    position: "absolute",
-    bottom: 30,
-    right: 180,
+  redBar: {
+    flex: 1,
+    backgroundColor: "#FF4754",
   },
-  greenBar: {
-    width: 10,
-    height: 80,
-    backgroundColor: "#32CD32",
-    position: "absolute",
-    bottom: -50,
-    right: 180,
-  },
-  redBar2: {
-    width: 10,
-    height: 80,
-    backgroundColor: "red",
-    position: "absolute",
-    bottom: 190,
-    right: 40,
-  },
-  orangeBar2: {
-    width: 10,
-    height: 80,
-    backgroundColor: "orange",
-    position: "absolute",
-    bottom: 110,
-    right: 40,
-  },
-  yellowBar2: {
-    width: 10,
-    height: 80,
-    backgroundColor: "yellow",
-    position: "absolute",
-    bottom: 30,
-    right: 40,
-  },
-  greenBar2: {
-    width: 10,
-    height: 80,
-    backgroundColor: "#32CD32",
-    position: "absolute",
-    bottom: -50,
-    right: 40,
-  },
-  redBar3: {
-    width: 10,
-    height: 80,
-    backgroundColor: "red",
-    position: "absolute",
-    bottom: 190,
-    right: -95,
-  },
-  orangeBar3: {
-    width: 10,
-    height: 80,
-    backgroundColor: "orange",
-    position: "absolute",
-    bottom: 110,
-    right: -95,
-  },
-  yellowBar3: {
-    width: 10,
-    height: 80,
-    backgroundColor: "yellow",
-    position: "absolute",
-    bottom: 30,
-    right: -95,
-  },
-  greenBar3: {
-    width: 10,
-    height: 80,
-    backgroundColor: "#32CD32",
-    position: "absolute",
-    bottom: -50,
-    right: -95,
+  blackBar: {
+    height: 5,
+    backgroundColor: 'black',
+    borderRadius: 15,
+    width: 70,
+    position: 'absolute',
   },
 });
 

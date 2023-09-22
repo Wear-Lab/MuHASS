@@ -9,6 +9,7 @@ npm-debug.*
 *.mobileprovision
 *.orig.*
 web-build/
+backend/__pycache__/ble.cpython-310.pyc
 
 # macOS
 .DS_Store

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Monitor from "./Monitor";
 import Activity from "./Activity";
 import RawData from "./RawData";
 import About from "./About";
+import Connect from "./Connect"
 
 // Define an array of objects representing each navigation image
 const navItems = [
@@ -24,32 +25,49 @@ const HomeTwo = () => {
     setActiveTab(tabName);
   };
 
+  // Inside HomeTwo component
+  const handleExitConnect = () => {
+    setActiveTab("Monitoring");
+  };
+
+  // Inside HomeTwo component
+  const handleEnterConnect = () => {
+    setActiveTab("Connect");
+  };
+
   return (
     <View style={styles.container}>
-      <View style={styles.contentContainer}>
-        {/* Render the current active component based on activeTab */}
-        {activeTab === "Monitoring" && <Monitor />}
-        {activeTab === "Activity" && <Activity />}
-        {activeTab === "Raw Data" && <RawData />}
-        {activeTab === "About" && <About />}
-      </View>
+      {/* Render the Connect component if no activeTab is set */}
+      {activeTab === null || activeTab === "Connect" ? (
+        <Connect exitConnect={handleExitConnect} enterConnect={handleEnterConnect}/>
+      ) : (
+        <View style={styles.contentContainer}>
+          {activeTab === "Monitoring" && <Monitor />}
+          {activeTab === "Activity" && <Activity />}
+          {activeTab === "Raw Data" && <RawData />}
+          {activeTab === "About" && (<About enterConnect={handleEnterConnect}/>)}
+          {activeTab === "Connect" && (<Connect exitConnect={handleExitConnect} />)}
+        </View>
+      )}
 
       {/* Searches and assigns image for each navigation icon */}
-      <View style={styles.navContainer}>
-        {navItems.map((item) => (
-          <TouchableOpacity
-            key={item.name}
-            style={[
-              styles.navItem,
-              activeTab === item.name && styles.activeNavItem,
-            ]}
-            onPress={() => handlePress(item.name)}
-          >
-            <Image source={item.image} style={styles.navItemImage} />
-            <Text style={styles.navItemText}>{item.name}</Text>
-          </TouchableOpacity>
-        ))}
-      </View>
+      {activeTab !== null && activeTab !== "Connect" && (
+        <View style={styles.navContainer}>
+          {navItems.map((item) => (
+            <TouchableOpacity
+              key={item.name}
+              style={[
+                styles.navItem,
+                activeTab === item.name && styles.activeNavItem,
+              ]}
+              onPress={() => handlePress(item.name)}
+            >
+              <Image source={item.image} style={styles.navItemImage} />
+              <Text style={styles.navItemText}>{item.name}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -58,7 +76,7 @@ const HomeTwo = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#F1F1F1",
+    backgroundColor: 'white',
   },
   contentContainer: {
     flex: 1,
@@ -67,8 +85,9 @@ const styles = StyleSheet.create({
   },
   navContainer: {
     flexDirection: "row",
-    backgroundColor: 'white',
+    backgroundColor: "#F2F2F2",
     height: 65,
+    width: '100%',
   },
   navItem: {
     flex: 1,
@@ -84,7 +103,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
   },
   activeNavItem: {
-    backgroundColor: "lightblue",
+    backgroundColor: "#74D2FA",
   },
 });
 
