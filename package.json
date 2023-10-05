@@ -2,7 +2,6 @@
   "name": "muhass",
   "version": "1.0.0",
   "scripts": {
-    "start": "python3 ./bluetooth-server/ble.py && expo start ./frontend/ && nodemon ./backend/server.js",
     "ble": "python3 ./bluetooth-server/ble.py",
     "expo": "expo start ./frontend/",
     "server": "nodemon ./backend/server.js"

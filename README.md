@@ -10,12 +10,6 @@ Install Expo Go on your mobile device.
 
 # Running the monorepo
 
-`npm run start`
-
-Runs the bluetooth server, Expo, and node.js in one command. Scan QR code after running the app.
-
-Alternatively:
-
 `npm run ble` - Running just the bluetooth server
 
 `npm run expo` - just Expo
