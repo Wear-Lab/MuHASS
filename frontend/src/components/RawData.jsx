@@ -4,7 +4,7 @@ import axios from 'axios';
 import { 
   calculateSPO2,
   convertTemp,
-} from '../../backend/MonitorCalculations';
+} from '../MonitorCalculations';
 import LocalHost from '../../data/LocalHost';
 import SampleData from '../../data/SampleData';
 

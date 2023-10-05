@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import SlidingButton from "../../backend/SlidingButton";
+import SlidingButton from "./SlidingButton";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
 const Activity = () => {

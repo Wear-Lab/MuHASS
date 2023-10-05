@@ -10,7 +10,7 @@ import {
   calculateGSR,
   determineStressLevel,
   convertTemp
-} from '../../backend/MonitorCalculations';
+} from '../MonitorCalculations';
 import LocalHost from '../../data/LocalHost';
 import SampleData from '../../data/SampleData';
 
