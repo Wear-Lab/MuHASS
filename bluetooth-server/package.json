@@ -1,0 +1,17 @@
+{
+  "name": "bluetooth-server",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "py3 ./ble.py"
+  },
+  "dependencies": {
+    "bleak": "^0.1.0",
+    "fastapi": "^0.0.8",
+    "socket.io": "^4.6.2"
+  },
+  "private": true,
+  "devDependencies": {},
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

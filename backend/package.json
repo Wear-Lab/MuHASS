@@ -1,18 +1,21 @@
 {
-  "name": "bluetooth-server",
+  "name": "server",
   "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "py3 ./ble.py"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server",
+    "dev": "nodemon server"
   },
-  "dependencies": {
-    "bleak": "^0.1.0",
-    "fastapi": "^0.0.8",
-    "socket.io": "^4.6.2"
-  },
-  "private": true,
-  "main": "MonitorCalculations.js",
-  "devDependencies": {},
+  "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": ""
+  "dependencies": {
+    "express": "^4.18.2",
+    "mongoose": "^7.3.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
 }
