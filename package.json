@@ -1,6 +1,12 @@
 {
   "name": "muhass",
   "version": "1.0.0",
+  "scripts": {
+    "start": "python3 ./backend/ble.py && expo start ./frontend/ && nodemon ./server/server.js",
+    "ble": "python3 ./backend/ble.py",
+    "expo": "expo start ./frontend/",
+    "server": "nodemon ./server/server.js"
+  },
   "workspaces": [
     "frontend",
     "server"
