@@ -1,5 +1,11 @@
 import React, { useState, useRef } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Animated } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Animated,
+} from "react-native";
 
 const SlidingButton = ({ activeColor }) => {
   const [isOn, setIsOn] = useState(false);
@@ -26,9 +32,13 @@ const SlidingButton = ({ activeColor }) => {
       onPress={handleToggle}
     >
       <View style={styles.background}>
-        <Animated.View style={[styles.circle, { transform: [{ translateX }] }]} />
+        <Animated.View
+          style={[styles.circle, { transform: [{ translateX }] }]}
+        />
       </View>
-      <Text style={[styles.text, isOn && { color: "white" }]}>{isOn ? "ON" : "OFF"}</Text>
+      <Text style={[styles.text, isOn && { color: "white" }]}>
+        {isOn ? "ON" : "OFF"}
+      </Text>
     </TouchableOpacity>
   );
 };

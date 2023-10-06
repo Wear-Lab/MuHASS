@@ -17,7 +17,7 @@ const Activity = () => {
     const newValue = mvpaValue === 100 ? 0 : mvpaValue + 10;
     setMvpaValue(newValue);
   };
-  
+
   return (
     <View style={styles.page}>
       {/* If user has achieved activity goal print "You have achieved your goal for today" */}
@@ -33,28 +33,34 @@ const Activity = () => {
           <View style={styles.lpa}>
             <View style={styles.lpaBlock}></View>
             <View style={styles.activityBar}>
-              <Text style={[{fontWeight: "bold"}]}>Target</Text>
-              <View style={styles.lpaBar}></View>  
+              <Text style={[{ fontWeight: "bold" }]}>Target</Text>
+              <View style={styles.lpaBar}></View>
             </View>
           </View>
-          <Text style={[{fontWeight: "bold"}]}>Light Physical Activity</Text>
-          <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
+          <Text style={[{ fontWeight: "bold" }]}>Light Physical Activity</Text>
+          <Text style={[{ fontWeight: "bold" }]}>(LPA)</Text>
           <Text> </Text>
         </View>
         <View style={styles.rightAligned}>
           <View style={styles.lpa}>
             <View style={styles.mvpaBlock}></View>
             <View style={styles.activityBar}>
-              <Text style={[{fontWeight: "bold"}]}>Target</Text>
+              <Text style={[{ fontWeight: "bold" }]}>Target</Text>
               <View style={styles.mvpaBar}></View>
             </View>
           </View>
-          <Text style={[{fontWeight: "bold"}]}>Moderate to Vigorous</Text>
-          <Text style={[{fontWeight: "bold"}]}>Physical Activity</Text>
-          <Text style={[{fontWeight: "bold"}]}>(MVPA)</Text>
+          <Text style={[{ fontWeight: "bold" }]}>Moderate to Vigorous</Text>
+          <Text style={[{ fontWeight: "bold" }]}>Physical Activity</Text>
+          <Text style={[{ fontWeight: "bold" }]}>(MVPA)</Text>
         </View>
       </View>
-      <Text style={[{fontWeight: "bold", marginTop: 50, fontSize: 25, marginBottom: 15}]}>Notification & Feedback Settings</Text>
+      <Text
+        style={[
+          { fontWeight: "bold", marginTop: 50, fontSize: 25, marginBottom: 15 },
+        ]}
+      >
+        Notification & Feedback Settings
+      </Text>
       <View style={styles.bottomContainer}>
         <View style={styles.centerAligned}>
           <View style={styles.optionContainer}>
@@ -71,7 +77,6 @@ const Activity = () => {
           </View>
         </View>
       </View>
-
     </View>
   );
 };
@@ -105,13 +110,13 @@ const styles = StyleSheet.create({
   lpaBlock: {
     width: 125,
     height: 350,
-    backgroundColor: '#89EEC4', 
+    backgroundColor: "#89EEC4",
     marginBottom: 10,
   },
   mvpaBlock: {
-    width: 125, 
-    height: 350, 
-    backgroundColor: '#89EEC4',
+    width: 125,
+    height: 350,
+    backgroundColor: "#89EEC4",
     marginBottom: 10,
   },
   optionContainer: {
@@ -134,13 +139,13 @@ const styles = StyleSheet.create({
   lpaBar: {
     height: 3, // Customize the height of the bar
     width: "100%",
-    backgroundColor: 'black', // Customize the color of the bar
+    backgroundColor: "black", // Customize the color of the bar
     borderRadius: 20,
   },
   mvpaBar: {
     height: 3, // Customize the height of the bar
     width: "100%",
-    backgroundColor: 'black', // Customize the color of the bar
+    backgroundColor: "black", // Customize the color of the bar
     borderRadius: 20,
   },
 });

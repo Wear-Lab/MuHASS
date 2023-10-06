@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import LocalHost from '../../data/LocalHost';
+import LocalHost from "../../data/LocalHost";
 
 const About = ({ enterConnect }) => {
   const ipAddress = LocalHost.ipAddress;
@@ -15,7 +15,6 @@ const About = ({ enterConnect }) => {
   useEffect(() => {
     const fetchDeviceInfo = async () => {
       try {
-
         const response = await fetch(`http://${ipAddress}:8000/address`);
         const data = await response.json();
         setDeviceName(data.device_address);

@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Monitor from "./Monitor";
 import Activity from "./Activity";
 import RawData from "./RawData";
 import About from "./About";
-import Connect from "./Connect"
+import Connect from "./Connect";
 
 // Define an array of objects representing each navigation image
 const navItems = [
@@ -39,14 +39,19 @@ const HomeTwo = () => {
     <View style={styles.container}>
       {/* Render the Connect component if no activeTab is set */}
       {activeTab === null || activeTab === "Connect" ? (
-        <Connect exitConnect={handleExitConnect} enterConnect={handleEnterConnect}/>
+        <Connect
+          exitConnect={handleExitConnect}
+          enterConnect={handleEnterConnect}
+        />
       ) : (
         <View style={styles.contentContainer}>
           {activeTab === "Monitoring" && <Monitor />}
           {activeTab === "Activity" && <Activity />}
           {activeTab === "Raw Data" && <RawData />}
-          {activeTab === "About" && (<About enterConnect={handleEnterConnect}/>)}
-          {activeTab === "Connect" && (<Connect exitConnect={handleExitConnect} />)}
+          {activeTab === "About" && <About enterConnect={handleEnterConnect} />}
+          {activeTab === "Connect" && (
+            <Connect exitConnect={handleExitConnect} />
+          )}
         </View>
       )}
 
@@ -76,7 +81,7 @@ const HomeTwo = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   contentContainer: {
     flex: 1,
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     backgroundColor: "#F2F2F2",
     height: 65,
-    width: '100%',
+    width: "100%",
   },
   navItem: {
     flex: 1,
