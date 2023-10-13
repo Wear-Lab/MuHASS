@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from "react-native";
-import HomeTwo from "./components/HomeTwo";
+import HomeTwo from "./src/components/HomeTwo";
 
 const port = process.env.PORT || 8080;
 
