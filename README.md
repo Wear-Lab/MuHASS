@@ -1,17 +1,22 @@
 # Install Expo Go on your mobile device.
 
 # Install dependencies
-### `npm install react`
-### `npm install react-native`
-### `npm install react-native-cli`
-### `npm install expo`
-### `npm install -g expo-cli`
-### `npm install axios`
-### `npm install --save @fortawesome/react-native-fontawesome`
-### `npm install --save @fortawesome/free-solid-svg-icons`
+`npm install react`
+`npm install react-native`
+`npm install react-native-cli`
+`npm install expo`
+`npm install -g expo-cli`
+`npm install axios`
+`npm install --save @fortawesome/react-native-fontawesome`
+`npm install --save @fortawesome/free-solid-svg-icons`
 
 # Running the app
 `npm run dev`
+
+# Change IP Address
+Enter frontend->src->components->data->LocalHost.json
+In command line, run `ipconfig`, and copy the ipv4 address
+Change the ipAddress parameter in the JSON file to the one on your computer
 
 # Scan QR code after running the app.
 
