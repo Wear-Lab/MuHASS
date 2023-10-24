@@ -2,13 +2,16 @@
   "name": "muhass",
   "version": "1.0.0",
   "scripts": {
-    "ble": "python3 ./bluetooth-server/ble.py",
     "expo": "expo start ./frontend/",
+    "backend": "concurrently \"npm run server\" \"npm run ble\"",
+    "ble": "python3 ./bluetooth-server/ble.py",
     "server": "nodemon ./backend/server.js"
   },
   "workspaces": [
     "frontend",
-    "backend",
-    "bluetooth-server"
-  ]
+    "backend"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
 }
