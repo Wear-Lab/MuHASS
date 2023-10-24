@@ -1,10 +1,10 @@
 import { StyleSheet, View, Text } from "react-native";
-import HomeTwo from "./src/components/HomeTwo";
+import Home from "./src/pages/HomePage";
 
 const port = process.env.PORT || 8080;
 
 const App = () => {
-  return <HomeTwo />;
+  return <Home />;
 };
 
 const styles = StyleSheet.create({
@@ -17,3 +17,4 @@ const styles = StyleSheet.create({
 });
 
 export default App;
+
