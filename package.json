@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "expo": "expo start ./frontend/",
-    "backend": "concurrently \"npm run server\" \"npm run ble\"",
+    "dev": "concurrently \"npm run ble\" \"npm run expo\"",
     "ble": "python3 ./bluetooth-server/ble.py",
     "server": "nodemon ./backend/server.js"
   },

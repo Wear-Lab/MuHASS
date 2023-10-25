@@ -18,9 +18,10 @@ This is a monorepo managed with [NPM workspaces](https://docs.npmjs.com/cli/v7/u
 # Running the monorepo
 
 The project requires every component to run on the terminal for development.
+
 `npm run expo` - Just Expo
 
-`npm run backend` - Concurrently runs the bluetooth server and the API server
+`npm run dev` - Concurrently runs all components of the monorepo (Note: This doesn't seem to display QR code for Expo)
 
 `npm run ble` - Running just the bluetooth server
 
