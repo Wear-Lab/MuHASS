@@ -4,10 +4,8 @@ import { View, StyleSheet, TouchableOpacity, Animated } from "react-native";
 const SlidingButton = ({ activeColor }) => {
   const [isOn, setIsOn] = useState(false);
   const circleAnimation = useRef(new Animated.Value(0)).current;
-
   const handleToggle = () => {
     setIsOn(!isOn);
-
     Animated.timing(circleAnimation, {
       toValue: isOn ? 0 : 1,
       duration: 300,
@@ -26,7 +24,9 @@ const SlidingButton = ({ activeColor }) => {
       onPress={handleToggle}
     >
       <View style={styles.background}>
-        <Animated.View style={[styles.circle, { transform: [{ translateX }] }]} />
+        <Animated.View
+          style={[styles.circle, { transform: [{ translateX }] }]}
+        />
       </View>
     </TouchableOpacity>
   );
