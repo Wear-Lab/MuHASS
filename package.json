@@ -1,0 +1,17 @@
+{
+  "name": "muhass",
+  "version": "1.0.0",
+  "scripts": {
+    "expo": "expo start ./frontend/",
+    "dev": "concurrently \"npm run ble\" \"npm run expo\"",
+    "ble": "python3 ./bluetooth-server/ble.py",
+    "server": "nodemon ./backend/server.js"
+  },
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
