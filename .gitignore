@@ -11,6 +11,7 @@ npm-debug.*
 web-build/
 backend/__pycache__/ble.cpython-310.pyc
 .vscode/
+.env
 
 # macOS
 .DS_Store
