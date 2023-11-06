@@ -1,6 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from "react-native";
+import SlidingButton from "../components/SlidingButton";
 import React, { useEffect, useState } from "react";
-import LocalHost from "../../data/LocalHost";
+import LocalHost from '../components/data/LocalHost';
 
 const About = ({ enterConnect }) => {
   const ipAddress = LocalHost.ipAddress;
@@ -15,6 +16,7 @@ const About = ({ enterConnect }) => {
   useEffect(() => {
     const fetchDeviceInfo = async () => {
       try {
+
         const response = await fetch(`http://${ipAddress}:8000/address`);
         const data = await response.json();
         setDeviceName(data.device_address);
@@ -85,6 +87,34 @@ const About = ({ enterConnect }) => {
 
   return (
     <View style={styles.container}>
+      
+      {/* Notification Box */}
+      <View style={styles.optionBox}>
+        <Text style={[{fontWeight: "bold", 
+                       fontSize: 16, 
+                       marginBottom: 2, 
+                       textAlign: 'center'}
+                      ]}>
+          Notification & Feedback Settings
+        </Text>
+          <View style={styles.bottomContainer}>
+            <View style={styles.centerAligned}>
+              <View style={styles.optionContainer}>
+                <View style={styles.column}> 
+                  <SlidingButton activeColor="#3485FF" />
+                  <SlidingButton activeColor="#3485FF" />
+                  <SlidingButton activeColor="#3485FF" />
+                </View>
+                <View style={styles.column}> 
+                  <Text style={styles.optionText}>Send LPA Reminder</Text>
+                  <Text style={styles.optionText}>Send MVPA Reminder</Text>
+                  <Text style={styles.optionText}>Send Activity Reminder</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+      </View>
+      
       <View style={styles.box}>
         <Text style={styles.text}>Bluetooth Address:</Text>
         <Text style={[styles.text, { width: 220, textAlign: "center" }]}>
@@ -104,10 +134,6 @@ const About = ({ enterConnect }) => {
         </Text>
       </View>
 
-      {/* <TouchableOpacity style={styles.button} onPress={handleEnterConnect}>
-        <Text style={[styles.text, { color: 'white' }]}>Change Device</Text>
-      </TouchableOpacity> */}
-
       <TouchableOpacity
         style={[styles.button, buttonDisabled && { backgroundColor: "gray" }]}
         onPress={handleEnterConnect}
@@ -119,25 +145,27 @@ const About = ({ enterConnect }) => {
       </TouchableOpacity>
 
       <Image
-        source={require("./images/WEAR_Lab_Logo.png")}
+        source={require("../components/images/WEAR_Lab_Logo.png")}
         style={styles.image}
       />
-      <Text style={[{ fontWeight: "bold" }]}>Multimodal Human & Ambience</Text>
-      <Text style={[{ fontWeight: "bold" }]}>Sensor System</Text>
       <Text>Wearable Engineering and Assistive Robotics Lab</Text>
       <Text>University of Central Florida</Text>
       <Text> </Text>
-      <Text style={[{ fontSize: 16 }]}>Version 0523</Text>
-      <Text> </Text>
+      <Text style={[{ fontWeight: "bold" }]}>MuHASS</Text>
+      <Text>Multimodal Human & Ambience Sensor System</Text>
       <Text> </Text>
       <Text style={[{ fontWeight: "bold" }]}>Developed By:</Text>
       <Text>Mark Aldritz Dela Virgen</Text>
       <Text>Vi Dang</Text>
       <Text>Sean Feldman</Text>
       <Text>Seoyoung Kong</Text>
+      <Text> </Text>
+      <Text style={[{ fontWeight: "bold" }]}>Version 0523</Text>
     </View>
   );
 };
+
+const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
@@ -148,8 +176,8 @@ const styles = StyleSheet.create({
   },
   box: {
     height: 60,
-    width: 220,
-    marginBottom: 10,
+    width: screenWidth * .7,
+    marginBottom: 15,
     borderRadius: 10,
     backgroundColor: "#F2F2F2",
     justifyContent: "center",
@@ -161,8 +189,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF4754",
   },
   button: {
-    width: 300,
-    height: 50,
+    width: screenWidth * .7,
+    height: 45,
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 25,
@@ -177,7 +205,24 @@ const styles = StyleSheet.create({
   },
   image: {
     marginTop: 10,
-    marginBottom: 10,
+  },
+
+  optionBox: {
+    width: screenWidth * 0.8,
+    marginBottom: 20,
+    borderRadius: 15,
+    backgroundColor: "#F2F2F2",
+    padding: 10,
+  },
+  optionContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  optionText: {
+    fontSize: 16,
+    margin: 7.5,
   },
 });
 

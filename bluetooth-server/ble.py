@@ -223,7 +223,17 @@ async def check_connection():
         print("Device not connected!")
         return {"status": False}
     
+def get_local_ip_address():
+    try:
+        host_name = socket.gethostname()
+        ip_address = socket.gethostbyname(host_name)
+        return ip_address
+    except Exception as e:
+        print("Error while obtaining IP address:", e)
+        return "127.0.0.1"
+
+ip_address = get_local_ip_address()
+    
 
 if __name__ == "__main__":
-    ip_address = socket.gethostbyname(socket.gethostname())
     uvicorn.run(app, host=ip_address, port=8000)

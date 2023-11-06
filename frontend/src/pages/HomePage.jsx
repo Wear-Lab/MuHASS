@@ -1,17 +1,17 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Monitor from "./Monitor";
-import Activity from "./Activity";
-import RawData from "./RawData";
-import About from "./About";
-import Connect from "./Connect";
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import Monitor from "./MonitorPage";
+import Activity from "./ActivityPage";
+import RawData from "./RawDataPage";
+import About from "./AboutPage";
+import Connect from "./ConnectPage"
 
 // Define an array of objects representing each navigation image
 const navItems = [
-  { name: "Monitoring", image: require("./images/monitor.png") },
-  { name: "Activity", image: require("./images/activity.png") },
-  { name: "Raw Data", image: require("./images/rawdata.png") },
-  { name: "About", image: require("./images/about.png") },
+  { name: "Monitoring", image: require("../components/images/monitor.png") },
+  { name: "Activity", image: require("../components/images/activity.png") },
+  { name: "Raw Data", image: require("../components/images/rawdata.png") },
+  { name: "About", image: require("../components/images/about.png") },
 ];
 
 // This const is responsible for outputting the navigation bar to the screen
@@ -19,6 +19,7 @@ const HomeTwo = () => {
   // Change this line later is we want to select the device page before
   // using other app pages
   const [activeTab, setActiveTab] = useState(null);
+  const [deviceIndex, setDeviceIndex] = useState(null);
 
   // Allows us to switch between components on the navbar
   const handlePress = (tabName) => {
@@ -26,8 +27,9 @@ const HomeTwo = () => {
   };
 
   // Inside HomeTwo component
-  const handleExitConnect = () => {
+  const handleExitConnect = (deviceIndex) => {
     setActiveTab("Monitoring");
+    setDeviceIndex(deviceIndex);
   };
 
   // Inside HomeTwo component
@@ -39,19 +41,14 @@ const HomeTwo = () => {
     <View style={styles.container}>
       {/* Render the Connect component if no activeTab is set */}
       {activeTab === null || activeTab === "Connect" ? (
-        <Connect
-          exitConnect={handleExitConnect}
-          enterConnect={handleEnterConnect}
-        />
+        <Connect exitConnect={handleExitConnect} enterConnect={handleEnterConnect}/>
       ) : (
         <View style={styles.contentContainer}>
           {activeTab === "Monitoring" && <Monitor />}
           {activeTab === "Activity" && <Activity />}
           {activeTab === "Raw Data" && <RawData />}
-          {activeTab === "About" && <About enterConnect={handleEnterConnect} />}
-          {activeTab === "Connect" && (
-            <Connect exitConnect={handleExitConnect} />
-          )}
+          {activeTab === "About" && (<About enterConnect={handleEnterConnect}/>)}
+          {activeTab === "Connect" && (<Connect exitConnect={handleExitConnect}/>)}
         </View>
       )}
 
@@ -81,7 +78,7 @@ const HomeTwo = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: 'white',
   },
   contentContainer: {
     flex: 1,
@@ -91,8 +88,10 @@ const styles = StyleSheet.create({
   navContainer: {
     flexDirection: "row",
     backgroundColor: "#F2F2F2",
-    height: 65,
-    width: "100%",
+    height: '7%',
+    width: '100%',
+    position: 'absolute',
+    bottom: 0,
   },
   navItem: {
     flex: 1,

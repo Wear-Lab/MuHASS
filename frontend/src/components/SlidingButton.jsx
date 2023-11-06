@@ -1,19 +1,11 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Animated,
-} from "react-native";
+import { View, StyleSheet, TouchableOpacity, Animated } from "react-native";
 
 const SlidingButton = ({ activeColor }) => {
   const [isOn, setIsOn] = useState(false);
   const circleAnimation = useRef(new Animated.Value(0)).current;
-
   const handleToggle = () => {
     setIsOn(!isOn);
-
     Animated.timing(circleAnimation, {
       toValue: isOn ? 0 : 1,
       duration: 300,
@@ -23,7 +15,7 @@ const SlidingButton = ({ activeColor }) => {
 
   const translateX = circleAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, 40], // Adjust the value as per your design
+    outputRange: [0, 20], // Adjust the value as per your design
   });
 
   return (
@@ -36,36 +28,29 @@ const SlidingButton = ({ activeColor }) => {
           style={[styles.circle, { transform: [{ translateX }] }]}
         />
       </View>
-      <Text style={[styles.text, isOn && { color: "white" }]}>
-        {isOn ? "ON" : "OFF"}
-      </Text>
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    alignItems: "center",
-    backgroundColor: "#ddd",
+    width: 50, // Adjust the width as per your design
+    height: 25, // Adjust the height as per your design
     borderRadius: 20, // Half of the height
+    backgroundColor: "#ddd",
+    margin: 5,
   },
   background: {
-    width: 50, // Adjust the value as per your design
-    height: 40, // Adjust the value as per your design
-    paddingTop: 8,
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "flex-start",
     paddingHorizontal: 8,
   },
   circle: {
-    width: 25, // Adjust the value as per your design
-    height: 25, // Adjust the value as per your design
+    width: 15, // Adjust the value as per your design
+    height: 15, // Adjust the value as per your design
     borderRadius: 16, // Half of the height
     backgroundColor: "white", // Adjust the color as per your design
-  },
-  text: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginRight: 5,
   },
 });
 

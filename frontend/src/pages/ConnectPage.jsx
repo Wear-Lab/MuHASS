@@ -6,11 +6,11 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import LocalHost from "../../data/LocalHost";
+import LocalHost from '../components/data/LocalHost';
 
 const Connect = ({ exitConnect }) => {
   const ipAddress = LocalHost.ipAddress;
-
+  
   const [devices, setDevices] = useState([]);
   const [deviceIndex, setDeviceIndex] = useState(-1);
   const [connectionStatus, setConnectionStatus] = useState(false);
@@ -39,7 +39,7 @@ const Connect = ({ exitConnect }) => {
 
     fetchDevices();
 
-    const interval = setInterval(fetchDevices, 5000); // Fetch devices every 15 seconds
+    const interval = setInterval(fetchDevices, 10000); // Fetch devices every 10 seconds
 
     return () => clearInterval(interval); // Clean up the interval on unmount
   }, []);
@@ -89,13 +89,17 @@ const Connect = ({ exitConnect }) => {
         const data = await response.json();
         const connection = data.status;
 
-        if (connection === true) exitConnect(deviceIndex);
-        else setConnectionStatus(true);
-        setButtonText("Connect");
-      } catch (error) {
-        // device could not connect
-        console.error("connect_device function error: ", error);
-      } finally {
+        if (connection === true)
+          exitConnect(deviceIndex);
+        else
+          setConnectionStatus(true);
+          setButtonText('Connect');
+      } 
+      // device could not connect
+      catch (error) {
+        console.error('connect_device function error: ', error);
+      }
+      finally {
         // enable the button to be used by user again
         setButtonDisabled(false);
       }
@@ -125,30 +129,10 @@ const Connect = ({ exitConnect }) => {
         </ScrollView>
       </View>
 
-      <Text
-        style={[
-          styles.text,
-          {
-            textAlign: "center",
-            width: "85%",
-            fontWeight: "normal",
-            fontSize: 13,
-          },
-        ]}
-      >
-        Ensure BLUE connection light is pulsing.
+      <Text style={[styles.text, { textAlign: "center", width: "85%", fontWeight: 'normal', fontSize: 13 }]}>
+        Ensure BLUE connection light is pulsing. 
       </Text>
-      <Text
-        style={[
-          styles.text,
-          {
-            textAlign: "center",
-            width: "85%",
-            fontWeight: "normal",
-            fontSize: 13,
-          },
-        ]}
-      >
+      <Text style={[styles.text, { textAlign: "center", width: "85%", fontWeight: 'normal', fontSize: 13 }]}>
         If not, press reset button and wait for light to pulse.
       </Text>
 
@@ -239,10 +223,10 @@ const styles = StyleSheet.create({
   devicesText: {
     color: "black",
     fontSize: 20,
-    fontWeight: "bold",
-    textAlign: "center",
-    width: "90%",
-  },
+    fontWeight: 'bold',
+    textAlign: 'center',
+    width: '90%',
+  }
 });
 
 export default Connect;

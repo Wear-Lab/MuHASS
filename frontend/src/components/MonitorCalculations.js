@@ -145,41 +145,41 @@ export const determineStressLevel = (color1, color2, color3) => {
       const color = colorSet.values().next().value;
       if (color === "green") {
         stress = "Low";
-        image = <Image source={require('../src/components/images/green.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/green.png')} style={styles.image} />;
       } else if (color === "red") {
         stress = "Very High";
-        image = <Image source={require('../src/components/images/red.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/red.png')} style={styles.image} />;
       } else if (color === "orange") {
         stress = "High";
-        image = <Image source={require('../src/components/images/orange.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/orange.png')} style={styles.image} />;
       } else if (color === "yellow") {
         stress = "Moderate";
-        image = <Image source={require('../src/components/images/yellow.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/yellow.png')} style={styles.image} />;
       }
     }
     else if (colorSet.has("red") && (colorSet.has("orange") || colorSet.has("yellow"))) {
         stress = "Very High";
-        image = <Image source={require('../src/components/images/red.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/red.png')} style={styles.image} />;
     }
     else if (colorSet.has("orange") && colorSet.has("orange")) {
         stress = "High";
-        image = <Image source={require('../src/components/images/orange.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/orange.png')} style={styles.image} />;
     }
     else if (colorSet.has("red")) {
         stress = "Very High";
-        image = <Image source={require('../src/components/images/red.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/red.png')} style={styles.image} />;
     }
     else if (colorSet.has("orange")) {
         stress = "High";
-        image = <Image source={require('../src/components/images/orange.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/orange.png')} style={styles.image} />;
     }
     else if (colorSet.has("yellow")) {
         stress = "Moderate";
-        image = <Image source={require('../src/components/images/yellow.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/yellow.png')} style={styles.image} />;
     }
     else {
         stress = "Unknown!";
-        image = <Image source={require('../src/components/images/default.png')} style={styles.image} />;
+        image = <Image source={require('../components/images/default.png')} style={styles.image} />;
     }
 
     return { stress, image };
