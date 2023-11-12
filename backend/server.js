@@ -1,37 +1,28 @@
-const express = require("express");
-const mongoose = require("mongoose");
+import express, { json } from "express";
+import { PrismaClient } from '@prisma/client'
+
+const prisma = new PrismaClient()
+
 const app = express();
-const User = require("./user");
-const UserInfo = require("./userInfo");
-const Environment = require("./environment");
 
+app.use(json());
 
-const uri = 
-    "mongodb+srv://mongo:mongo123@cluster0.yawywzw.mongodb.net/?retryWrites=true&w=majority";
-async function connect(){
-    try{
-        await mongoose.connect(uri);
-        console.log("Connected to MongoDB");
-     } catch(error) {
-        console.error(error); 
-    }
-}    
+app.post('/create-user', async (req, res) => {
+    const { name, password } = req.body;
 
-connect();
+    const user = await prisma.user.create({
+        data: {
+            name,
+            password,
+        }
+    })
 
-app.use(express.json());
-
-app.post('/create-user', async (req,res) => {
-    /* Test User Data */
-    // const user = await User({bluetoothData: 'test'});
-    // await user.save();
-    // res.json(user);
-    
-    res.json(req.body);
+    res.status(200).json(user);
 });
 
-app.post('/info-user', async (req,res) => {
-     /* Test User Info Data */
+app.post('/info-user', async (req, res) => {
+
+    /* Test User Info Data */
     // const userInfo = await UserInfo({
     //     ENMO: '34',
     //     HR: '123',
@@ -46,8 +37,8 @@ app.post('/info-user', async (req,res) => {
     res.json(req.body);
 });
 
-app.post('/environment-user', async (req,res) => {
-     /* Test User Environment Data */
+app.post('/environment-user', async (req, res) => {
+    /* Test User Environment Data */
     // const userEnvironment = await Environment({
     //     Temperature: "34",
     //     Pressure: "123",
