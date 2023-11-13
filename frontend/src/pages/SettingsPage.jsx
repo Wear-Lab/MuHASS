@@ -132,9 +132,9 @@ const Settings = ({ enterConnect }) => {
                   <SlidingButton activeColor="#3485FF" />
                 </View>
                 <View style={styles.column}> 
+                  <Text style={styles.optionText}>Send Sedentary Reminder</Text>
                   <Text style={styles.optionText}>Send LPA Reminder</Text>
                   <Text style={styles.optionText}>Send MVPA Reminder</Text>
-                  <Text style={styles.optionText}>Send Activity Reminder</Text>
                 </View>
               </View>
             </View>
