@@ -1,10 +1,20 @@
 import React, { useState } from "react";
 import SlidingButton from "../components/SlidingButton";
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button, Dimensions } from "react-native";
+import {  
+  View, 
+  Text, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Modal, 
+  TextInput, 
+  Button, 
+  ScrollView,
+  Dimensions } from "react-native";
 import { 
   calculateLVPA,
   calculateMVPA,
 } from '../components/ActivityCalculations';
+import Swiper from 'react-native-swiper';
 import SampleData from '../components/data/SampleData';
 
 const Activity = () => {
@@ -33,119 +43,129 @@ const Activity = () => {
   const showGoalOptions = !Object.values(userData).some(value => value === null || value === "");
   
   return (
-    <View style={styles.page}>
-      {modalVisible ? null : (
-        showGoalOptions && (
-          <View style={goal ? styles.achievedGoalBox : styles.unachievedGoalBox}>
-            <Text style={styles.text}>
-              {goal ? "You have achieved your goal for today!" : "You have not reached your goal for today."}
-            </Text>
-          </View>
-        )
-      )}
-      {/* LVPA and MVPA blocks */}
-      <View style={styles.middleContainer}>
-        {/* LVPA Bar */}
-        <View style={styles.leftAligned}>
-          <View style={styles.block}></View>
-          <Text style={[styles.target]}>Target: { lvpa.target.toFixed(2) }</Text>
-          <Text style={[{fontWeight: "bold"}]}>Light Physical Activity</Text>
-          <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
-          <View style={[styles.blackBar, {bottom: lvpa.position }]}></View>  
-          <Text style={[styles.percentage, {bottom: lvpa.position + 11, left: 85, }]}> { lvpa.percentage.toFixed(0) }%</Text>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.page}>
+        {modalVisible ? null : (
+          showGoalOptions && (
+            <View style={goal ? styles.achievedGoalBox : styles.unachievedGoalBox}>
+              <Text style={styles.text}>
+                {goal ? "You have achieved your goal for today!" : "You have not reached your goal for today."}
+              </Text>
+            </View>
+          )
+        )}
+        {/* LVPA and MVPA blocks */}
+        <View style={styles.middleContainer}>
+          <Swiper showsButtons={false}>
+            {/* Sedentary Bar */}
+            <View style={styles.barContainer}>
+              <View style={styles.block}></View>
+              <Text style={[styles.target]}>Target: { lvpa.target.toFixed(2) }</Text>
+              <Text style={[{fontWeight: "bold"}]}>Sedentary Activity</Text>
+              <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
+            </View> 
+
+            {/* LVPA Bar */}
+            <View style={styles.barContainer}>
+              <View style={styles.block}></View>
+              <Text style={[styles.target]}>Target: { lvpa.target.toFixed(2) }</Text>
+              <Text style={[{fontWeight: "bold"}]}>Light Physical Activity</Text>
+              <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
+              <View style={[styles.blackBar, {bottom: lvpa.position }]}></View>  
+              <Text style={[styles.percentage, {bottom: lvpa.position + 11, left: 120, }]}> { lvpa.percentage.toFixed(0) }%</Text>
+            </View>
+
+            {/* MVPA Bar */}
+            <View style={styles.barContainer}>
+              <View style={styles.block}></View>
+              <Text style={[styles.target]}>Target: { mvpa.target.toFixed(2) }</Text>
+              <Text style={[{fontWeight: "bold"}]}>Moderate to Vigorous</Text>
+              <Text style={[{fontWeight: "bold"}]}>Physical Activity (MVPA)</Text>
+              <View style={[styles.blackBar, {bottom: lvpa.position }]}></View>  
+              <Text style={[styles.percentage, {bottom: lvpa.position + 11, left: 120, }]}> { mvpa.percentage.toFixed(0) }%</Text>
+            </View>
+          </Swiper>
         </View>
 
-        {/* MVPA Bar */}
-        <View style={styles.rightAligned}>
-          <View style={styles.block}></View>
-          <Text style={[styles.target]}>Target: { mvpa.target.toFixed(2) }</Text>
-          <Text style={[{fontWeight: "bold"}]}>Moderate to Vigorous</Text>
-          <Text style={[{fontWeight: "bold"}]}>Physical Activity (MVPA)</Text>
-          <View style={[styles.blackBar, {bottom: mvpa.position }]}></View>  
-          <Text style={[styles.percentage, 
-                       {bottom: mvpa.position + 11, 
-                       left: 85, }]}> 
-            { mvpa.percentage.toFixed(0) }%
-          </Text>
-        </View>
-      </View>
-
-      {/* Activity Box */}
-      <View style={styles.box}>
-        <Text style={[{fontWeight: "bold", 
-                       fontSize: 16, 
-                       textAlign: 'center'}
-                      ]}>
-          Activity
-        </Text>
-        <View style={styles.activityContainer}> 
-          <View style={styles.column}> 
-            <Text style={styles.text}>Age: { userData.age }</Text>
-            <Text style={styles.text}>Weight: { userData.weight } lbs.</Text>
-            <Text style={styles.text}>Height: { userData.height } in.</Text>
-          </View>
-
-          <View style={styles.column}> 
-            <Text style={styles.text}>Activity: { userData.activity }</Text>
-            <Text style={styles.text}>MET Value: { met }</Text>
-            <Text style={styles.text}>Duration: { userData.duration } mins</Text>
-            <Text style={styles.text}>Calories: { lvpa.calories.toFixed(2) } </Text>
-          </View>
-        </View>
-      </View>
-
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-        <View style= {styles.addActivityButton}>
+        {/* Activity Box */}
+        <View style={styles.box}>
           <Text style={[{fontWeight: "bold", 
-                          fontSize: 20, 
-                          color: 'white',
-                          textAlign: 'center'}
-                          ]}>Add Activity</Text>
-        </View>
-      </TouchableOpacity>
-
-      <Modal visible={modalVisible} animationType="slide">
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Enter User Data</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Age"
-            onChangeText={(text) => setUserData({ ...userData, age: text })}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Weight (lbs)"
-            onChangeText={(text) => setUserData({ ...userData, weight: text })}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Height (inches)"
-            onChangeText={(text) => setUserData({ ...userData, height: text })}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Duration of Activity (minutes)"
-            onChangeText={(text) => setUserData({ ...userData, duration: text })}
-          />
-          <TextInput
-            style={styles.input}
-            placeholder="Activity Type"
-            onChangeText={(text) => setUserData({ ...userData, activity: text })}
-          />
-          <View style={styles.buttonContainer}>
-            <View style={[styles.button, {backgroundColor: "#62C0FF"}]}>
-              <Button title="Submit" onPress={handleSubmit} color="white"/>
+                        fontSize: 16, 
+                        textAlign: 'center'}
+                        ]}>
+            Activity
+          </Text>
+          <View style={styles.activityContainer}> 
+            <View style={styles.column}> 
+              <Text style={styles.text}>Age: { userData.age }</Text>
+              <Text style={styles.text}>Weight: { userData.weight } lbs.</Text>
+              <Text style={styles.text}>Height: { userData.height } in.</Text>
             </View>
-            <View style={[styles.button, {backgroundColor: "#FF4754"}]}>
-              <Button title="Cancel" onPress={() => setModalVisible(false)} color="white"/>
+
+            <View style={styles.column}> 
+              <Text style={styles.text}>Activity: { userData.activity }</Text>
+              <Text style={styles.text}>MET Value: { met }</Text>
+              <Text style={styles.text}>Duration: { userData.duration } mins</Text>
+              <Text style={styles.text}>Calories: { lvpa.calories.toFixed(2) } </Text>
             </View>
           </View>
         </View>
-      </Modal>
-    </View>
+
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View style= {styles.addActivityButton}>
+            <Text style={[{fontWeight: "bold", 
+                            fontSize: 20, 
+                            color: 'white',
+                            textAlign: 'center'}
+                            ]}>Add Activity</Text>
+          </View>
+        </TouchableOpacity>
+
+        <Modal visible={modalVisible} animationType="slide">
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Enter User Data</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Age"
+              onChangeText={(text) => setUserData({ ...userData, age: text })}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Weight (lbs)"
+              onChangeText={(text) => setUserData({ ...userData, weight: text })}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Height (inches)"
+              onChangeText={(text) => setUserData({ ...userData, height: text })}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Duration of Activity (minutes)"
+              onChangeText={(text) => setUserData({ ...userData, duration: text })}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Activity Type"
+              onChangeText={(text) => setUserData({ ...userData, activity: text })}
+            />
+            <View style={styles.buttonContainer}>
+              <View style={[styles.button, {backgroundColor: "#62C0FF"}]}>
+                <Button title="Submit" onPress={handleSubmit} color="white"/>
+              </View>
+              <View style={[styles.button, {backgroundColor: "#FF4754"}]}>
+                <Button title="Cancel" onPress={() => setModalVisible(false)} color="white"/>
+              </View>
+            </View>
+          </View>
+        </Modal>
+      </View>
+    </ScrollView>
+    
   );
 };
 
+const screenHeight = Dimensions.get('window').height;
 const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
@@ -153,34 +173,30 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    width: screenWidth,
+    marginTop: 60,
+    marginBottom: 100,
   },
   middleContainer: {
+    height: screenHeight * 0.52,
     flexDirection: "row",
-    marginTop: 40
+    marginTop: 40,
   },
   bottomContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
   },
-  leftAligned: {
-    flex: 1,
+  barContainer: {
     alignItems: 'center'
-  },
-  rightAligned: {
-    flex: 1,
-    alignItems: 'center'
-  },
-  column: {
-    justifyContent: 'flex-start',
-    alignItems: 'flex-start',
   },
   block: {
-    width: screenWidth * 0.15,
-    height: screenWidth * 0.6,
+    width: screenWidth * 0.4,
+    height: screenHeight *0.43,
     backgroundColor: '#89EEC4', 
     marginBottom: 10,
-    alignSelf: 'center'
+    alignSelf: 'center',
+    borderRadius: 10,
   },
   box: {
     width: screenWidth * 0.8,
@@ -216,7 +232,7 @@ const styles = StyleSheet.create({
   },
   blackBar: {
     height: 5, // Customize the height of the bar
-    width: screenWidth * 0.15,
+    width: screenWidth * 0.45,
     backgroundColor: 'black', // Customize the color of the bar
     borderRadius: 20,
   },
@@ -288,6 +304,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 40,
     width: 100,
     borderRadius: 20,
+  },
+  swiperWrapper: {
+    flex: 1
   },
 });
 

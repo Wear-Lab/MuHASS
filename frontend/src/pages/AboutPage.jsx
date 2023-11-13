@@ -159,6 +159,7 @@ const About = ({ enterConnect }) => {
       <Text>Vi Dang</Text>
       <Text>Sean Feldman</Text>
       <Text>Seoyoung Kong</Text>
+      <Text>Ho Sim</Text>
       <Text> </Text>
       <Text style={[{ fontWeight: "bold" }]}>Version 0523</Text>
     </View>
@@ -176,7 +177,7 @@ const styles = StyleSheet.create({
   },
   box: {
     height: 60,
-    width: screenWidth * .7,
+    width: screenWidth * .8,
     marginBottom: 15,
     borderRadius: 10,
     backgroundColor: "#F2F2F2",
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF4754",
   },
   button: {
-    width: screenWidth * .7,
+    width: screenWidth * .8,
     height: 45,
     justifyContent: "center",
     alignItems: "center",
