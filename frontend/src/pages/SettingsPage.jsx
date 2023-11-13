@@ -1,9 +1,19 @@
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from "react-native";
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  TouchableOpacity, 
+  Modal,
+  TextInput,
+  Button,
+  ScrollView,
+  Image, 
+  Dimensions } from "react-native";
 import SlidingButton from "../components/SlidingButton";
 import React, { useEffect, useState } from "react";
 import LocalHost from '../components/data/LocalHost';
 
-const About = ({ enterConnect }) => {
+const Settings = ({ enterConnect }) => {
   const ipAddress = LocalHost.ipAddress;
 
   const [deviceName, setDeviceName] = useState("");
@@ -11,6 +21,14 @@ const About = ({ enterConnect }) => {
   const [buttonText, setButtonText] = useState("Change Device");
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [dotCount, setDotCount] = useState(0);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [userData, setUserData] = useState({
+    age: null,
+    weight: null,
+    height: null,
+    duration: null,
+    activity: "",
+  });
 
   /// fetch the devices information
   useEffect(() => {
@@ -85,7 +103,15 @@ const About = ({ enterConnect }) => {
     }
   };
 
+  const handleSubmit = () => {
+    const { age, weight, height} = userData;
+    
+    // Close the modal
+    setModalVisible(false);
+  };
+
   return (
+    <ScrollView style={styles.scrollView}>
     <View style={styles.container}>
       
       {/* Notification Box */}
@@ -134,6 +160,45 @@ const About = ({ enterConnect }) => {
         </Text>
       </View>
 
+      <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View style= {styles.button}>
+            <Text style={[{fontWeight: "bold", 
+                            fontSize: 20, 
+                            color: 'white',
+                            textAlign: 'center'}
+                            ]}>Edit User Data</Text>
+          </View>
+        </TouchableOpacity>
+
+        <Modal visible={modalVisible} animationType="slide">
+          <View style={styles.modalContainer}>
+            <Text style={styles.modalTitle}>Enter User Data</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Age"
+              onChangeText={(text) => setUserData({ ...userData, age: text })}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Weight (lbs)"
+              onChangeText={(text) => setUserData({ ...userData, weight: text })}
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Height (inches)"
+              onChangeText={(text) => setUserData({ ...userData, height: text })}
+            />
+            <View style={styles.buttonContainer}>
+              <View style={[styles.modalButton, {backgroundColor: "#62C0FF"}]}>
+                <Button title="Submit" onPress={handleSubmit} color="white"/>
+              </View>
+              <View style={[styles.modalButton, {backgroundColor: "#FF4754"}]}>
+                <Button title="Cancel" onPress={() => setModalVisible(false)} color="white"/>
+              </View>
+            </View>
+          </View>
+        </Modal>
+
       <TouchableOpacity
         style={[styles.button, buttonDisabled && { backgroundColor: "gray" }]}
         onPress={handleEnterConnect}
@@ -163,6 +228,7 @@ const About = ({ enterConnect }) => {
       <Text> </Text>
       <Text style={[{ fontWeight: "bold" }]}>Version 0523</Text>
     </View>
+    </ScrollView>
   );
 };
 
@@ -170,6 +236,7 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   container: {
+    marginTop: 60,
     backgroundColor: "F1F1F1",
     flex: 1,
     justifyContent: "center",
@@ -225,6 +292,46 @@ const styles = StyleSheet.create({
     fontSize: 16,
     margin: 7.5,
   },
+
+  modalContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#F2F2F2",
+  },
+  modalTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    marginBottom: 20,
+  },
+  modalButton: {
+    marginHorizontal: 40,
+    width: 100,
+    borderRadius: 20,
+  },
+  input: {
+    width: "80%",
+    height: 40,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: "grey",
+    padding: 10,
+    borderRadius: 20,
+  },
+  addActivityButton: {
+    width: 150,
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: "#62C0FF",
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 10,
+  },
 });
 
-export default About;
+export default Settings;

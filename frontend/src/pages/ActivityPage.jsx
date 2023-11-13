@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SlidingButton from "../components/SlidingButton";
 import {  
   View, 
   Text, 
@@ -159,6 +158,7 @@ const Activity = () => {
             </View>
           </View>
         </Modal>
+        
       </View>
     </ScrollView>
     

@@ -3,15 +3,16 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import Monitor from "./MonitorPage";
 import Activity from "./ActivityPage";
 import RawData from "./RawDataPage";
-import About from "./AboutPage";
+import Settings from "./SettingsPage";
 import Connect from "./ConnectPage"
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 // Define an array of objects representing each navigation image
 const navItems = [
   { name: "Monitoring", image: require("../components/images/monitor.png") },
   { name: "Activity", image: require("../components/images/activity.png") },
   { name: "Raw Data", image: require("../components/images/rawdata.png") },
-  { name: "About", image: require("../components/images/about.png") },
+  { name: "Settings", image: require("../components/images/settings.png") },
 ];
 
 // This const is responsible for outputting the navigation bar to the screen
@@ -47,7 +48,7 @@ const HomeTwo = () => {
           {activeTab === "Monitoring" && <Monitor />}
           {activeTab === "Activity" && <Activity />}
           {activeTab === "Raw Data" && <RawData />}
-          {activeTab === "About" && (<About enterConnect={handleEnterConnect}/>)}
+          {activeTab === "Settings" && (<Settings enterConnect={handleEnterConnect}/>)}
           {activeTab === "Connect" && (<Connect exitConnect={handleExitConnect}/>)}
         </View>
       )}
