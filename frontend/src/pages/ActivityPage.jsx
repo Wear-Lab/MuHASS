@@ -125,21 +125,6 @@ const Activity = () => {
             <Text style={styles.modalTitle}>Enter User Data</Text>
             <TextInput
               style={styles.input}
-              placeholder="Age"
-              onChangeText={(text) => setUserData({ ...userData, age: text })}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Weight (lbs)"
-              onChangeText={(text) => setUserData({ ...userData, weight: text })}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Height (inches)"
-              onChangeText={(text) => setUserData({ ...userData, height: text })}
-            />
-            <TextInput
-              style={styles.input}
               placeholder="Duration of Activity (minutes)"
               onChangeText={(text) => setUserData({ ...userData, duration: text })}
             />
@@ -158,7 +143,7 @@ const Activity = () => {
             </View>
           </View>
         </Modal>
-        
+
       </View>
     </ScrollView>
     
