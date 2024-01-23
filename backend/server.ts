@@ -1,13 +1,25 @@
 import express, { json } from "express";
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient()
+const prisma = new PrismaClient();
 
 const app = express();
 
 app.use(json());
 
-app.post('/create-user', async (req, res) => {
+app.get('/user', async (req, res) => {
+    const { userId } = req.body;
+
+    const user = await prisma.user.findUnique({
+        where: {
+            id: userId,
+        }
+    });
+
+    res.status(200).json(user);
+});
+
+app.post('/user', async (req, res) => {
     const { name, password } = req.body;
 
     const user = await prisma.user.create({
@@ -15,12 +27,60 @@ app.post('/create-user', async (req, res) => {
             name,
             password,
         }
-    })
+    });
 
     res.status(200).json(user);
 });
 
-app.post('/info-user', async (req, res) => {
+app.put('/user', async (req, res) => {
+    const { userId, name, password } = req.body;
+
+    const user = await prisma.user.update({
+        where: {
+            id: userId,
+        },
+        data: {
+            name,
+            password,
+        }
+    });
+
+    res.status(200).json(user);
+});
+
+app.delete('/user', async (req, res) => {
+    const { userId } = req.body;
+
+    const deleted = await prisma.user.delete({
+        where: {
+            id: userId,
+        }
+    });
+
+    res.status(200).json(deleted);
+});
+
+interface UserInfo {
+    age: number;
+    gender: string;
+    height: number;
+    weight: number;
+}
+
+app.get('/userInfo', async (req, res) => {
+    const { userId } = req.body;
+
+    const user = await prisma.userInfo.findUnique({
+        where: {
+            userId: userId,
+        }
+    });
+
+    res.status(200).json(user);
+});
+
+app.post('/userInfo', async (req, res) => {
+    const { userId, userInfo }: { userId: number, userInfo: UserInfo; } = req.body;
 
     /* Test User Info Data */
     // const userInfo = await UserInfo({
@@ -34,7 +94,41 @@ app.post('/info-user', async (req, res) => {
     // await userInfo.save();
     // res.json(userInfo);
 
-    res.json(req.body);
+    const user = await prisma.userInfo.create({
+        data: {
+            ...userInfo,
+            userId: userId,
+        }
+    });
+
+    res.status(200).json(user);
+});
+
+app.put('/userInfo', async (req, res) => {
+    const { userId, userInfo }: { userId: number, userInfo: UserInfo; } = req.body;
+
+    const user = await prisma.userInfo.update({
+        where: {
+            userId: userId,
+        },
+        data: {
+            ...userInfo,
+        }
+    });
+
+    res.status(200).json(user);
+});
+
+app.delete('/userInfo', async (req, res) => {
+    const { userId } = req.body;
+
+    const deleted = await prisma.userInfo.delete({
+        where: {
+            userId: userId,
+        }
+    });
+
+    res.status(200).json(deleted);
 });
 
 app.post('/environment-user', async (req, res) => {
@@ -54,4 +148,4 @@ app.post('/environment-user', async (req, res) => {
 
 app.listen(8000, () => {
     console.log("Server stared on port 8000");
-})
+});
