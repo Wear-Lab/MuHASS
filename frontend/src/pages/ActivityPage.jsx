@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from 'react';
 import {  
   View, 
   Text, 
@@ -10,13 +10,17 @@ import {
   ScrollView,
   Dimensions } from "react-native";
 import { 
-  calculateLVPA,
+  calculateSB,
+  calculateLPA,
   calculateMVPA,
 } from '../components/ActivityCalculations';
+import axios from 'axios';
 import Swiper from 'react-native-swiper';
+import LocalHost from '../components/data/LocalHost';
 import SampleData from '../components/data/SampleData';
 
 const Activity = () => {
+  const ipAddress = LocalHost.ipAddress;
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState({
     age: null,
@@ -25,21 +29,53 @@ const Activity = () => {
     duration: null,
     activity: "",
   });
+  const [dataFile, setDataFile] = useState({});
 
-  const handleSubmit = () => {
-    const { age, weight, height, duration, activity } = userData;
+  // const handleSubmit = () => {
+  //   const { age, weight, height, duration, activity } = userData;
     
-    // Close the modal
-    setModalVisible(false);
-  };
+  //   // Close the modal
+  //   setModalVisible(false);
+  // };
 
-  const { met } = SampleData.SampleData;
+  // fetch the device data
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        // service and characteristic UUIDs
+        const serviceCharacteristics = [
+          // acceleration
+          {
+            service_uuid: '00000300-1212-efde-1523-785feabcd123',
+            characteristic_uuid: '00000302-1212-efde-1523-785feabcd123'
+          },
+        ];
+
+        const response = await axios.post(`http://${ipAddress}:8000/data`, serviceCharacteristics);
+        const data = await response.data;
+        setDataFile(data);
+      } catch (error) {
+        console.error('Fetch data failed:', error);
+      }
+    };
+
+    fetchData();
+
+    const interval = setInterval(fetchData, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+  const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
+  const { age } = SampleData.SampleData;
 
   // Perform any necessary calculations or operations with the user data
-  const lvpa = calculateLVPA(met, userData.weight, userData.duration);
-  const mvpa = calculateMVPA(met, userData.weight, userData.duration);
-  const goal = lvpa.goal && mvpa.goal;
-  const showGoalOptions = !Object.values(userData).some(value => value === null || value === "");
+  const sb = calculateSB(accel_x, accel_y, accel_z, age, screenHeight * .6);
+  const lpa = calculateLPA(accel_x, accel_y, accel_z, age, screenHeight * .6);
+  const mvpa = calculateMVPA(accel_x, accel_y, accel_z, age, screenHeight * .6);
+  const goal = sb.goal && lpa.goal && mvpa.goal;
+  const showGoalOptions = Object.values(userData).some(value => value === null || value === "");
   
   return (
     <ScrollView style={styles.scrollView}>
@@ -53,41 +89,43 @@ const Activity = () => {
             </View>
           )
         )}
-        {/* LVPA and MVPA blocks */}
+        {/* LPA and MVPA blocks */}
         <View style={styles.middleContainer}>
-          <Swiper showsButtons={false}>
+          <Swiper showsButtons={false} style={styles.swiper}>
             {/* Sedentary Bar */}
             <View style={styles.barContainer}>
               <View style={styles.block}></View>
-              <Text style={[styles.target]}>Target: { lvpa.target.toFixed(2) }</Text>
-              <Text style={[{fontWeight: "bold"}]}>Sedentary Activity</Text>
-              <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
+              <Text style={[styles.target]}>Target: { sb.target[1].toFixed(2) }mg</Text>
+              <Text style={[{fontWeight: "bold"}]}>Sedentary Behavior</Text>
+              <Text style={[{fontWeight: "bold"}]}>(SB)</Text>
+              <View style={[styles.progressBar, { height: sb.enmoProgressHeight }]}></View>  
+              <Text style={[styles.percentage, { height: sb.enmoProgressHeight }]}> { sb.enmoValue }mg</Text>
             </View> 
 
-            {/* LVPA Bar */}
+            {/* LPA Bar */}
             <View style={styles.barContainer}>
               <View style={styles.block}></View>
-              <Text style={[styles.target]}>Target: { lvpa.target.toFixed(2) }</Text>
+              <Text style={[styles.target]}>Target: { lpa.target[0].toFixed(2) }mg - {lpa.target[1].toFixed(2)}mg</Text>
               <Text style={[{fontWeight: "bold"}]}>Light Physical Activity</Text>
               <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
-              <View style={[styles.blackBar, {bottom: lvpa.position }]}></View>  
-              <Text style={[styles.percentage, {bottom: lvpa.position + 11, left: 120, }]}> { lvpa.percentage.toFixed(0) }%</Text>
+              <View style={[styles.progressBar, {height: lpa.enmoProgressHeight }]}></View>  
+              <Text style={[styles.percentage, {height: lpa.enmoProgressHeight }]}> { lpa.enmoValue }mg</Text>
             </View>
 
             {/* MVPA Bar */}
             <View style={styles.barContainer}>
               <View style={styles.block}></View>
-              <Text style={[styles.target]}>Target: { mvpa.target.toFixed(2) }</Text>
+              <Text style={[styles.target]}>Target: { mvpa.target[0].toFixed(2) }mg +</Text>
               <Text style={[{fontWeight: "bold"}]}>Moderate to Vigorous</Text>
               <Text style={[{fontWeight: "bold"}]}>Physical Activity (MVPA)</Text>
-              <View style={[styles.blackBar, {bottom: lvpa.position }]}></View>  
-              <Text style={[styles.percentage, {bottom: lvpa.position + 11, left: 120, }]}> { mvpa.percentage.toFixed(0) }%</Text>
+              <View style={[styles.progressBar, { height: mvpa.enmoProgressHeight }]}></View>  
+              <Text style={[styles.percentage, { height: mvpa.enmoProgressHeight }]}> { mvpa.enmoValue }mg</Text>
             </View>
           </Swiper>
         </View>
 
         {/* Activity Box */}
-        <View style={styles.box}>
+        {/* <View style={styles.box}>
           <Text style={[{fontWeight: "bold", 
                         fontSize: 16, 
                         textAlign: 'center'}
@@ -105,12 +143,12 @@ const Activity = () => {
               <Text style={styles.text}>Activity: { userData.activity }</Text>
               <Text style={styles.text}>MET Value: { met }</Text>
               <Text style={styles.text}>Duration: { userData.duration } mins</Text>
-              <Text style={styles.text}>Calories: { lvpa.calories.toFixed(2) } </Text>
+              <Text style={styles.text}>Calories: { lpa.calories.toFixed(2) } </Text>
             </View>
           </View>
-        </View>
+        </View> */}
 
-        <TouchableOpacity onPress={() => setModalVisible(true)}>
+        {/* <TouchableOpacity onPress={() => setModalVisible(true)}>
           <View style= {styles.addActivityButton}>
             <Text style={[{fontWeight: "bold", 
                             fontSize: 20, 
@@ -118,9 +156,9 @@ const Activity = () => {
                             textAlign: 'center'}
                             ]}>Add Activity</Text>
           </View>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
 
-        <Modal visible={modalVisible} animationType="slide">
+        {/* <Modal visible={modalVisible} animationType="slide">
           <View style={styles.modalContainer}>
             <Text style={styles.modalTitle}>Enter User Data</Text>
             <TextInput
@@ -134,16 +172,15 @@ const Activity = () => {
               onChangeText={(text) => setUserData({ ...userData, activity: text })}
             />
             <View style={styles.buttonContainer}>
-              <View style={[styles.button, {backgroundColor: "#62C0FF"}]}>
+              <View style={[styles.button, {color: "#62C0FF"}]}>
                 <Button title="Submit" onPress={handleSubmit} color="white"/>
               </View>
-              <View style={[styles.button, {backgroundColor: "#FF4754"}]}>
+              <View style={[styles.button, {color: "#FF4754"}]}>
                 <Button title="Cancel" onPress={() => setModalVisible(false)} color="white"/>
               </View>
             </View>
           </View>
-        </Modal>
-
+        </Modal> */}
       </View>
     </ScrollView>
     
@@ -155,17 +192,14 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   page: {
-    flex: 1,
+    marginTop: 60,
     justifyContent: "center",
     alignItems: "center",
     width: screenWidth,
-    marginTop: 60,
-    marginBottom: 100,
+    flex: 1,
   },
   middleContainer: {
-    height: screenHeight * 0.52,
     flexDirection: "row",
-    marginTop: 40,
   },
   bottomContainer: {
     flexDirection: "row",
@@ -173,35 +207,29 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   barContainer: {
-    alignItems: 'center'
+    alignItems: 'center',
+    justifyContent: 'center',
+  
   },
   block: {
-    width: screenWidth * 0.4,
-    height: screenHeight *0.43,
-    backgroundColor: '#89EEC4', 
+    width: screenWidth * 0.5,
+    height: screenHeight * .6,
+    backgroundColor: '#F2F2F2', 
     marginBottom: 10,
     alignSelf: 'center',
-    borderRadius: 10,
+    borderRadius: 5,
   },
   box: {
     width: screenWidth * 0.8,
     marginBottom: 10,
-    borderRadius: 15,
+    borderRadius: 5,
     backgroundColor: "#F2F2F2",
     padding: 10,
   },
-
-  optionContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: 'center',
-    alignContent: 'center',
+  swiper: {
+    paddingTop: 30,
+    height: screenHeight *0.75,
   },
-  optionText: {
-    fontSize: 16,
-    margin: 7.5,
-  },
-
   activityContainer: {
     flexDirection: "row",
     justifyContent: 'space-evenly',
@@ -215,13 +243,14 @@ const styles = StyleSheet.create({
     justifyContent: "flex-end",
     fontWeight: "bold",
   },
-  blackBar: {
-    height: 5, // Customize the height of the bar
-    width: screenWidth * 0.45,
-    backgroundColor: 'black', // Customize the color of the bar
-    borderRadius: 20,
+  progressBar: {
+    position: 'absolute',
+    bottom: 45,
+    width: screenWidth * 0.5,
+    backgroundColor: '#89EEC4', // Customize the color of the bar
+    borderRadius: 5,
   },
-  blackbarContainer: {
+  progressBarContainer: {
     flexDirection: "row",
     alignItems: "center",
   },
@@ -230,6 +259,8 @@ const styles = StyleSheet.create({
   },
   percentage: {
     fontWeight: "bold",
+    position: 'absolute',
+    bottom: 43,
   },  
   modalContainer: {
     flex: 1,

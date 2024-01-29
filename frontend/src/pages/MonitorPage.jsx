@@ -89,12 +89,12 @@ const Monitor = () => {
   return (
     <View style={styles.pageContainer}>
       <View style={[styles.container, {height: '6%', flexDirection: 'column'}]}>
-        <View style={[{flexDirection: 'row', flex: 1}]}>
+        <View style={[{flexDirection: 'row', flex: 1, paddingBottom: 10 }]}>
           <View style={styles.leftAlign}>
             <Text style={styles.text}>Physical Activity</Text>
           </View>
           <View style={styles.rightAlign}>
-            <Text style={styles.text}>ENMO: { enmoValue.toFixed(2) }</Text>
+            <Text style={styles.text}>ENMO(mg): { enmoValue.toFixed(2) }</Text>
           </View>
         </View>
         <View style={[styles.rainbowBar, {flexDirection: 'row', height: 10}]}>
@@ -109,7 +109,7 @@ const Monitor = () => {
         <Text style={styles.text}>Vitals</Text>
         <View style={styles.vitalsContainer}>
           <View style={styles.bar}>
-            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '85%', 
+            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
                                               width: 60, marginBottom: 20}]}>
               <View style={styles.redBar}></View>
               <View style={styles.orangeBar}></View>
@@ -124,7 +124,7 @@ const Monitor = () => {
             <Text style={styles.text}> { hr } bpm</Text>
           </View>
           <View style={styles.bar}>
-            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '85%', 
+            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
                                               width: 60, marginBottom: 20}]}>
               <View style={styles.redBar}></View>
               <View style={styles.orangeBar}></View>
@@ -139,7 +139,7 @@ const Monitor = () => {
             <Text style={styles.text}> { oxygenRate.spo2.toFixed(2) }%</Text>
           </View>
           <View style={styles.bar}>
-            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '85%', 
+            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
                                               width: 60, marginBottom: 20}]}>
               <View style={styles.redBar}></View>
               <View style={styles.orangeBar}></View>

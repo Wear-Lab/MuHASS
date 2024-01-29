@@ -95,8 +95,7 @@ const Settings = ({ enterConnect }) => {
         const data = await response.json();
         const connection = data.status;
 
-        if (connection === true) enterConnect();
-        else console.log("Error disconnecting to device.");
+        enterConnect();
       } catch (error) {
         console.error("Disconnect device failed:", error);
       }
@@ -233,10 +232,13 @@ const Settings = ({ enterConnect }) => {
 };
 
 const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
   container: {
     marginTop: 60,
+    marginBottom: 100,
+    width: screenWidth,
     backgroundColor: "F1F1F1",
     flex: 1,
     justifyContent: "center",

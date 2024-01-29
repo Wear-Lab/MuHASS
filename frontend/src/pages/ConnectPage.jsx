@@ -105,9 +105,22 @@ const Connect = ({ exitConnect }) => {
       }
     }
   };
+  // allows developers to exit connect screen without connecting to a device
+  const handleDevExit = async () => {
+      exitConnect(deviceIndex);
+  }
 
   return (
     <View style={styles.container}>
+        <TouchableOpacity
+          style={[styles.button, {position: 'absolute', right: 10, top: 30, backgroundColor: 'grey', height: 35, width: 106, borderRadius: 5}]}
+          onPress={handleDevExit}
+        >
+          <Text style={[styles.text, { color: "white" }]}>
+            Dev Mode
+          </Text>
+      </TouchableOpacity>
+      
       <Text style={styles.text}>Available Devices</Text>
 
       <View style={styles.box}>
