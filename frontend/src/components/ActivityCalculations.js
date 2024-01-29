@@ -28,7 +28,7 @@ export const calculateSB = (accel_x, accel_y, accel_z, age, barHeight) => {
     const accelVectorMag = Math.sqrt((accel_x ** 2) + (accel_y ** 2) + (accel_z ** 2));
     
     result.enmoValue = accelVectorMag - 1000;
-    result.enmoValue = 75;
+    // result.enmoValue = 75;
     
     // calculate the height of the progress bar
     if (result.enmoValue <= 0) {
@@ -81,7 +81,7 @@ export const calculateLPA = (accel_x, accel_y, accel_z, age, barHeight) => {
     const accelVectorMag = Math.sqrt((accel_x ** 2) + (accel_y ** 2) + (accel_z ** 2));
     
     result.enmoValue = accelVectorMag - 1000;
-    result.enmoValue = 75;
+    // result.enmoValue = 75;
 
     // calculate the height of the progress bar
     if (result.enmoValue <= 0) {
@@ -134,7 +134,7 @@ export const calculateMVPA = (accel_x, accel_y, accel_z, age, barHeight) => {
     const accelVectorMag = Math.sqrt((accel_x ** 2) + (accel_y ** 2) + (accel_z ** 2));
     
     result.enmoValue = accelVectorMag - 1000;
-    result.enmoValue = 75;
+    // result.enmoValue = 75;
 
     // calculate the height of the progress bar
     if (result.enmoValue <= 0) {
