@@ -5,16 +5,16 @@
     "expo": "expo start ./frontend/",
     "dev": "concurrently \"npm run ble\" \"npm run expo\"",
     "ble": "python3 ./bluetooth-server/ble.py",
-    "server": "nodemon ./backend/server.js"
+    "server": "nodemon ./backend/server.js",
+    "generate": "npx prisma generate --schema ./backend/prisma/schema.prisma"
   },
   "workspaces": [
     "frontend",
     "backend"
   ],
   "devDependencies": {
-    "concurrently": "^8.2.2"
-  },
-  "dependencies": {
-    "expo": "^49.0.18"
+    "@types/node": "^20.10.3",
+    "concurrently": "^8.2.2",
+    "typescript": "^5.3.2"
   }
 }
