@@ -20,7 +20,7 @@ const Settings = ({ enterConnect }) => {
   const [deviceStatus, setDeviceStatus] = useState("");
   const [buttonText, setButtonText] = useState("Change Device");
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [dotCount, setDotCount] = useState(0);
+  const [dotCount, setDotCount] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState({
     age: null,
