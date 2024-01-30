@@ -74,7 +74,7 @@ const Activity = () => {
   const sb = calculateSB(accel_x, accel_y, accel_z, age, screenHeight * .6);
   const lpa = calculateLPA(accel_x, accel_y, accel_z, age, screenHeight * .6);
   const mvpa = calculateMVPA(accel_x, accel_y, accel_z, age, screenHeight * .6);
-  const goal = sb.goal && lpa.goal && mvpa.goal;
+  const goal = sb.hasMetGoal && lpa.hasMetGoal && mvpa.hasMetGoal;
   const showGoalOptions = Object.values(userData).some(value => value === null || value === "");
   
   return (
