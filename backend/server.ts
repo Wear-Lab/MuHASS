@@ -1,5 +1,5 @@
 import express, { json } from "express";
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient, UserInfo, Data, Calculated } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -60,12 +60,7 @@ app.delete('/user', async (req, res) => {
     res.status(200).json(deleted);
 });
 
-interface UserInfo {
-    age: number;
-    gender: string;
-    height: number;
-    weight: number;
-}
+
 
 app.get('/userInfo', async (req, res) => {
     const { userId } = req.body;
@@ -121,22 +116,6 @@ app.delete('/userInfo', async (req, res) => {
 
 
 //User data(Raw data)
-interface Data {
-    acceleration: number;
-    magnetic: number;
-    gyroscope: number;
-    temperature: number;
-    pressure: number;
-    altitude: number;
-    humidity: number;
-    gsr: number;
-    ppg: number;
-    hr: number;
-    microphone: number;
-    k: number;
-    time: DateTime;
-}
-  
 
 app.get('/data', async (req, res) => {
     const { userId } = req.body;
@@ -190,14 +169,6 @@ app.delete('/data', async (req, res) => {
     res.status(200).json(deleted);
 });
 
-
-//Calculated data 
-interface Calculated {
-    enmo: number;
-    lvpa: number;
-    mvpa: number;
-    time: DateTime;
-}
 
 app.get('/calculated', async (req, res) => {
     const { userId } = req.body;
