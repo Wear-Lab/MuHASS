@@ -2,35 +2,49 @@
 
 This is a monorepo managed with [NPM workspaces](https://docs.npmjs.com/cli/v7/using-npm/workspaces) containing the following components:
 
-- frontend (Mobile app)
-- the backend (API endpoint)
-- the bluetooth server
+- React Native app (Expo/Javascript)
+- Database/API backend (Typescript)
+- Bluetooth server (Python)
 
-# Install Expo Go on your mobile device.
+As NPM only manages JavaScript libraries, NPM Workspaces **only handles** running scripts for the Bluetooth server, **not** its packages. Python packages are managed by `pip`.
 
-# Install dependencies
-
-`npm install` or `npm i`
-`pip install -r requirements.txt`
+# Installing dependencies
+1. Install the LTS version of Node.js: https://nodejs.org/en/download/current 
+2. `npm install` or `npm i`
+3. Install the latest version of Python: https://www.python.org/downloads/
+4. `pip install -r requirements.txt`
 
 # Adding dependencies
 
-# Running the monorepo
+If the dependency is universal, you can use the usual `npm install <PACKAGE NAME>` - but if the package is specific to a workspace, it must be indicated explicitly.
 
-The project requires every component to run on the terminal for development.
+## Javascript packages
+`npm i <PACKAGE NAME> -w <WORKSPACE NAME>`
+- Example installation of axios to workspace "frontend": `npm i axios -w frontend`
 
-`npm run expo` - Just Expo
+## Python packages
+`pip install <PACKAGE NAME>`
+- Python packages are not managed through NPM Workspace; no special package installation command is required.
 
-`npm run dev` - Concurrently runs all components of the monorepo (Note: This doesn't seem to display QR code for Expo)
+# Running the project for the first time
+1. Install all dependencies - `npm install`
+2. Generate prisma files - `npm generate`
+3. Create a `.env` file at the root of the project and add all secrets necessary. This should be available somewhere private and secure to the team.
 
-`npm run ble` - Running just the bluetooth server
+# Setting IP Address for Bluetooth connection
 
-`npm run server` Just the API server
+1. Navigate to `frontend>src>components>data>LocalHost.json`
+2. In the command line, run `ipconfig`, and copy the ipv4 address
+3. Change the ipAddress parameter in the JSON file to the one on your computer
 
-# Change IP Address
+# Running the project
+The project requires every component to run on one or multiple terminals for development.
 
-Enter frontend->src->components->data->LocalHost.json
-In command line, run `ipconfig`, and copy the ipv4 address
-Change the ipAddress parameter in the JSON file to the one on your computer
+`npm run dev` - Concurrently runs all components of the monorepo (Note: This doesn't seem to display the QR code necessary to connect to Expo)
 
-# Scan QR code after running the app.
+- Alternatively, you may run the components individually on multiple terminals (necessary for the QR code to show up)
+  - `npm run expo` - Just the React Native/Expo/frontend of our project
+  - `npm run ble` - Just the Bluetooth server
+  - `npm run server` - Just the backend server
+
+
