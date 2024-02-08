@@ -6,9 +6,9 @@ export const calculateENMO = (accel_x, accel_y, accel_z) => {
     let enmoPosition;
 
     // averages for x, y, and z components
-    const accel_avg = Math.sqrt(accel_x ** 2 + accel_y ** 2 + accel_z ** 2);
+    const accel_avg = Math.sqrt((accel_x ** 2) + (accel_y ** 2) + (accel_z ** 2));
     
-    enmoValue = accel_avg - 9.81;
+    enmoValue = accel_avg - 1000;
 
     // assign position for caret
     if (enmoValue < .1) {
