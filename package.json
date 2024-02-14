@@ -13,6 +13,7 @@
     "backend"
   ],
   "devDependencies": {
+    "@expo/cli": "^0.17.5",
     "@types/node": "^20.11.5",
     "concurrently": "^8.2.2",
     "typescript": "^5.3.3"
