@@ -30,6 +30,7 @@
     "react-native-dropdown-select-list": "^2.0.4",
     "react-native-network-info": "^5.2.1",
     "react-native-public-ip": "^1.0.2",
+    "react-native-swiper": "^1.6.0",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

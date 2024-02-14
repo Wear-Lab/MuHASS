@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { 
+  View, 
+  Text, 
+  StyleSheet, 
+  Dimensions,
+  ScrollView, 
+} from "react-native";
 import axios from 'axios';
 import { 
   calculateSPO2,
@@ -95,54 +101,55 @@ const RawData = () => {
     const microphone = parseFloat(dataFile.gsr && dataFile.microphone[0]);
 
   return (
-    <View style={styles.pageContainer}>
+    <ScrollView style={styles.scrollView}>
+      <View style={styles.pageContainer}>
 
-      <View style={styles.container}>
-        <Text style={styles.headerText}>Motion & Orientation</Text>
+        <View style={styles.container}>
+          <Text style={styles.headerText}>Motion & Orientation</Text>
 
-        <Text style={styles.text}>Accelerometer</Text>
-        <View style={[styles.pageContainer, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}> 
-          <Text style={styles.text}>{ accel_x }</Text>
-          <Text style={styles.text}>{ accel_y }</Text>
-          <Text style={styles.text}>{ accel_z }</Text>
+          <Text style={styles.text}>Accelerometer</Text>
+          <View style={[{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}> 
+            <Text style={styles.text}>{ accel_x }</Text>
+            <Text style={styles.text}>{ accel_y }</Text>
+            <Text style={styles.text}>{ accel_z }</Text>
+          </View>
+          
+          <Text style={[styles.text, {marginTop: 10}]}>Gyroscope</Text>
+          <View style={[{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}> 
+            <Text style={styles.text}>{ gyro_x }</Text>
+            <Text style={styles.text}>{ gyro_y }</Text>
+            <Text style={styles.text}>{ gyro_z }</Text>
+          </View>
+          
+          <Text style={[styles.text, {marginTop: 10}]}>Magnetometer</Text>
+          <View style={[{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}> 
+            <Text style={styles.text}>{ mag_x }</Text>
+            <Text style={styles.text}>{ mag_y }</Text>
+            <Text style={styles.text}>{ mag_z }</Text>
+          </View>
         </View>
-        
-        <Text style={[styles.text, {marginTop: 10}]}>Gyroscope</Text>
-        <View style={[styles.pageContainer, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}> 
-          <Text style={styles.text}>{ gyro_x }</Text>
-          <Text style={styles.text}>{ gyro_y }</Text>
-          <Text style={styles.text}>{ gyro_z }</Text>
+
+        <View style={styles.container}>
+          <Text style={styles.headerText}>Environment</Text>
+          <Text style={styles.text}>Temperature: { f_temp.toFixed(2) } °F</Text>
+          <Text style={styles.text}>Pressure: { pressure } Pa</Text>
+          <Text style={styles.text}>Humidity: { humidity }%</Text>
+          <Text style={styles.text}>Altitude: { altitude } m</Text>
         </View>
-        
-        <Text style={[styles.text, {marginTop: 10}]}>Magnetometer</Text>
-        <View style={[styles.pageContainer, {flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}]}> 
-          <Text style={styles.text}>{ mag_x }</Text>
-          <Text style={styles.text}>{ mag_y }</Text>
-          <Text style={styles.text}>{ mag_z }</Text>
+
+        <View style={styles.container}>
+          <Text style={styles.headerText}>Physiological</Text>
+          <Text style={styles.text}>HR: { hr } bpm</Text>
+          <Text style={styles.text}>SpO2: { oxygen.spo2.toFixed(2) }%</Text>
+          <Text style={styles.text}>GSR: { gsr } µS</Text>
         </View>
-      </View>
 
-      <View style={styles.container}>
-        <Text style={styles.headerText}>Environment</Text>
-        <Text style={styles.text}>Temperature: { f_temp.toFixed(2) } °F</Text>
-        <Text style={styles.text}>Pressure: { pressure } Pa</Text>
-        <Text style={styles.text}>Humidity: { humidity }%</Text>
-        <Text style={styles.text}>Altitude: { altitude } m</Text>
-      </View>
-
-      <View style={styles.container}>
-        <Text style={styles.headerText}>Physiological</Text>
-        <Text style={styles.text}>HR: { hr } bpm</Text>
-        <Text style={styles.text}>SpO2: { oxygen.spo2.toFixed(2) }%</Text>
-        <Text style={styles.text}>GSR: { gsr } µS</Text>
-      </View>
-
-      <View style={styles.container}>
-        <Text style={styles.headerText}>Additional</Text>
-        <Text style={styles.text}>Microphone: { microphone } dB</Text>
-      </View>
-
-  </View>
+        <View style={styles.container}>
+          <Text style={styles.headerText}>Additional</Text>
+          <Text style={styles.text}>Microphone: { microphone } dB</Text>
+        </View>
+      </View>    
+    </ScrollView>
   );
 };
 
@@ -150,8 +157,13 @@ const screenWidth = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
   pageContainer: {
-    justifyContent: 'center',
-    alignContent: 'center',
+    marginTop: 60,
+    marginBottom: 100,
+    width: screenWidth,
+    backgroundColor: "F1F1F1",
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
   container: {
     width: screenWidth * 0.8,

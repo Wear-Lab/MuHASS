@@ -1,9 +1,10 @@
 {
     "SampleData": {
       "hr": 75,
+      "age": 30,
+
       "spo2": 95,
       "k": 0.9856126172311,
-
       "activity": "Walking",
       "met": 2,
       "weight": 145,
