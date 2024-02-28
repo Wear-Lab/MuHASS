@@ -12,6 +12,7 @@ web-build/
 backend/__pycache__/ble.cpython-310.pyc
 .vscode/
 .env
+android/
 
 # macOS
 .DS_Store
