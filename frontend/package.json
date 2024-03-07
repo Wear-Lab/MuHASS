@@ -4,26 +4,27 @@
   "main": "./index.js",
   "scripts": {},
   "dependencies": {
-    "@emotion/react": "^11.11.0",
+    "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-regular-svg-icons": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
     "@fortawesome/react-native-fontawesome": "^0.3.0",
-    "@prisma/client": "^5.8.1",
-    "axios": "^1.5.1",
+    "@prisma/client": "^5.10.2",
+    "@types/react": "~18.2.64",
+    "axios": "^1.6.7",
     "babel-plugin-macros": "^3.1.0",
     "expo": "^50.0.7",
     "expo-status-bar": "^1.11.1",
     "expo-system-ui": "^2.9.3",
-    "metro-runtime": "^0.80.4",
+    "metro-runtime": "^0.80.6",
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-ble-manager": "^11.3.2",
     "react-native-ble-plx": "^3.1.2",
     "react-native-cli": "^2.0.1",
-    "react-native-dropdown-select-list": "^2.0.4",
+    "react-native-dropdown-select-list": "^2.0.5",
     "react-native-network-info": "^5.2.1",
     "react-native-public-ip": "^1.0.2",
     "react-native-svg": "^15.1.0",
@@ -31,8 +32,8 @@
     "styled-components": "^6.1.8"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0",
-    "prisma": "^5.8.1"
+    "@babel/core": "^7.24.0",
+    "prisma": "^5.10.2"
   },
   "private": true
 }
