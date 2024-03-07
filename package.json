@@ -13,8 +13,9 @@
     "backend"
   ],
   "devDependencies": {
-    "@types/node": "^20.10.3",
+    "@expo/cli": "^0.17.7",
+    "@types/node": "^20.11.25",
     "concurrently": "^8.2.2",
-    "typescript": "^5.3.2"
+    "typescript": "^5.4.2"
   }
 }
