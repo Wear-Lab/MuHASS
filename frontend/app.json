@@ -25,12 +25,14 @@
       "permissions": [
         "android.permission.BLUETOOTH",
         "android.permission.BLUETOOTH_ADMIN",
-        "android.permission.BLUETOOTH_CONNECT"
+        "android.permission.BLUETOOTH_CONNECT",
+        "android.permission.BLUETOOTH_SCAN",
       ],
       "package": "com.anonymous.frontend"
     },
     "web": {
       "favicon": "./frontend/assets/favicon.png"
-    }
+    },
+    "plugins": ["react-native-ble-plx"]
   }
 }

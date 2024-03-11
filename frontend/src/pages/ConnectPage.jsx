@@ -7,6 +7,7 @@ import {
   ScrollView,
 } from "react-native";
 import LocalHost from '../components/data/LocalHost';
+import { BleManager } from "react-native-ble-plx";
 
 const Connect = ({ exitConnect }) => {
   const ipAddress = LocalHost.ipAddress;
@@ -19,29 +20,22 @@ const Connect = ({ exitConnect }) => {
   const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {
-    // list available devices and display them to the screen
-    const fetchDevices = async () => {
-      try {
-        const refresh = await fetch(`http://${ipAddress}:8000/find_devices`);
+    const manager = new BleManager();
 
-        try {
-          const response = await fetch(`http://${ipAddress}:8000/devices`);
-          const data = await response.json();
-          setDevices(data);
-        } catch (error) {
-          console.error("Error retrieving devices list:", error);
-        }
-      } catch (error) {
-        console.error("Error finding devices:", error);
+    manager.startDeviceScan(null, null, (error, device) => {
+      if (error) {
+        console.error(error);
+        return;
       }
-      [];
-    };
-
-    fetchDevices();
-
-    const interval = setInterval(fetchDevices, 10000); // Fetch devices every 10 seconds
-
-    return () => clearInterval(interval); // Clean up the interval on unmount
+      if (device.name) {
+        setDevices((prevDevices) => {
+          if (!prevDevices.includes(device.name)) {
+            return [...prevDevices, device.name];
+          }
+          return prevDevices;
+        });
+      }
+    });
   }, []);
 
   // Hide the error container after 2 seconds
