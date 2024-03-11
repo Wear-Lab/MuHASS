@@ -5,7 +5,6 @@
     "prebuild": "cd ./frontend && expo prebuild",
     "android": "expo run:android ./frontend/",
     "ios": "expo run:ios ./frontend/",
-    "ble": "python3 ./bluetooth-server/ble.py",
     "server": "nodemon ./backend/server.js",
     "generate": "npx prisma generate --schema ./backend/prisma/schema.prisma"
   },
