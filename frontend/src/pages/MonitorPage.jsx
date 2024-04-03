@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import axios from 'axios';
+import axios from "axios";
 import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import {
   calculateENMO,
@@ -9,10 +9,10 @@ import {
   calculateSPO2,
   calculateGSR,
   determineStressLevel,
-  convertTemp
-} from '../components/MonitorCalculations';
-import LocalHost from '../components/data/LocalHost';
-import SampleData from '../components/data/SampleData';
+  convertTemp,
+} from "../components/MonitorCalculations";
+import LocalHost from "../components/data/LocalHost";
+import SampleData from "../components/data/SampleData";
 
 const Monitor = () => {
   const ipAddress = LocalHost.ipAddress;
@@ -27,36 +27,39 @@ const Monitor = () => {
         const serviceCharacteristics = [
           // temperature, pressure
           {
-            service_uuid: '00000200-1212-efde-1523-785feabcd123',
-            characteristic_uuid: '00000201-1212-efde-1523-785feabcd123'
+            service_uuid: "00000200-1212-efde-1523-785feabcd123",
+            characteristic_uuid: "00000201-1212-efde-1523-785feabcd123",
           },
           // humidity
           {
-            service_uuid: '00000200-1212-efde-1523-785feabcd123',
-            characteristic_uuid: '00000202-1212-efde-1523-785feabcd123'
+            service_uuid: "00000200-1212-efde-1523-785feabcd123",
+            characteristic_uuid: "00000202-1212-efde-1523-785feabcd123",
           },
           // acceleration
           {
-            service_uuid: '00000300-1212-efde-1523-785feabcd123',
-            characteristic_uuid: '00000302-1212-efde-1523-785feabcd123'
+            service_uuid: "00000300-1212-efde-1523-785feabcd123",
+            characteristic_uuid: "00000302-1212-efde-1523-785feabcd123",
           },
           // spo2 (ppg)
           {
-            service_uuid: '00000400-1212-efde-1523-785feabcd123',
-            characteristic_uuid: '00000402-1212-efde-1523-785feabcd123'
+            service_uuid: "00000400-1212-efde-1523-785feabcd123",
+            characteristic_uuid: "00000402-1212-efde-1523-785feabcd123",
           },
           // gsr
           {
-            service_uuid: '00000400-1212-efde-1523-785feabcd123',
-            characteristic_uuid: '00000403-1212-efde-1523-785feabcd123'
+            service_uuid: "00000400-1212-efde-1523-785feabcd123",
+            characteristic_uuid: "00000403-1212-efde-1523-785feabcd123",
           },
         ];
 
-        const response = await axios.post(`http://${ipAddress}:8000/data`, serviceCharacteristics);
+        const response = await axios.post(
+          `http://${ipAddress}:8000/data`,
+          serviceCharacteristics,
+        );
         const data = await response.data;
         setDataFile(data);
       } catch (error) {
-        console.error('Fetch data failed:', error);
+        console.error("Fetch data failed:", error);
       }
     };
 
@@ -68,13 +71,17 @@ const Monitor = () => {
   }, [ipAddress]);
 
   // assign data to constants
-  const environment = dataFile.environment?.[0]?.split(' ').map(Number.parseFloat);
+  const environment = dataFile.environment?.[0]
+    ?.split(" ")
+    .map(Number.parseFloat);
   const [c_temp, pressure] = environment || [null, null];
   const humidity = Number.parseFloat(dataFile.humidity?.[0]);
-  const acceleration = dataFile.acceleration?.[0]?.split(' ').map(Number.parseFloat);
+  const acceleration = dataFile.acceleration?.[0]
+    ?.split(" ")
+    .map(Number.parseFloat);
   const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
   const gsr = Number.parseFloat(dataFile.gsr?.[0]);
-  const ppg = dataFile.ppg?.[0]?.split(' ').map(Number.parseFloat);
+  const ppg = dataFile.ppg?.[0]?.split(" ").map(Number.parseFloat);
   [ac_red, dc_red, ac_ir, dc_ir] = ppg || [null, null, null, null];
   const { hr, k } = SampleData.SampleData;
 
@@ -83,34 +90,52 @@ const Monitor = () => {
   const heartRate = calculateHeartRate(hr);
   const gsrRate = calculateGSR(gsr);
   const oxygenRate = calculateSPO2(ac_red, dc_red, ac_ir, dc_ir, k);
-  const stressLevel = determineStressLevel(heartRate.color, oxygenRate.color, gsrRate.color);
+  const stressLevel = determineStressLevel(
+    heartRate.color,
+    oxygenRate.color,
+    gsrRate.color,
+  );
   const { enmoValue, enmoPosition } = calculateENMO(accel_x, accel_y, accel_z);
 
   return (
     <View style={styles.pageContainer}>
-      <View style={[styles.container, {height: '6%', flexDirection: 'column'}]}>
-        <View style={[{flexDirection: 'row', flex: 1, paddingBottom: 10 }]}>
+      <View
+        style={[styles.container, { height: "6%", flexDirection: "column" }]}
+      >
+        <View style={[{ flexDirection: "row", flex: 1, paddingBottom: 10 }]}>
           <View style={styles.leftAlign}>
             <Text style={styles.text}>Physical Activity</Text>
           </View>
           <View style={styles.rightAlign}>
-            <Text style={styles.text}>ENMO(mg): { enmoValue.toFixed(2) }</Text>
+            <Text style={styles.text}>ENMO(mg): {enmoValue.toFixed(2)}</Text>
           </View>
         </View>
-        <View style={[styles.rainbowBar, {flexDirection: 'row', height: 10}]}>
+        <View style={[styles.rainbowBar, { flexDirection: "row", height: 10 }]}>
           <View style={styles.redBar} />
           <View style={styles.orangeBar} />
           <View style={styles.yellowBar} />
           <View style={styles.greenBar} />
         </View>
-        <FontAwesomeIcon icon={faCaretUp} style={[styles.caret, {left: enmoPosition}]}/>
+        <FontAwesomeIcon
+          icon={faCaretUp}
+          style={[styles.caret, { left: enmoPosition }]}
+        />
       </View>
-      <View style={[styles.container, {height: '60%', alignItems: 'center'}]}>
+      <View style={[styles.container, { height: "60%", alignItems: "center" }]}>
         <Text style={styles.text}>Vitals</Text>
         <View style={styles.vitalsContainer}>
           <View style={styles.bar}>
-            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
-                                              width: 60, marginBottom: 20}]}>
+            <View
+              style={[
+                styles.rainbowBar,
+                {
+                  flexDirection: "column",
+                  height: "80%",
+                  width: 60,
+                  marginBottom: 20,
+                },
+              ]}
+            >
               <View style={styles.redBar} />
               <View style={styles.orangeBar} />
               <View style={styles.yellowBar} />
@@ -121,11 +146,20 @@ const Monitor = () => {
             </View>
             <View style={[styles.blackBar, { top: heartRate.position }]} />
             <Text style={styles.text}>Heart Rate</Text>
-            <Text style={styles.text}> { hr } bpm</Text>
+            <Text style={styles.text}> {hr} bpm</Text>
           </View>
           <View style={styles.bar}>
-            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
-                                              width: 60, marginBottom: 20}]}>
+            <View
+              style={[
+                styles.rainbowBar,
+                {
+                  flexDirection: "column",
+                  height: "80%",
+                  width: 60,
+                  marginBottom: 20,
+                },
+              ]}
+            >
               <View style={styles.redBar} />
               <View style={styles.orangeBar} />
               <View style={styles.yellowBar} />
@@ -136,11 +170,20 @@ const Monitor = () => {
             </View>
             <View style={[styles.blackBar, { top: oxygenRate.position }]} />
             <Text style={styles.text}>SpO2</Text>
-            <Text style={styles.text}> { oxygenRate.spo2.toFixed(2) }%</Text>
+            <Text style={styles.text}> {oxygenRate.spo2.toFixed(2)}%</Text>
           </View>
           <View style={styles.bar}>
-            <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
-                                              width: 60, marginBottom: 20}]}>
+            <View
+              style={[
+                styles.rainbowBar,
+                {
+                  flexDirection: "column",
+                  height: "80%",
+                  width: 60,
+                  marginBottom: 20,
+                },
+              ]}
+            >
               <View style={styles.redBar} />
               <View style={styles.orangeBar} />
               <View style={styles.yellowBar} />
@@ -151,28 +194,36 @@ const Monitor = () => {
             </View>
             <View style={[styles.blackBar, { top: gsrRate.position }]} />
             <Text style={styles.text}>GSR</Text>
-            <Text style={styles.text}> { gsr } µS</Text>
+            <Text style={styles.text}> {gsr} µS</Text>
           </View>
         </View>
       </View>
-      <View style={[styles.container, {height: '15%', justifyContent: 'center'}]}>
-        <View style={[styles.leftAlign, {marginLeft:20}]}>
+      <View
+        style={[styles.container, { height: "15%", justifyContent: "center" }]}
+      >
+        <View style={[styles.leftAlign, { marginLeft: 20 }]}>
           <Text style={styles.text}>Stress Level:</Text>
-          <Text style={styles.text}>{ stressLevel.stress }</Text>
-          { stressLevel.image }
+          <Text style={styles.text}>{stressLevel.stress}</Text>
+          {stressLevel.image}
         </View>
-        <View style={[styles.rightAlign, {alignItems: 'center'}]}>
+        <View style={[styles.rightAlign, { alignItems: "center" }]}>
           <Text style={styles.text}>Environment</Text>
-          <Text style={[styles.text, {fontWeight: 'normal', marginTop: 10}]}>Temperature: { f_temp.toFixed(2) } °F</Text>
-          <Text style={[styles.text, {fontWeight: 'normal'}]}>Pressure: { pressure } Pa</Text>
-          <Text style={[styles.text, {fontWeight: 'normal'}]}>Humidity: { humidity }%</Text>
+          <Text style={[styles.text, { fontWeight: "normal", marginTop: 10 }]}>
+            Temperature: {f_temp.toFixed(2)} °F
+          </Text>
+          <Text style={[styles.text, { fontWeight: "normal" }]}>
+            Pressure: {pressure} Pa
+          </Text>
+          <Text style={[styles.text, { fontWeight: "normal" }]}>
+            Humidity: {humidity}%
+          </Text>
         </View>
       </View>
     </View>
   );
 };
 
-const screenWidth = Dimensions.get('window').width;
+const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   // basic formatting
@@ -185,30 +236,30 @@ const styles = StyleSheet.create({
   },
   leftAlign: {
     left: 10,
-    position: 'absolute',
-    alignItems: 'center',
+    position: "absolute",
+    alignItems: "center",
   },
   rightAlign: {
     right: 10,
-    position: 'absolute',
+    position: "absolute",
   },
   text: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 16,
   },
 
   // measurement bars
   bar: {
-    alignItems: 'center',
-    flex: 1, 
+    alignItems: "center",
+    flex: 1,
   },
   rainbowBar: {
     borderRadius: 5,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   vitalsContainer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
+    justifyContent: "center",
+    flexDirection: "row",
     marginTop: 15,
   },
 
@@ -231,10 +282,10 @@ const styles = StyleSheet.create({
   },
   blackBar: {
     height: 5,
-    backgroundColor: 'black',
+    backgroundColor: "black",
     borderRadius: 15,
     width: 70,
-    position: 'absolute',
+    position: "absolute",
   },
 });
 

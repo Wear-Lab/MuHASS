@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
 import Monitor from "./MonitorPage";
 import Activity from "./ActivityPage";
 import RawData from "./RawDataPage";
 import Settings from "./SettingsPage";
-import Connect from "./ConnectPage"
-import Icon from 'react-native-vector-icons/FontAwesome';
+import Connect from "./ConnectPage";
+import Icon from "react-native-vector-icons/FontAwesome";
 
 // Define an array of objects representing each navigation image
 const navItems = [
@@ -42,14 +42,21 @@ const HomeTwo = () => {
     <View style={styles.container}>
       {/* Render the Connect component if no activeTab is set */}
       {activeTab === null || activeTab === "Connect" ? (
-        <Connect exitConnect={handleExitConnect} enterConnect={handleEnterConnect}/>
+        <Connect
+          exitConnect={handleExitConnect}
+          enterConnect={handleEnterConnect}
+        />
       ) : (
         <View style={styles.contentContainer}>
           {activeTab === "Monitoring" && <Monitor />}
           {activeTab === "Activity" && <Activity />}
           {activeTab === "Raw Data" && <RawData />}
-          {activeTab === "Settings" && (<Settings enterConnect={handleEnterConnect}/>)}
-          {activeTab === "Connect" && (<Connect exitConnect={handleExitConnect}/>)}
+          {activeTab === "Settings" && (
+            <Settings enterConnect={handleEnterConnect} />
+          )}
+          {activeTab === "Connect" && (
+            <Connect exitConnect={handleExitConnect} />
+          )}
         </View>
       )}
 
@@ -79,7 +86,7 @@ const HomeTwo = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   contentContainer: {
     flex: 1,
@@ -89,9 +96,9 @@ const styles = StyleSheet.create({
   navContainer: {
     flexDirection: "row",
     backgroundColor: "#F2F2F2",
-    height: '7%',
-    width: '100%',
-    position: 'absolute',
+    height: "7%",
+    width: "100%",
+    position: "absolute",
     bottom: 0,
   },
   navItem: {

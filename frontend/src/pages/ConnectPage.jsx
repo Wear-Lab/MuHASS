@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
-import LocalHost from '../components/data/LocalHost';
+import LocalHost from "../components/data/LocalHost";
 import { BleManager } from "react-native-ble-plx";
 
 const Connect = ({ exitConnect }) => {
   const ipAddress = LocalHost.ipAddress;
-  
+
   const [devices, setDevices] = useState([]);
   const [deviceIndex, setDeviceIndex] = useState(-1);
   const [connectionStatus, setConnectionStatus] = useState(false);
@@ -78,22 +78,18 @@ const Connect = ({ exitConnect }) => {
         setConnectionStatus(false);
 
         const response = await fetch(
-          `http://${ipAddress}:8000/connect_device?device_index=${deviceIndex}`
+          `http://${ipAddress}:8000/connect_device?device_index=${deviceIndex}`,
         );
         const data = await response.json();
         const connection = data.status;
 
-        if (connection === true)
-          exitConnect(deviceIndex);
-        else
-          setConnectionStatus(true);
-          setButtonText('Connect');
-      } 
-      // device could not connect
-      catch (error) {
-        console.error('connect_device function error: ', error);
-      }
-      finally {
+        if (connection === true) exitConnect(deviceIndex);
+        else setConnectionStatus(true);
+        setButtonText("Connect");
+      } catch (error) {
+        // device could not connect
+        console.error("connect_device function error: ", error);
+      } finally {
         // enable the button to be used by user again
         setButtonDisabled(false);
       }
@@ -101,20 +97,29 @@ const Connect = ({ exitConnect }) => {
   };
   // allows developers to exit connect screen without connecting to a device
   const handleDevExit = async () => {
-      exitConnect(deviceIndex);
-  }
+    exitConnect(deviceIndex);
+  };
 
   return (
     <View style={styles.container}>
-        <TouchableOpacity
-          style={[styles.button, {position: 'absolute', right: 10, top: 30, backgroundColor: 'grey', height: 35, width: 106, borderRadius: 5}]}
-          onPress={handleDevExit}
-        >
-          <Text style={[styles.text, { color: "white" }]}>
-            Dev Mode
-          </Text>
+      <TouchableOpacity
+        style={[
+          styles.button,
+          {
+            position: "absolute",
+            right: 10,
+            top: 30,
+            backgroundColor: "grey",
+            height: 35,
+            width: 106,
+            borderRadius: 5,
+          },
+        ]}
+        onPress={handleDevExit}
+      >
+        <Text style={[styles.text, { color: "white" }]}>Dev Mode</Text>
       </TouchableOpacity>
-      
+
       <Text style={styles.text}>Available Devices</Text>
 
       <View style={styles.box}>
@@ -136,10 +141,30 @@ const Connect = ({ exitConnect }) => {
         </ScrollView>
       </View>
 
-      <Text style={[styles.text, { textAlign: "center", width: "85%", fontWeight: 'normal', fontSize: 13 }]}>
-        Ensure BLUE connection light is pulsing. 
+      <Text
+        style={[
+          styles.text,
+          {
+            textAlign: "center",
+            width: "85%",
+            fontWeight: "normal",
+            fontSize: 13,
+          },
+        ]}
+      >
+        Ensure BLUE connection light is pulsing.
       </Text>
-      <Text style={[styles.text, { textAlign: "center", width: "85%", fontWeight: 'normal', fontSize: 13 }]}>
+      <Text
+        style={[
+          styles.text,
+          {
+            textAlign: "center",
+            width: "85%",
+            fontWeight: "normal",
+            fontSize: 13,
+          },
+        ]}
+      >
         If not, press reset button and wait for light to pulse.
       </Text>
 
@@ -230,10 +255,10 @@ const styles = StyleSheet.create({
   devicesText: {
     color: "black",
     fontSize: 20,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    width: '90%',
-  }
+    fontWeight: "bold",
+    textAlign: "center",
+    width: "90%",
+  },
 });
 
 export default Connect;

@@ -8,10 +8,7 @@
     "server": "nodemon ./backend/server.js",
     "generate": "npx prisma generate --schema ./backend/prisma/schema.prisma"
   },
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
+  "workspaces": ["frontend", "backend"],
   "devDependencies": {
     "@expo/cli": "^0.17.7",
     "@types/node": "^20.11.25",
