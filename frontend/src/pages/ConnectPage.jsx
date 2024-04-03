@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
   ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from "react-native";
-import LocalHost from "../components/data/LocalHost";
 import { BleManager } from "react-native-ble-plx";
+import LocalHost from "../components/data/LocalHost";
 
 const Connect = ({ exitConnect }) => {
   const ipAddress = LocalHost.ipAddress;

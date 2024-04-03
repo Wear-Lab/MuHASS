@@ -1,15 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import axios from "axios";
-import { faCaretUp } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { Dimensions, StyleSheet, Text, View } from "react-native";
 import {
   calculateENMO,
+  calculateGSR,
   calculateHeartRate,
   calculateSPO2,
-  calculateGSR,
-  determineStressLevel,
   convertTemp,
+  determineStressLevel,
 } from "../components/MonitorCalculations";
 import LocalHost from "../components/data/LocalHost";
 import SampleData from "../components/data/SampleData";

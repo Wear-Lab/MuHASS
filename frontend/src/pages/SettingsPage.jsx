@@ -1,17 +1,17 @@
+import React, { useEffect, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Modal,
-  TextInput,
   Button,
-  ScrollView,
-  Image,
   Dimensions,
+  Image,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
 import SlidingButton from "../components/SlidingButton";
-import React, { useEffect, useState } from "react";
 import LocalHost from "../components/data/LocalHost";
 
 const Settings = ({ enterConnect }) => {

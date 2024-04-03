@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions, ScrollView } from "react-native";
 import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import { calculateSPO2, convertTemp } from "../components/MonitorCalculations";
 import LocalHost from "../components/data/LocalHost";
 import SampleData from "../components/data/SampleData";

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native";
-import Monitor from "./MonitorPage";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import Icon from "react-native-vector-icons/FontAwesome";
 import Activity from "./ActivityPage";
+import Connect from "./ConnectPage";
+import Monitor from "./MonitorPage";
 import RawData from "./RawDataPage";
 import Settings from "./SettingsPage";
-import Connect from "./ConnectPage";
-import Icon from "react-native-vector-icons/FontAwesome";
 
 // Define an array of objects representing each navigation image
 const navItems = [

@@ -1,12 +1,12 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView, Dimensions } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import Swiper from "react-native-swiper";
 import {
-  calculateSB,
   calculateLPA,
   calculateMVPA,
+  calculateSB,
 } from "../components/ActivityCalculations";
-import axios from "axios";
-import Swiper from "react-native-swiper";
 import LocalHost from "../components/data/LocalHost";
 import SampleData from "../components/data/SampleData";
 

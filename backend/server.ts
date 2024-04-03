@@ -1,10 +1,10 @@
-import express, { json } from "express";
 import {
+  type Calculated,
+  type Data,
   PrismaClient,
   type UserInfo,
-  type Data,
-  type Calculated,
 } from "@prisma/client";
+import express, { json } from "express";
 
 const prisma = new PrismaClient();
 
