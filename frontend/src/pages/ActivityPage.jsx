@@ -64,9 +64,9 @@ const Activity = () => {
     const interval = setInterval(fetchData, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [ipAddress]);
 
-  const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+  const acceleration = dataFile.acceleration?.[0]?.split(' ').map(Number.parseFloat);
   const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
   const { age } = SampleData.SampleData;
 
@@ -94,31 +94,31 @@ const Activity = () => {
           <Swiper showsButtons={false} style={styles.swiper}>
             {/* Sedentary Bar */}
             <View style={styles.barContainer}>
-              <View style={styles.block}></View>
+              <View style={styles.block} />
               <Text style={[styles.target]}>Target: { sb.target[1].toFixed(2) }mg</Text>
               <Text style={[{fontWeight: "bold"}]}>Sedentary Behavior</Text>
               <Text style={[{fontWeight: "bold"}]}>(SB)</Text>
-              <View style={[styles.progressBar, { height: sb.enmoProgressHeight }]}></View>  
+              <View style={[styles.progressBar, { height: sb.enmoProgressHeight }]} />  
               <Text style={[styles.percentage, { height: sb.enmoProgressHeight }]}> { sb.enmoValue }mg</Text>
             </View> 
 
             {/* LPA Bar */}
             <View style={styles.barContainer}>
-              <View style={styles.block}></View>
+              <View style={styles.block} />
               <Text style={[styles.target]}>Target: { lpa.target[0].toFixed(2) }mg - {lpa.target[1].toFixed(2)}mg</Text>
               <Text style={[{fontWeight: "bold"}]}>Light Physical Activity</Text>
               <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
-              <View style={[styles.progressBar, {height: lpa.enmoProgressHeight }]}></View>  
+              <View style={[styles.progressBar, {height: lpa.enmoProgressHeight }]} />  
               <Text style={[styles.percentage, {height: lpa.enmoProgressHeight }]}> { lpa.enmoValue }mg</Text>
             </View>
 
             {/* MVPA Bar */}
             <View style={styles.barContainer}>
-              <View style={styles.block}></View>
+              <View style={styles.block} />
               <Text style={[styles.target]}>Target: { mvpa.target[0].toFixed(2) }mg +</Text>
               <Text style={[{fontWeight: "bold"}]}>Moderate to Vigorous</Text>
               <Text style={[{fontWeight: "bold"}]}>Physical Activity (MVPA)</Text>
-              <View style={[styles.progressBar, { height: mvpa.enmoProgressHeight }]}></View>  
+              <View style={[styles.progressBar, { height: mvpa.enmoProgressHeight }]} />  
               <Text style={[styles.percentage, { height: mvpa.enmoProgressHeight }]}> { mvpa.enmoValue }mg</Text>
             </View>
           </Swiper>
@@ -295,7 +295,6 @@ const styles = StyleSheet.create({
     width: 375,
     marginTop: 10,
     borderRadius: 20,
-    backgroundColor: "#F2F2F2",
     padding: 10,
     backgroundColor: "#8BFF8E", 
     justifyContent: 'center',
@@ -305,7 +304,6 @@ const styles = StyleSheet.create({
     width: 375,
     marginTop: 10,
     borderRadius: 20,
-    backgroundColor: "#F2F2F2",
     padding: 10,
     backgroundColor: "#FFA14D", 
     alignItems: 'center', 

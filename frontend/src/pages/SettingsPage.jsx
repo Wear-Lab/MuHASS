@@ -44,7 +44,7 @@ const Settings = ({ enterConnect }) => {
     };
 
     fetchDeviceInfo();
-  }, []);
+  }, [ipAddress]);
 
   /// fetch the devices connection status
   useEffect(() => {
@@ -61,7 +61,7 @@ const Settings = ({ enterConnect }) => {
     };
 
     fetchDeviceStatus();
-  }, []);
+  }, [ipAddress]);
 
   // dot animation while attempting to disconnect to device
   useEffect(() => {

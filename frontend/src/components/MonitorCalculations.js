@@ -2,13 +2,11 @@ import { Image, StyleSheet} from "react-native";
 
 export const calculateENMO = (accel_x, accel_y, accel_z) => {
     
-    let enmoValue;
     let enmoPosition;
 
     // averages for x, y, and z components
     const accel_avg = Math.sqrt((accel_x ** 2) + (accel_y ** 2) + (accel_z ** 2));
     
-    enmoValue = accel_avg - 1000;
 
     // assign position for caret
     if (enmoValue < .1) {
@@ -28,10 +26,11 @@ export const calculateENMO = (accel_x, accel_y, accel_z) => {
     } 
 
     return { enmoValue, enmoPosition };
+  const enmoValue = accel_avg - 1000;
 }
 
 export const calculateHeartRate = (hr) => {
-    let result = {
+    const result = {
       color: "",
       position: 0,
     };
@@ -66,7 +65,7 @@ export const calculateHeartRate = (hr) => {
 };
 
 export const calculateSPO2 = (ac_red, dc_red, ac_ir, dc_ir, k) => {
-    let result = {
+    const result = {
         color: "",
         position: 0,
         spo2: 0,
@@ -108,7 +107,7 @@ export const calculateSPO2 = (ac_red, dc_red, ac_ir, dc_ir, k) => {
 };
 
 export const calculateGSR = (gsr) => {
-    let result = {
+    const result = {
         color: "",
         position: 0,
     };

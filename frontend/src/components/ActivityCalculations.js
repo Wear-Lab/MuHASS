@@ -1,5 +1,5 @@
 export const calculateSB = (accel_x, accel_y, accel_z, age, barHeight) => {
-    let result = {
+    const result = {
         hasMetGoal: false, // determine whether the individual has met their goal
         target: [0,0], // of age group
         enmoProgressHeight: 0, // height of progress bar
@@ -52,7 +52,7 @@ export const calculateSB = (accel_x, accel_y, accel_z, age, barHeight) => {
 }
 
 export const calculateLPA = (accel_x, accel_y, accel_z, age, barHeight) => {
-    let result = {
+    const result = {
         hasMetGoal: false, // determine whether the individual has met their goal
         target: [0, 0], // of age group
         enmoProgressHeight: 0, // height of progress bar
@@ -105,7 +105,7 @@ export const calculateLPA = (accel_x, accel_y, accel_z, age, barHeight) => {
 }
 
 export const calculateMVPA = (accel_x, accel_y, accel_z, age, barHeight) => {
-    let result = {
+    const result = {
         hasMetGoal: false, // determine whether the individual has met their goal
         target: [0, 0], // of age group
         enmoProgressHeight: 0, // height of progress bar

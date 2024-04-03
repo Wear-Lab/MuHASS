@@ -65,16 +65,16 @@ const Monitor = () => {
     const interval = setInterval(fetchData, 1000);
 
     return () => clearInterval(interval);
-  }, []);
-    
+  }, [ipAddress]);
+
   // assign data to constants
-  const environment = dataFile.environment && dataFile.environment[0]?.split(' ').map(parseFloat);
+  const environment = dataFile.environment?.[0]?.split(' ').map(Number.parseFloat);
   const [c_temp, pressure] = environment || [null, null];
-  const humidity = parseFloat(dataFile.humidity && dataFile.humidity[0]);
-  const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+  const humidity = Number.parseFloat(dataFile.humidity?.[0]);
+  const acceleration = dataFile.acceleration?.[0]?.split(' ').map(Number.parseFloat);
   const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
-  const gsr = parseFloat(dataFile.gsr && dataFile.gsr[0]);
-  const ppg = dataFile.ppg && dataFile.ppg[0]?.split(' ').map(parseFloat);
+  const gsr = Number.parseFloat(dataFile.gsr?.[0]);
+  const ppg = dataFile.ppg?.[0]?.split(' ').map(Number.parseFloat);
   [ac_red, dc_red, ac_ir, dc_ir] = ppg || [null, null, null, null];
   const { hr, k } = SampleData.SampleData;
 
@@ -98,10 +98,10 @@ const Monitor = () => {
           </View>
         </View>
         <View style={[styles.rainbowBar, {flexDirection: 'row', height: 10}]}>
-          <View style={styles.redBar}></View>
-          <View style={styles.orangeBar}></View>
-          <View style={styles.yellowBar}></View>
-          <View style={styles.greenBar}></View>
+          <View style={styles.redBar} />
+          <View style={styles.orangeBar} />
+          <View style={styles.yellowBar} />
+          <View style={styles.greenBar} />
         </View>
         <FontAwesomeIcon icon={faCaretUp} style={[styles.caret, {left: enmoPosition}]}/>
       </View>
@@ -111,45 +111,45 @@ const Monitor = () => {
           <View style={styles.bar}>
             <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
                                               width: 60, marginBottom: 20}]}>
-              <View style={styles.redBar}></View>
-              <View style={styles.orangeBar}></View>
-              <View style={styles.yellowBar}></View>
-              <View style={styles.greenBar}></View>
-              <View style={styles.yellowBar}></View>
-              <View style={styles.orangeBar}></View>
-              <View style={styles.redBar}></View>
+              <View style={styles.redBar} />
+              <View style={styles.orangeBar} />
+              <View style={styles.yellowBar} />
+              <View style={styles.greenBar} />
+              <View style={styles.yellowBar} />
+              <View style={styles.orangeBar} />
+              <View style={styles.redBar} />
             </View>
-            <View style={[styles.blackBar, { top: heartRate.position }]}></View>
+            <View style={[styles.blackBar, { top: heartRate.position }]} />
             <Text style={styles.text}>Heart Rate</Text>
             <Text style={styles.text}> { hr } bpm</Text>
           </View>
           <View style={styles.bar}>
             <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
                                               width: 60, marginBottom: 20}]}>
-              <View style={styles.redBar}></View>
-              <View style={styles.orangeBar}></View>
-              <View style={styles.yellowBar}></View>
-              <View style={styles.greenBar}></View>
-              <View style={styles.yellowBar}></View>
-              <View style={styles.orangeBar}></View>
-              <View style={styles.redBar}></View>
+              <View style={styles.redBar} />
+              <View style={styles.orangeBar} />
+              <View style={styles.yellowBar} />
+              <View style={styles.greenBar} />
+              <View style={styles.yellowBar} />
+              <View style={styles.orangeBar} />
+              <View style={styles.redBar} />
             </View>
-            <View style={[styles.blackBar, { top: oxygenRate.position }]}></View>
+            <View style={[styles.blackBar, { top: oxygenRate.position }]} />
             <Text style={styles.text}>SpO2</Text>
             <Text style={styles.text}> { oxygenRate.spo2.toFixed(2) }%</Text>
           </View>
           <View style={styles.bar}>
             <View style={[styles.rainbowBar, {flexDirection: 'column', height: '80%', 
                                               width: 60, marginBottom: 20}]}>
-              <View style={styles.redBar}></View>
-              <View style={styles.orangeBar}></View>
-              <View style={styles.yellowBar}></View>
-              <View style={styles.greenBar}></View>
-              <View style={styles.yellowBar}></View>
-              <View style={styles.orangeBar}></View>
-              <View style={styles.redBar}></View>
+              <View style={styles.redBar} />
+              <View style={styles.orangeBar} />
+              <View style={styles.yellowBar} />
+              <View style={styles.greenBar} />
+              <View style={styles.yellowBar} />
+              <View style={styles.orangeBar} />
+              <View style={styles.redBar} />
             </View>
-            <View style={[styles.blackBar, { top: gsrRate.position }]}></View>
+            <View style={[styles.blackBar, { top: gsrRate.position }]} />
             <Text style={styles.text}>GSR</Text>
             <Text style={styles.text}> { gsr } µS</Text>
           </View>

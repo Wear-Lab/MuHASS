@@ -80,25 +80,25 @@ const RawData = () => {
     const interval = setInterval(fetchData, 1000);
 
     return () => clearInterval(interval);
-  }, []);
     
     // assign data to constants
-    const environment = dataFile.environment && dataFile.environment[0]?.split(' ').map(parseFloat);
+    const environment = dataFile.environment?.[0]?.split(' ').map(Number.parseFloat);
     const [c_temp, pressure, altitude] = environment || [null, null, null];
     const f_temp = convertTemp(c_temp);
-    const humidity = parseFloat(dataFile.humidity && dataFile.humidity[0]);
-    const magnetic = dataFile.magnetic && dataFile.magnetic[0]?.split(' ').map(parseFloat);
+    const humidity = Number.parseFloat(dataFile.humidity?.[0]);
+    const magnetic = dataFile.magnetic?.[0]?.split(' ').map(Number.parseFloat);
     const [mag_x, mag_y, mag_z] = magnetic || [null, null, null];
-    const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+    const acceleration = dataFile.acceleration?.[0]?.split(' ').map(Number.parseFloat);
     const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
-    const gyroscope = dataFile.gyroscope && dataFile.gyroscope[0]?.split(' ').map(parseFloat);
+    const gyroscope = dataFile.gyroscope?.[0]?.split(' ').map(Number.parseFloat);
     const [gyro_x, gyro_y, gyro_z] = gyroscope || [null, null, null];
-    const gsr = parseFloat(dataFile.gsr && dataFile.gsr[0]);
-    const ppg = dataFile.ppg && dataFile.ppg[0]?.split(' ').map(parseFloat);
+    const gsr = Number.parseFloat(dataFile.gsr?.[0]);
+    const ppg = dataFile.ppg?.[0]?.split(' ').map(Number.parseFloat);
     [ac_red, dc_red, ac_ir, dc_ir] = ppg || [null, null, null, null];
     const { hr, k } = SampleData.SampleData;
     const oxygen = calculateSPO2(ac_red, dc_red, ac_ir, dc_ir, k)
-    const microphone = parseFloat(dataFile.gsr && dataFile.microphone[0]);
+    const microphone = Number.parseFloat(dataFile.gsr && dataFile.microphone[0]);
+  }, [ipAddress]);
 
   return (
     <ScrollView style={styles.scrollView}>

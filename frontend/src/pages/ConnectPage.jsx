@@ -128,7 +128,7 @@ const Connect = ({ exitConnect }) => {
               onPress={() => {
                 setDeviceIndex(index);
               }}
-              key={index}
+              key={device.id}
             >
               <Text style={styles.devicesText}>{device}</Text>
             </TouchableOpacity>
