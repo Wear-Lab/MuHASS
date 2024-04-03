@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "prebuild": "cd ./frontend && expo prebuild",
+    "biome": "biome check .",
     "android": "expo run:android ./frontend/",
     "ios": "expo run:ios ./frontend/",
     "server": "nodemon ./backend/server.js",
