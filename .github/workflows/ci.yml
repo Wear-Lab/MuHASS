@@ -21,7 +21,7 @@ jobs:
         uses: creyD/prettier_action@v4.3
         with:
           dry: True
-          name: Code quality
+
   quality:
     runs-on: ubuntu-latest
     steps:
