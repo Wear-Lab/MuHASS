@@ -6,12 +6,15 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
+    "scheme": "muHASS-scheme",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -31,6 +34,9 @@
     "web": {
       "favicon": "./frontend/assets/favicon.png"
     },
-    "plugins": ["react-native-ble-plx"]
+    "plugins": [
+      "react-native-ble-plx",
+      "expo-router"
+    ]
   }
 }
