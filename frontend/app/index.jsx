@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ScrollView,
@@ -8,7 +9,6 @@ import {
 } from "react-native";
 import { BleManager } from "react-native-ble-plx";
 import LocalHost from "../components/data/LocalHost";
-import { router } from 'expo-router';
 
 const Connect = ({ exitConnect }) => {
   const ipAddress = LocalHost.ipAddress;

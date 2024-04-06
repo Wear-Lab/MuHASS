@@ -1,6 +1,6 @@
+import { Slot, router, usePathname } from "expo-router";
 import React, { useState } from "react";
 import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { Slot, router, usePathname } from 'expo-router'
 
 const navItems = [
   { pathname: "Monitor", image: require("../components/images/monitor.png") },
@@ -10,32 +10,34 @@ const navItems = [
 ];
 
 export default function Layout() {
-  const pathname = usePathname()
+  const pathname = usePathname();
 
-  return <View style={styles.container}>
-    <View style={styles.contentContainer}>
-      <Slot />
-    </View>
-
-    {/* Searches and assigns image for each navigation icon */}
-    {pathname !== "/" && (
-      <View style={styles.navContainer}>
-        {navItems.map((item) => (
-          <TouchableOpacity
-            key={item.pathname}
-            style={[
-              styles.navItem,
-              pathname === `/${item.pathname}` && styles.activeNavItem,
-            ]}
-            onPress={() => router.push(item.pathname)}
-          >
-            <Image source={item.image} style={styles.navItemImage} />
-            <Text style={styles.navItemText}>{item.pathname}</Text>
-          </TouchableOpacity>
-        ))}
+  return (
+    <View style={styles.container}>
+      <View style={styles.contentContainer}>
+        <Slot />
       </View>
-    )}
-  </View>
+
+      {/* Searches and assigns image for each navigation icon */}
+      {pathname !== "/" && (
+        <View style={styles.navContainer}>
+          {navItems.map((item) => (
+            <TouchableOpacity
+              key={item.pathname}
+              style={[
+                styles.navItem,
+                pathname === `/${item.pathname}` && styles.activeNavItem,
+              ]}
+              onPress={() => router.push(item.pathname)}
+            >
+              <Image source={item.image} style={styles.navItemImage} />
+              <Text style={styles.navItemText}>{item.pathname}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
+    </View>
+  );
 }
 
 // Styles used for navigation bar
