@@ -1,23 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import {  
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  Modal, 
-  TextInput, 
-  Button, 
-  ScrollView,
-  Dimensions } from "react-native";
-import { 
-  calculateSB,
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import Swiper from "react-native-swiper";
+import {
   calculateLPA,
   calculateMVPA,
-} from '../components/ActivityCalculations';
-import axios from 'axios';
-import Swiper from 'react-native-swiper';
-import LocalHost from '../components/data/LocalHost';
-import SampleData from '../components/data/SampleData';
+  calculateSB,
+} from "../components/ActivityCalculations";
+import LocalHost from "../components/data/LocalHost";
+import SampleData from "../components/data/SampleData";
 
 const Activity = () => {
   const ipAddress = LocalHost.ipAddress;
@@ -33,7 +24,7 @@ const Activity = () => {
 
   // const handleSubmit = () => {
   //   const { age, weight, height, duration, activity } = userData;
-    
+
   //   // Close the modal
   //   setModalVisible(false);
   // };
@@ -46,16 +37,19 @@ const Activity = () => {
         const serviceCharacteristics = [
           // acceleration
           {
-            service_uuid: '00000300-1212-efde-1523-785feabcd123',
-            characteristic_uuid: '00000302-1212-efde-1523-785feabcd123'
+            service_uuid: "00000300-1212-efde-1523-785feabcd123",
+            characteristic_uuid: "00000302-1212-efde-1523-785feabcd123",
           },
         ];
 
-        const response = await axios.post(`http://${ipAddress}:8000/data`, serviceCharacteristics);
+        const response = await axios.post(
+          `http://${ipAddress}:8000/data`,
+          serviceCharacteristics,
+        );
         const data = await response.data;
         setDataFile(data);
       } catch (error) {
-        console.error('Fetch data failed:', error);
+        console.error("Fetch data failed:", error);
       }
     };
 
@@ -64,62 +58,111 @@ const Activity = () => {
     const interval = setInterval(fetchData, 1000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [ipAddress]);
 
-  const acceleration = dataFile.acceleration && dataFile.acceleration[0]?.split(' ').map(parseFloat);
+  const acceleration = dataFile.acceleration?.[0]
+    ?.split(" ")
+    .map(Number.parseFloat);
   const [accel_x, accel_y, accel_z] = acceleration || [null, null, null];
   const { age } = SampleData.SampleData;
 
   // Perform any necessary calculations or operations with the user data
-  const sb = calculateSB(accel_x, accel_y, accel_z, age, screenHeight * .6);
-  const lpa = calculateLPA(accel_x, accel_y, accel_z, age, screenHeight * .6);
-  const mvpa = calculateMVPA(accel_x, accel_y, accel_z, age, screenHeight * .6);
+  const sb = calculateSB(accel_x, accel_y, accel_z, age, screenHeight * 0.6);
+  const lpa = calculateLPA(accel_x, accel_y, accel_z, age, screenHeight * 0.6);
+  const mvpa = calculateMVPA(
+    accel_x,
+    accel_y,
+    accel_z,
+    age,
+    screenHeight * 0.6,
+  );
   const goal = sb.hasMetGoal && lpa.hasMetGoal && mvpa.hasMetGoal;
-  const showGoalOptions = Object.values(userData).some(value => value === null || value === "");
-  
+  const showGoalOptions = Object.values(userData).some(
+    (value) => value === null || value === "",
+  );
+
   return (
     <ScrollView style={styles.scrollView}>
       <View style={styles.page}>
-        {modalVisible ? null : (
-          showGoalOptions && (
-            <View style={goal ? styles.achievedGoalBox : styles.unachievedGoalBox}>
-              <Text style={styles.text}>
-                {goal ? "You have achieved your goal for today!" : "You have not reached your goal for today."}
-              </Text>
-            </View>
-          )
-        )}
+        {modalVisible
+          ? null
+          : showGoalOptions && (
+              <View
+                style={goal ? styles.achievedGoalBox : styles.unachievedGoalBox}
+              >
+                <Text style={styles.text}>
+                  {goal
+                    ? "You have achieved your goal for today!"
+                    : "You have not reached your goal for today."}
+                </Text>
+              </View>
+            )}
         {/* LPA and MVPA blocks */}
         <View style={styles.middleContainer}>
           <Swiper showsButtons={false} style={styles.swiper}>
             {/* Sedentary Bar */}
             <View style={styles.barContainer}>
-              <View style={styles.block}></View>
-              <Text style={[styles.target]}>Target: { sb.target[1].toFixed(2) }mg</Text>
-              <Text style={[{fontWeight: "bold"}]}>Sedentary Behavior</Text>
-              <Text style={[{fontWeight: "bold"}]}>(SB)</Text>
-              <View style={[styles.progressBar, { height: sb.enmoProgressHeight }]}></View>  
-              <Text style={[styles.percentage, { height: sb.enmoProgressHeight }]}> { sb.enmoValue }mg</Text>
-            </View> 
+              <View style={styles.block} />
+              <Text style={[styles.target]}>
+                Target: {sb.target[1].toFixed(2)}mg
+              </Text>
+              <Text style={[{ fontWeight: "bold" }]}>Sedentary Behavior</Text>
+              <Text style={[{ fontWeight: "bold" }]}>(SB)</Text>
+              <View
+                style={[styles.progressBar, { height: sb.enmoProgressHeight }]}
+              />
+              <Text
+                style={[styles.percentage, { height: sb.enmoProgressHeight }]}
+              >
+                {" "}
+                {sb.enmoValue}mg
+              </Text>
+            </View>
 
             {/* LPA Bar */}
             <View style={styles.barContainer}>
-              <View style={styles.block}></View>
-              <Text style={[styles.target]}>Target: { lpa.target[0].toFixed(2) }mg - {lpa.target[1].toFixed(2)}mg</Text>
-              <Text style={[{fontWeight: "bold"}]}>Light Physical Activity</Text>
-              <Text style={[{fontWeight: "bold"}]}>(LPA)</Text>
-              <View style={[styles.progressBar, {height: lpa.enmoProgressHeight }]}></View>  
-              <Text style={[styles.percentage, {height: lpa.enmoProgressHeight }]}> { lpa.enmoValue }mg</Text>
+              <View style={styles.block} />
+              <Text style={[styles.target]}>
+                Target: {lpa.target[0].toFixed(2)}mg -{" "}
+                {lpa.target[1].toFixed(2)}mg
+              </Text>
+              <Text style={[{ fontWeight: "bold" }]}>
+                Light Physical Activity
+              </Text>
+              <Text style={[{ fontWeight: "bold" }]}>(LPA)</Text>
+              <View
+                style={[styles.progressBar, { height: lpa.enmoProgressHeight }]}
+              />
+              <Text
+                style={[styles.percentage, { height: lpa.enmoProgressHeight }]}
+              >
+                {" "}
+                {lpa.enmoValue}mg
+              </Text>
             </View>
 
             {/* MVPA Bar */}
             <View style={styles.barContainer}>
-              <View style={styles.block}></View>
-              <Text style={[styles.target]}>Target: { mvpa.target[0].toFixed(2) }mg +</Text>
-              <Text style={[{fontWeight: "bold"}]}>Moderate to Vigorous</Text>
-              <Text style={[{fontWeight: "bold"}]}>Physical Activity (MVPA)</Text>
-              <View style={[styles.progressBar, { height: mvpa.enmoProgressHeight }]}></View>  
-              <Text style={[styles.percentage, { height: mvpa.enmoProgressHeight }]}> { mvpa.enmoValue }mg</Text>
+              <View style={styles.block} />
+              <Text style={[styles.target]}>
+                Target: {mvpa.target[0].toFixed(2)}mg +
+              </Text>
+              <Text style={[{ fontWeight: "bold" }]}>Moderate to Vigorous</Text>
+              <Text style={[{ fontWeight: "bold" }]}>
+                Physical Activity (MVPA)
+              </Text>
+              <View
+                style={[
+                  styles.progressBar,
+                  { height: mvpa.enmoProgressHeight },
+                ]}
+              />
+              <Text
+                style={[styles.percentage, { height: mvpa.enmoProgressHeight }]}
+              >
+                {" "}
+                {mvpa.enmoValue}mg
+              </Text>
             </View>
           </Swiper>
         </View>
@@ -183,12 +226,11 @@ const Activity = () => {
         </Modal> */}
       </View>
     </ScrollView>
-    
   );
 };
 
-const screenHeight = Dimensions.get('window').height;
-const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get("window").height;
+const screenWidth = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   page: {
@@ -207,16 +249,15 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   barContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  
+    alignItems: "center",
+    justifyContent: "center",
   },
   block: {
     width: screenWidth * 0.5,
-    height: screenHeight * .6,
-    backgroundColor: '#F2F2F2', 
+    height: screenHeight * 0.6,
+    backgroundColor: "#F2F2F2",
     marginBottom: 10,
-    alignSelf: 'center',
+    alignSelf: "center",
     borderRadius: 5,
   },
   box: {
@@ -228,11 +269,11 @@ const styles = StyleSheet.create({
   },
   swiper: {
     paddingTop: 30,
-    height: screenHeight *0.75,
+    height: screenHeight * 0.75,
   },
   activityContainer: {
     flexDirection: "row",
-    justifyContent: 'space-evenly',
+    justifyContent: "space-evenly",
     marginLeft: 10,
     marginRight: 10,
   },
@@ -244,10 +285,10 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   progressBar: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 45,
     width: screenWidth * 0.5,
-    backgroundColor: '#89EEC4', // Customize the color of the bar
+    backgroundColor: "#89EEC4", // Customize the color of the bar
     borderRadius: 5,
   },
   progressBarContainer: {
@@ -259,9 +300,9 @@ const styles = StyleSheet.create({
   },
   percentage: {
     fontWeight: "bold",
-    position: 'absolute',
+    position: "absolute",
     bottom: 43,
-  },  
+  },
   modalContainer: {
     flex: 1,
     justifyContent: "center",
@@ -288,32 +329,30 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: "#62C0FF",
     marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   achievedGoalBox: {
     width: 375,
     marginTop: 10,
     borderRadius: 20,
-    backgroundColor: "#F2F2F2",
     padding: 10,
-    backgroundColor: "#8BFF8E", 
-    justifyContent: 'center',
-    alignItems: 'center',
+    backgroundColor: "#8BFF8E",
+    justifyContent: "center",
+    alignItems: "center",
   },
   unachievedGoalBox: {
     width: 375,
     marginTop: 10,
     borderRadius: 20,
-    backgroundColor: "#F2F2F2",
     padding: 10,
-    backgroundColor: "#FFA14D", 
-    alignItems: 'center', 
-    justifyContent: 'center',
+    backgroundColor: "#FFA14D",
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 10,
   },
   button: {
@@ -322,7 +361,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
   },
   swiperWrapper: {
-    flex: 1
+    flex: 1,
   },
 });
 

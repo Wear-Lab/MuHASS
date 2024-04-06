@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { View, StyleSheet, TouchableOpacity, Animated } from "react-native";
+import { Animated, StyleSheet, TouchableOpacity, View } from "react-native";
 
 const SlidingButton = ({ activeColor }) => {
   const [isOn, setIsOn] = useState(false);

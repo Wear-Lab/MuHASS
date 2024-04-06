@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import Home from "./src/pages/HomePage";
 
 const port = process.env.PORT || 8080;
@@ -17,4 +17,3 @@ const styles = StyleSheet.create({
 });
 
 export default App;
-

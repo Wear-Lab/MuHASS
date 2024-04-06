@@ -1,17 +1,18 @@
-import { 
-  View, 
-  Text, 
-  StyleSheet, 
-  TouchableOpacity, 
-  Modal,
-  TextInput,
-  Button,
-  ScrollView,
-  Image, 
-  Dimensions } from "react-native";
-import SlidingButton from "../components/SlidingButton";
 import React, { useEffect, useState } from "react";
-import LocalHost from '../components/data/LocalHost';
+import {
+  Button,
+  Dimensions,
+  Image,
+  Modal,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import SlidingButton from "../components/SlidingButton";
+import LocalHost from "../components/data/LocalHost";
 
 const Settings = ({ enterConnect }) => {
   const ipAddress = LocalHost.ipAddress;
@@ -34,7 +35,6 @@ const Settings = ({ enterConnect }) => {
   useEffect(() => {
     const fetchDeviceInfo = async () => {
       try {
-
         const response = await fetch(`http://${ipAddress}:8000/address`);
         const data = await response.json();
         setDeviceName(data.device_address);
@@ -44,14 +44,14 @@ const Settings = ({ enterConnect }) => {
     };
 
     fetchDeviceInfo();
-  }, []);
+  }, [ipAddress]);
 
   /// fetch the devices connection status
   useEffect(() => {
     const fetchDeviceStatus = async () => {
       try {
         const response = await fetch(
-          `http://${ipAddress}:8000/check_connection`
+          `http://${ipAddress}:8000/check_connection`,
         );
         const data = await response.json();
         setDeviceStatus(Boolean(data.status));
@@ -61,7 +61,7 @@ const Settings = ({ enterConnect }) => {
     };
 
     fetchDeviceStatus();
-  }, []);
+  }, [ipAddress]);
 
   // dot animation while attempting to disconnect to device
   useEffect(() => {
@@ -90,7 +90,7 @@ const Settings = ({ enterConnect }) => {
 
         // Call the disconnect_device endpoint to disconnect from the device
         const response = await fetch(
-          `http://${ipAddress}:8000/disconnect_device`
+          `http://${ipAddress}:8000/disconnect_device`,
         );
         const data = await response.json();
         const connection = data.status;
@@ -103,34 +103,38 @@ const Settings = ({ enterConnect }) => {
   };
 
   const handleSubmit = () => {
-    const { age, weight, height} = userData;
-    
+    const { age, weight, height } = userData;
+
     // Close the modal
     setModalVisible(false);
   };
 
   return (
     <ScrollView style={styles.scrollView}>
-    <View style={styles.container}>
-      
-      {/* Notification Box */}
-      <View style={styles.optionBox}>
-        <Text style={[{fontWeight: "bold", 
-                       fontSize: 16, 
-                       marginBottom: 2, 
-                       textAlign: 'center'}
-                      ]}>
-          Notification & Feedback Settings
-        </Text>
+      <View style={styles.container}>
+        {/* Notification Box */}
+        <View style={styles.optionBox}>
+          <Text
+            style={[
+              {
+                fontWeight: "bold",
+                fontSize: 16,
+                marginBottom: 2,
+                textAlign: "center",
+              },
+            ]}
+          >
+            Notification & Feedback Settings
+          </Text>
           <View style={styles.bottomContainer}>
             <View style={styles.centerAligned}>
               <View style={styles.optionContainer}>
-                <View style={styles.column}> 
+                <View style={styles.column}>
                   <SlidingButton activeColor="#3485FF" />
                   <SlidingButton activeColor="#3485FF" />
                   <SlidingButton activeColor="#3485FF" />
                 </View>
-                <View style={styles.column}> 
+                <View style={styles.column}>
                   <Text style={styles.optionText}>Send Sedentary Reminder</Text>
                   <Text style={styles.optionText}>Send LPA Reminder</Text>
                   <Text style={styles.optionText}>Send MVPA Reminder</Text>
@@ -138,34 +142,41 @@ const Settings = ({ enterConnect }) => {
               </View>
             </View>
           </View>
-      </View>
-      
-      <View style={styles.box}>
-        <Text style={styles.text}>Bluetooth Address:</Text>
-        <Text style={[styles.text, { width: 220, textAlign: "center" }]}>
-          {deviceName}
-        </Text>
-      </View>
+        </View>
 
-      <View
-        style={[
-          styles.box,
-          deviceStatus ? styles.connectedBox : styles.disconnectedBox,
-        ]}
-      >
-        <Text style={styles.text}>Bluetooth Status:</Text>
-        <Text style={[styles.text, { width: 220, textAlign: "center" }]}>
-          {deviceStatus ? "Connected!" : "Disconnected!"}
-        </Text>
-      </View>
+        <View style={styles.box}>
+          <Text style={styles.text}>Bluetooth Address:</Text>
+          <Text style={[styles.text, { width: 220, textAlign: "center" }]}>
+            {deviceName}
+          </Text>
+        </View>
 
-      <TouchableOpacity onPress={() => setModalVisible(true)}>
-          <View style= {styles.button}>
-            <Text style={[{fontWeight: "bold", 
-                            fontSize: 20, 
-                            color: 'white',
-                            textAlign: 'center'}
-                            ]}>Edit User Data</Text>
+        <View
+          style={[
+            styles.box,
+            deviceStatus ? styles.connectedBox : styles.disconnectedBox,
+          ]}
+        >
+          <Text style={styles.text}>Bluetooth Status:</Text>
+          <Text style={[styles.text, { width: 220, textAlign: "center" }]}>
+            {deviceStatus ? "Connected!" : "Disconnected!"}
+          </Text>
+        </View>
+
+        <TouchableOpacity onPress={() => setModalVisible(true)}>
+          <View style={styles.button}>
+            <Text
+              style={[
+                {
+                  fontWeight: "bold",
+                  fontSize: 20,
+                  color: "white",
+                  textAlign: "center",
+                },
+              ]}
+            >
+              Edit User Data
+            </Text>
           </View>
         </TouchableOpacity>
 
@@ -180,59 +191,71 @@ const Settings = ({ enterConnect }) => {
             <TextInput
               style={styles.input}
               placeholder="Weight (lbs)"
-              onChangeText={(text) => setUserData({ ...userData, weight: text })}
+              onChangeText={(text) =>
+                setUserData({ ...userData, weight: text })
+              }
             />
             <TextInput
               style={styles.input}
               placeholder="Height (inches)"
-              onChangeText={(text) => setUserData({ ...userData, height: text })}
+              onChangeText={(text) =>
+                setUserData({ ...userData, height: text })
+              }
             />
             <View style={styles.buttonContainer}>
-              <View style={[styles.modalButton, {backgroundColor: "#62C0FF"}]}>
-                <Button title="Submit" onPress={handleSubmit} color="white"/>
+              <View
+                style={[styles.modalButton, { backgroundColor: "#62C0FF" }]}
+              >
+                <Button title="Submit" onPress={handleSubmit} color="white" />
               </View>
-              <View style={[styles.modalButton, {backgroundColor: "#FF4754"}]}>
-                <Button title="Cancel" onPress={() => setModalVisible(false)} color="white"/>
+              <View
+                style={[styles.modalButton, { backgroundColor: "#FF4754" }]}
+              >
+                <Button
+                  title="Cancel"
+                  onPress={() => setModalVisible(false)}
+                  color="white"
+                />
               </View>
             </View>
           </View>
         </Modal>
 
-      <TouchableOpacity
-        style={[styles.button, buttonDisabled && { backgroundColor: "gray" }]}
-        onPress={handleEnterConnect}
-        disabled={buttonDisabled}
-      >
-        <Text style={[styles.text, { color: "white" }]}>
-          {getButtonDisplayText()}
-        </Text>
-      </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.button, buttonDisabled && { backgroundColor: "gray" }]}
+          onPress={handleEnterConnect}
+          disabled={buttonDisabled}
+        >
+          <Text style={[styles.text, { color: "white" }]}>
+            {getButtonDisplayText()}
+          </Text>
+        </TouchableOpacity>
 
-      <Image
-        source={require("../components/images/WEAR_Lab_Logo.png")}
-        style={styles.image}
-      />
-      <Text>Wearable Engineering and Assistive Robotics Lab</Text>
-      <Text>University of Central Florida</Text>
-      <Text> </Text>
-      <Text style={[{ fontWeight: "bold" }]}>MuHASS</Text>
-      <Text>Multimodal Human & Ambience Sensor System</Text>
-      <Text> </Text>
-      <Text style={[{ fontWeight: "bold" }]}>Developed By:</Text>
-      <Text>Mark Aldritz Dela Virgen</Text>
-      <Text>Vi Dang</Text>
-      <Text>Sean Feldman</Text>
-      <Text>Seoyoung Kong</Text>
-      <Text>Ho Sim</Text>
-      <Text> </Text>
-      <Text style={[{ fontWeight: "bold" }]}>Version 0523</Text>
-    </View>
+        <Image
+          source={require("../components/images/WEAR_Lab_Logo.png")}
+          style={styles.image}
+        />
+        <Text>Wearable Engineering and Assistive Robotics Lab</Text>
+        <Text>University of Central Florida</Text>
+        <Text> </Text>
+        <Text style={[{ fontWeight: "bold" }]}>MuHASS</Text>
+        <Text>Multimodal Human & Ambience Sensor System</Text>
+        <Text> </Text>
+        <Text style={[{ fontWeight: "bold" }]}>Developed By:</Text>
+        <Text>Mark Aldritz Dela Virgen</Text>
+        <Text>Vi Dang</Text>
+        <Text>Sean Feldman</Text>
+        <Text>Seoyoung Kong</Text>
+        <Text>Ho Sim</Text>
+        <Text> </Text>
+        <Text style={[{ fontWeight: "bold" }]}>Version 0523</Text>
+      </View>
     </ScrollView>
   );
 };
 
-const screenWidth = Dimensions.get('window').width;
-const screenHeight = Dimensions.get('window').height;
+const screenWidth = Dimensions.get("window").width;
+const screenHeight = Dimensions.get("window").height;
 
 const styles = StyleSheet.create({
   container: {
@@ -246,7 +269,7 @@ const styles = StyleSheet.create({
   },
   box: {
     height: 60,
-    width: screenWidth * .8,
+    width: screenWidth * 0.8,
     marginBottom: 15,
     borderRadius: 10,
     backgroundColor: "#F2F2F2",
@@ -259,7 +282,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF4754",
   },
   button: {
-    width: screenWidth * .8,
+    width: screenWidth * 0.8,
     height: 45,
     justifyContent: "center",
     alignItems: "center",
@@ -287,8 +310,8 @@ const styles = StyleSheet.create({
   optionContainer: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: 'center',
-    alignContent: 'center',
+    justifyContent: "center",
+    alignContent: "center",
   },
   optionText: {
     fontSize: 16,
@@ -326,12 +349,12 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     backgroundColor: "#62C0FF",
     marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 10,
   },
 });

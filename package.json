@@ -3,19 +3,20 @@
   "version": "1.0.0",
   "scripts": {
     "prebuild": "cd ./frontend && expo prebuild",
+    "biome": "biome check .",
     "android": "expo run:android ./frontend/",
     "ios": "expo run:ios ./frontend/",
     "server": "nodemon ./backend/server.js",
     "generate": "npx prisma generate --schema ./backend/prisma/schema.prisma"
   },
-  "workspaces": [
-    "frontend",
-    "backend"
-  ],
+  "workspaces": ["frontend", "backend"],
   "devDependencies": {
     "@expo/cli": "^0.17.7",
     "@types/node": "^20.11.25",
     "concurrently": "^8.2.2",
     "typescript": "^5.4.2"
+  },
+  "dependencies": {
+    "@biomejs/biome": "^1.6.4"
   }
 }
