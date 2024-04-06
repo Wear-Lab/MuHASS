@@ -2,9 +2,9 @@
   "name": "muhass",
   "version": "1.0.0",
   "scripts": {
-    "expo": "expo start ./frontend/",
-    "dev": "concurrently \"npm run ble\" \"npm run expo\"",
-    "ble": "python3 ./bluetooth-server/ble.py",
+    "prebuild": "cd ./frontend && expo prebuild",
+    "android": "expo run:android ./frontend/",
+    "ios": "expo run:ios ./frontend/",
     "server": "nodemon ./backend/server.js",
     "generate": "npx prisma generate --schema ./backend/prisma/schema.prisma"
   },
