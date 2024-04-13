@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ScrollView,
@@ -95,6 +96,7 @@ const Connect = ({ exitConnect }) => {
       }
     }
   };
+
   // allows developers to exit connect screen without connecting to a device
   const handleDevExit = async () => {
     exitConnect(deviceIndex);
@@ -115,7 +117,7 @@ const Connect = ({ exitConnect }) => {
             borderRadius: 5,
           },
         ]}
-        onPress={handleDevExit}
+        onPress={() => router.push("/Monitor")}
       >
         <Text style={[styles.text, { color: "white" }]}>Dev Mode</Text>
       </TouchableOpacity>
