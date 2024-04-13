@@ -28,7 +28,7 @@ If the dependency is universal, you can use the usual `npm install <PACKAGE NAME
 
 # Running the project for the first time
 1. Install all dependencies - `npm install`
-2. Generate prisma files - `npm generate`
+2. Generate prisma files - `npm run generate`
 3. Create a `.env` file at the root of the project and add all secrets necessary. This should be available somewhere private and secure to the team.
 
 # Setting IP Address for Bluetooth connection
@@ -39,12 +39,8 @@ If the dependency is universal, you can use the usual `npm install <PACKAGE NAME
 
 # Running the project
 The project requires every component to run on one or multiple terminals for development.
-
-`npm run dev` - Concurrently runs all components of the monorepo (Note: This doesn't seem to display the QR code necessary to connect to Expo)
-
-- Alternatively, you may run the components individually on multiple terminals (necessary for the QR code to show up)
+  - `npm run prebuild` - 
   - `npm run expo` - Just the React Native/Expo/frontend of our project
-  - `npm run ble` - Just the Bluetooth server
   - `npm run server` - Just the backend server
 
 
