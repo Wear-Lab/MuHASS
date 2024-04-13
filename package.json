@@ -23,6 +23,7 @@
   },
   "dependencies": {
     "@biomejs/biome": "^1.6.4",
-    "expo": "^50.0.15"
+    "expo": "^50.0.15",
+    "react-native-ble-plx": "^3.1.2"
   }
 }
