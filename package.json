@@ -7,9 +7,14 @@
     "android": "expo run:android ./frontend/",
     "ios": "expo run:ios ./frontend/",
     "server": "nodemon ./backend/server.js",
-    "generate": "npx prisma generate --schema ./backend/prisma/schema.prisma"
+    "generate": "npx prisma generate --schema ./backend/prisma/schema.prisma",
+    "start": "npm run expo",
+    "expo": "expo"
   },
-  "workspaces": ["frontend", "backend"],
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "devDependencies": {
     "@expo/cli": "^0.17.7",
     "@types/node": "^20.11.25",
@@ -17,6 +22,7 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
-    "@biomejs/biome": "^1.6.4"
+    "@biomejs/biome": "^1.6.4",
+    "expo": "^50.0.15"
   }
 }

@@ -16,7 +16,7 @@ const navItems = [
 ];
 
 // This const is responsible for outputting the navigation bar to the screen
-const HomeTwo = () => {
+const HomePage = () => {
   // Change this line later is we want to select the device page before
   // using other app pages
   const [activeTab, setActiveTab] = useState(null);
@@ -27,13 +27,13 @@ const HomeTwo = () => {
     setActiveTab(tabName);
   };
 
-  // Inside HomeTwo component
+  // Inside Home component
   const handleExitConnect = (deviceIndex) => {
     setActiveTab("Monitoring");
     setDeviceIndex(deviceIndex);
   };
 
-  // Inside HomeTwo component
+  // Inside Home component
   const handleEnterConnect = () => {
     setActiveTab("Connect");
   };
@@ -119,4 +119,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HomeTwo;
+export default HomePage;
