@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   ScrollView,
   StyleSheet,
@@ -6,10 +6,16 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { BleManager } from "react-native-ble-plx";
+import { BleManager, DeviceId, Device } from "react-native-ble-plx";
 
+/**
+ * @param {Object} props
+ * @param {function} props.exitConnect
+ */
 const Connect = ({ exitConnect }) => {
+  const bleManager = useRef(new BleManager());
 
+  /** @type [Device[], React.Dispatch<React.SetStateAction<Device[]>>]} */
   const [devices, setDevices] = useState([]);
   const [deviceIndex, setDeviceIndex] = useState(-1);
   const [connectionStatus, setConnectionStatus] = useState(false);
@@ -18,23 +24,22 @@ const Connect = ({ exitConnect }) => {
   const [dotCount, setDotCount] = useState(0);
 
   useEffect(() => {
-    const manager = new BleManager();
-
-    manager.startDeviceScan(null, null, (error, device) => {
+    bleManager.current.startDeviceScan(null, null, (error, newDevice) => {
       if (error) {
         console.error(error);
         return;
       }
-      if (device.name) {
+
+      if (newDevice.name) {
         setDevices((prevDevices) => {
-          if (!prevDevices.includes(device.name)) {
-            return [...prevDevices, device.name];
+          if (!prevDevices.find((device) => device.name === newDevice.name)) {
+            return [...prevDevices, newDevice];
           }
           return prevDevices;
         });
       }
     });
-  }, []);
+  }, [bleManager.current]);
 
   // Hide the error container after 2 seconds
   useEffect(() => {
@@ -67,7 +72,10 @@ const Connect = ({ exitConnect }) => {
   };
 
   // connect the device to app and exit to main navigation
-  const handleExitConnect = async () => {
+  /**
+   * @param {DeviceId} deviceId
+   */
+  const handleExitConnect = async (deviceId) => {
     if (deviceIndex !== -1 && !buttonDisabled) {
       try {
         // disable the connect button and update the text and color
@@ -75,23 +83,17 @@ const Connect = ({ exitConnect }) => {
         setButtonText("Connecting");
         setConnectionStatus(false);
 
-        const connection = data.status;
+        const device = await bleManager.current.connectToDevice(deviceId);
 
-        if (connection === true) exitConnect(deviceIndex);
-        else setConnectionStatus(true);
-        setButtonText("Connect");
+        exitConnect(deviceIndex);
       } catch (error) {
         // device could not connect
-        console.error("connect_device function error: ", error);
+        console.error("connect_device function error: ", JSON.stringify(error));
       } finally {
         // enable the button to be used by user again
         setButtonDisabled(false);
       }
     }
-  };
-  // allows developers to exit connect screen without connecting to a device
-  const handleDevExit = async () => {
-    exitConnect(deviceIndex);
   };
 
   return (
@@ -129,7 +131,7 @@ const Connect = ({ exitConnect }) => {
               }}
               key={device.id}
             >
-              <Text style={styles.devicesText}>{device}</Text>
+              <Text style={styles.devicesText}>{device.name}</Text>
             </TouchableOpacity>
           ))}
         </ScrollView>
@@ -164,7 +166,7 @@ const Connect = ({ exitConnect }) => {
 
       <TouchableOpacity
         style={[styles.button, buttonDisabled && { backgroundColor: "gray" }]}
-        onPress={handleExitConnect}
+        onPress={() => handleExitConnect()}
         disabled={buttonDisabled}
       >
         <Text style={[styles.text, { color: "white" }]}>
