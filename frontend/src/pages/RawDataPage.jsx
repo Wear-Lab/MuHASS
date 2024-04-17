@@ -2,11 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
 import { calculateSPO2, convertTemp } from "../components/MonitorCalculations";
-import LocalHost from "../components/data/LocalHost";
 import SampleData from "../components/data/SampleData";
 
 const RawData = () => {
-  const ipAddress = LocalHost.ipAddress;
+  const ipAddress = "";
 
   const [dataFile, setDataFile] = useState({});
 

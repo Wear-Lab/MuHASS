@@ -12,10 +12,9 @@ import {
   View,
 } from "react-native";
 import SlidingButton from "../components/SlidingButton";
-import LocalHost from "../components/data/LocalHost";
 
 const Settings = ({ enterConnect }) => {
-  const ipAddress = LocalHost.ipAddress;
+  const ipAddress = "";
 
   const [deviceName, setDeviceName] = useState("");
   const [deviceStatus, setDeviceStatus] = useState("");

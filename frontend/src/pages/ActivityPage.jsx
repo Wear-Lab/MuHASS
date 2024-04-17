@@ -7,11 +7,9 @@ import {
   calculateMVPA,
   calculateSB,
 } from "../components/ActivityCalculations";
-import LocalHost from "../components/data/LocalHost";
 import SampleData from "../components/data/SampleData";
 
 const Activity = () => {
-  const ipAddress = LocalHost.ipAddress;
   const [modalVisible, setModalVisible] = useState(false);
   const [userData, setUserData] = useState({
     age: null,
