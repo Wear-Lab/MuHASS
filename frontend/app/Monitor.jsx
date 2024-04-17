@@ -11,11 +11,10 @@ import {
   convertTemp,
   determineStressLevel,
 } from "../components/MonitorCalculations";
-import LocalHost from "../components/data/LocalHost";
 import SampleData from "../components/data/SampleData";
 
 const Monitor = () => {
-  const ipAddress = LocalHost.ipAddress;
+  const ipAddress = "";
 
   const [dataFile, setDataFile] = useState({});
 

@@ -8,10 +8,8 @@ import {
   View,
 } from "react-native";
 import { BleManager } from "react-native-ble-plx";
-import LocalHost from "../components/data/LocalHost";
 
 const Connect = ({ exitConnect }) => {
-  const ipAddress = LocalHost.ipAddress;
 
   const [devices, setDevices] = useState([]);
   const [deviceIndex, setDeviceIndex] = useState(-1);
@@ -78,14 +76,7 @@ const Connect = ({ exitConnect }) => {
         setButtonText("Connecting");
         setConnectionStatus(false);
 
-        const response = await fetch(
-          `http://${ipAddress}:8000/connect_device?device_index=${deviceIndex}`,
-        );
-        const data = await response.json();
-        const connection = data.status;
 
-        if (connection === true) exitConnect(deviceIndex);
-        else setConnectionStatus(true);
         setButtonText("Connect");
       } catch (error) {
         // device could not connect
